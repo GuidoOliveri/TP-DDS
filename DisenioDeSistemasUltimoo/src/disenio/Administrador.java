@@ -1,6 +1,7 @@
 package disenio;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
@@ -9,12 +10,15 @@ import java.util.Set;
 public class Administrador extends Usuario{
 	
 	private String usuario, contrasenia;
-	
+	private ArrayList<Componente> procAEjecutar;
+	private Command command;
+	private ArrayList<AccionDeUsuario> accionesDelUsuario;
 
 	public Administrador(String usuario, String contrasenia, Terminal sistema) {
 		super(sistema);
 		this.usuario = usuario;
 		this.contrasenia = contrasenia;
+		
 	}
 
 	public Administrador(Terminal sistema){
@@ -163,6 +167,16 @@ public class Administrador extends Usuario{
 		// getSistema().notificarPorMail((tfinal-tinicial)/1000, 1);
 		
 		return getPoisAux();
+	}
+	
+	public void ejecutarProcesosAdm(){
+		
+		this.command.ejecutarProcesos(procAEjecutar);
+	}
+	
+	
+	public ArrayList<AccionDeUsuario> getAccionesUsuario() {
+		return accionesDelUsuario;
 	}
 
 }
