@@ -1,0 +1,2 @@
+colectivo;hola como andas
+tienda;local comercial

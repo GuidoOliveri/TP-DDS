@@ -7,6 +7,7 @@ import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
+import java.beans.ParameterDescriptor;
 import java.io.UnsupportedEncodingException;
 import java.util.*;
 //import javax.mail.*;
@@ -55,6 +56,10 @@ public class Terminal {
 		return admins;
 	}
 
+	public void agregarPOI(POI unPoi){
+		pois.add(unPoi);
+	}
+	
 	public Boolean agregarAdmin(Administrador admin)
 	{
 		for(Administrador administrador:admins)
@@ -129,7 +134,7 @@ public class Terminal {
 
 		do{
 			
-		System.out.println("Elija opcion:\n\n1-Agregar Poi\n2-Modificar Poi\n3-Eliminar Poi\n4-Buscar POI\n5-Calcular cercania (coordenada geografica)\n6-Calcular disponibilidad\n7-Reporte parcial por usuario\n8-Reporte por busqueda\n9-Reporte por fecha\n10-Reporte total por usuario\n11-Salir\n");
+		System.out.println("Elija opcion:\n\n1-Agregar Poi\n2-Modificar Poi\n3-Eliminar Poi\n4-Buscar POI\n5-Calcular cercania (coordenada geografica)\n6-Calcular disponibilidad\n7-Reporte parcial por usuario\n8-Reporte por busqueda\n9-Reporte por fecha\n10-Reporte total por usuario\n11-Actualizar locales comerciales\n12-Salir\n");
 
 		opcion=capt.nextInt();
 	    if (opcion==1){
@@ -391,10 +396,18 @@ public class Terminal {
 		else if(opcion==10)
 		{
 			sistema.reporteTotalPorUsuario();
-		}
+		} 
 
-		}while(opcion!=11);
-		
+		else if(opcion==11){
+			ActualizarComercios actualizar = new ActualizarComercios();
+			actualizar.setTerminal(sistema);
+			System.out.println("Pois que tenia antes: "+actualizar.getTerminal().getPois().size());
+			actualizar.ejecutar();
+			System.out.println("Pois que tengo ahora: "+actualizar.getTerminal().getPois().size());
+		}
+	    
+		}while(opcion!=12);
+	
 		capt.close();
 	}
 	
@@ -507,14 +520,30 @@ public class Terminal {
 		sistema.agregarAdmin(unAdmin3);
 
 	
-		/* prueba para corroborar que funciona la distancia entre 2 puntos 
-			Usuario guido = new Usuario();
+		//prueba para corroborar que funciona la distancia entre 2 puntos 
+			/*Usuario guido = new Usuario();
 		 	guido.setMiPoi(unPoi);
 		 	guido.getMiPoi().aCuantoEstoyDe(56, 75);
-		 	
-			prueba de clase ActualizarComercios, funciona, genera el txt
-			Componente loc = new ActualizarComercios();
-			loc.ejecutar();*/
+			*/
+		
+			
+		/*pruebo, creo un poi, le seteo las palabras, y despues el size del sistema va a ser uno porque se agrega
+			ActualizarComercios loc = new ActualizarComercios();
+			ParadaColectivo colectivo = new ParadaColectivo();
+			Set<String>palabrasMias = new HashSet<String>();
+			palabrasMias.add("bondi, colectivo, 114");
+			colectivo.setPalabrasClaves(palabrasMias);
+			colectivo.setNombre("colectivo");
+			sistema.agregarPOI(colectivo);
+			loc.setTerminal(sistema);
+			// antes tengo bondi colectivo 114
+			System.out.println(loc.getTerminal().getPois().size());
+			System.out.println(colectivo.getPalabrasClaves());
+			loc.ejecutar();
+			// despues de ejecutar, imprime las del txt: hola, como, andas
+			System.out.println(loc.getTerminal().getPois().size());
+			System.out.println(colectivo.getPalabrasClaves());
+		*/
 		
 		System.out.println("Bienvenido al sistema de busqueda de POIS\n\n");
 
@@ -737,5 +766,6 @@ public class Terminal {
 	public void setBancos(Set<Banco> bancos) {
 		this.bancos = bancos;
 	}
+	
+	
 }
-//hola

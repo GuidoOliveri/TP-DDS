@@ -11,5 +11,6 @@ public interface  Componente {
 	 public void agregarProceso(Componente unProceso);
 	
 	 public void remover(Componente unProceso);
+	 
 	
 }

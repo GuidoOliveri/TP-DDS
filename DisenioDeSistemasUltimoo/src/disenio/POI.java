@@ -166,10 +166,6 @@ public class POI {
 	public void setDisponibilidadHoraria(Horario disponibilidadHoraria) {
 		this.disponibilidadHoraria = disponibilidadHoraria;
 	}
-
-	public void setPalabrasClaves(List<String> palabras){
-		this.palabras = palabras;
-	}
 	
 	public void setPalabrasClaves(Set<String> palabrasClaves) {
 		this.palabrasClaves = palabrasClaves;
