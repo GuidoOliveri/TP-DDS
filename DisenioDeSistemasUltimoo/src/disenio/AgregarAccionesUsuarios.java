@@ -11,7 +11,7 @@ import java.util.Set;
 public class AgregarAccionesUsuarios extends Command {
 	
 	Terminal sistema=new Terminal();
-	private String usuario;
+	
 	public ArrayList<AccionDeUsuario> accionesDelUsuarioACambiar;
 	
 	 
@@ -44,21 +44,13 @@ public class AgregarAccionesUsuarios extends Command {
 					
 		
 		}*/
-}
+  }
 
-
-
-	public String getUsuario() {
-		return usuario;
+	
+	public void deshacer(){
+		
 	}
 
-
-
-	public void setUsuario(String usuario) {
-		this.usuario = usuario;
-	}
-	
-	
 	 
 	
 }

@@ -10,9 +10,7 @@ import java.util.Set;
 public class Administrador extends Usuario{
 	
 	private String usuario, contrasenia;
-	private ArrayList<Command> procAEjecutar;
-	private Command command;
-	private ArrayList<AccionDeUsuario> accionesDelUsuario;
+	
 
 	public Administrador(String usuario, String contrasenia, Terminal sistema) {
 		super(sistema);
@@ -169,12 +167,12 @@ public class Administrador extends Usuario{
 		return getPoisAux();
 	}
 	
-/*	public void ejecutarProcesosAdm(){
+	public void setCommand(Command command){
 		
-		this.command.ejecutarProcesos(procAEjecutar);
+		command.ejecutar();
 	}
 	
-	
+	/*
 	public ArrayList<AccionDeUsuario> getAccionesUsuario() {
 		return accionesDelUsuario;
 	}*/
