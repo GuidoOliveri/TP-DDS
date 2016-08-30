@@ -2,7 +2,7 @@ package disenio;
 
 import java.util.ArrayList;
 
-public class CommandPois implements Command{
+public class CommandPois extends Command{
 	
 	private ArrayList<Componente> procAEjecutar;
 

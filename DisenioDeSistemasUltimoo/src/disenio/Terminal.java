@@ -9,6 +9,8 @@ import java.util.Scanner;
 import java.util.Set;
 import java.beans.ParameterDescriptor;
 import java.io.UnsupportedEncodingException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 //import javax.mail.*;
 //import javax.mail.internet.*;
@@ -399,6 +401,7 @@ public class Terminal {
 		} 
 
 		else if(opcion==11){
+			
 			ActualizarComercios actualizar = new ActualizarComercios();
 			actualizar.setTerminal(sistema);
 			System.out.println("Pois que tenia antes: "+actualizar.getTerminal().getPois().size());
@@ -519,6 +522,16 @@ public class Terminal {
 		sistema.agregarAdmin(unAdmin2);
 		sistema.agregarAdmin(unAdmin3);
 
+		/* caso de prueba para el de BajaDePoi, no funciona todavia
+		BajaDePoi baja = new BajaDePoi();
+		POI poi = new POI();
+		poi.setId(4000);
+		poi.setLatitud(454);
+		poi.setLongitud(44);
+		sistema.agregarPOI(poi);
+		baja.setID(4000);
+		baja.ejecutar();
+		*/
 	
 		//prueba para corroborar que funciona la distancia entre 2 puntos 
 			/*Usuario guido = new Usuario();
