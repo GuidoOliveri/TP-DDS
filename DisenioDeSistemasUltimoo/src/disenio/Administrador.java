@@ -10,7 +10,7 @@ import java.util.Set;
 public class Administrador extends Usuario{
 	
 	private String usuario, contrasenia;
-	private ArrayList<Componente> procAEjecutar;
+	private ArrayList<Command> procAEjecutar;
 	private Command command;
 	private ArrayList<AccionDeUsuario> accionesDelUsuario;
 
@@ -169,7 +169,7 @@ public class Administrador extends Usuario{
 		return getPoisAux();
 	}
 	
-	public void ejecutarProcesosAdm(){
+/*	public void ejecutarProcesosAdm(){
 		
 		this.command.ejecutarProcesos(procAEjecutar);
 	}
@@ -177,6 +177,6 @@ public class Administrador extends Usuario{
 	
 	public ArrayList<AccionDeUsuario> getAccionesUsuario() {
 		return accionesDelUsuario;
-	}
+	}*/
 
 }

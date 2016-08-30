@@ -6,15 +6,15 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
 
-public class Composite implements Componente {
+public class Composite extends Command {
 
-	private ArrayList<Componente> procesos;
+	private ArrayList<Command> procesos;
 	
-	public  void agregarProceso (Componente unProceso){
+	public  void agregarProceso (Command unProceso){
 		procesos.add(unProceso);
 	}
 	
-	 public void remover( Componente unProceso )  {
+	 public void remover( Command unProceso )  {
 		 procesos.remove(unProceso);   
 		 } 
 	

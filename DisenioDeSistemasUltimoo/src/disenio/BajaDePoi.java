@@ -9,20 +9,20 @@ import java.util.HashSet;
 import java.util.Set;
 
 //hoja del composite
-public class BajaDePoi implements Componente {
+public class BajaDePoi extends Command {
 	
 	public int id;
 	Terminal sistema=new Terminal();
 	DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 	Date date = new Date();
 	
-	public void agregarProceso(Componente unProceso){
+	public void agregarProceso(Command unProceso){
 		
 		System.out.println("No se puede agregar un proceso\n");
 	}
 	
 	
-	public void remover(Componente unProceso){
+	public void remover(Command unProceso){
 		
 		System.out.println("No se puede remover un proceso\n");
 	}

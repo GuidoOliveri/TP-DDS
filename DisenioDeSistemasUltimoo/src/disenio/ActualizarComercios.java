@@ -10,7 +10,7 @@ import java.util.Set;
 import javax.swing.JOptionPane;
 import javax.swing.DefaultListModel;
 
-public class ActualizarComercios implements Componente {
+public class ActualizarComercios extends Command {
 
 
 	public String nombreFantasia;
@@ -27,14 +27,14 @@ public class ActualizarComercios implements Componente {
 		this.sistema = terminal;
 	}
 	
-	public void agregarProceso(Componente unProceso){
+	public void agregarProceso(Command unProceso){
 		
 		System.out.println("No se puede agregar un proceso\n");
 	}
 	
 	
 	
-	public void remover(Componente unProceso){
+	public void remover(Command unProceso){
 		
 		System.out.println("No se puede remover un proceso\n");
 	}

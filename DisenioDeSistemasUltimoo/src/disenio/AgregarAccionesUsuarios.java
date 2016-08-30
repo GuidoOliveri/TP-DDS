@@ -8,21 +8,21 @@ import java.util.List;
 import java.util.Set;
 
 //hoja del composite
-public class AgregarAccionesUsuarios implements Componente {
+public class AgregarAccionesUsuarios extends Command {
 	
 	Terminal sistema=new Terminal();
 	private String usuario;
 	public ArrayList<AccionDeUsuario> accionesDelUsuarioACambiar;
 	
 	 
-	public void agregarProceso(Componente unProceso){
+	public void agregarProceso(Command unProceso){
 		
 		System.out.println("No se puede agregar un proceso\n");
 	}
 	
 	
 	 
-	public void remover(Componente unProceso){
+	public void remover(Command unProceso){
 		
 		System.out.println("No se puede remover un proceso\n");
 	}
