@@ -10,6 +10,7 @@ import java.util.Set;
 //hoja del composite
 public class AgregarAccionesUsuarios extends Command {
 	
+	Command command ;
 	Terminal sistema=new Terminal();
 	
 	public ArrayList<AccionDeUsuario> accionesDelUsuarioACambiar;
@@ -30,21 +31,12 @@ public class AgregarAccionesUsuarios extends Command {
 	
 	public void ejecutar(){
 		
-	/*for (Administrador usuario:sistema.getAdmins()){ // esta es la lista de pois
-			if(usuario.getUsuario()==this.getUsuario()){
-				//encontro al usuario y le agrega las nuevas acciones
-					for (int i = 0; i <= accionesDelUsuarioACambiar.size()-1 ; i++) {
-					  if(usuario.getAccionesUsuario().contains(accionesDelUsuarioACambiar.get(i))){
-						  usuario.getAccionesUsuario().get(i)
-					  }
-					}
-					
-			}
-			
-					
+	for (Administrador usuario:sistema.getAdmins()){ 
 		
-		}*/
-  }
+		usuario.setCommand(command);
+			
+	}
+}	
 
 	
 	public void deshacer(){
