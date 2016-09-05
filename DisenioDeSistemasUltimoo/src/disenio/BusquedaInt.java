@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JLabel;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JTable;
 
@@ -16,10 +17,17 @@ import javax.swing.JTable;
 import javax.swing.JList;
 import javax.swing.JTextField;
 
+
+import javax.swing.JComponent;
+
+
+
 public class BusquedaInt extends JFrame {
 	private JTable table;
-	private JList<String> list;
+	private JList list;
 	private JTextField textField;
+	private DefaultListModel listModel;
+	
 	public BusquedaInt() {
 		getContentPane().setLayout(null);
 		
@@ -47,20 +55,26 @@ public class BusquedaInt extends JFrame {
 		table.setBounds(32, 250, 340, -63);
 		getContentPane().add(table);
 		
-		 list = new JList<String>();
+	/*	 list = new JList(listModel);
 		list.setBounds(32, 78, 59, 98);
-		getContentPane().add(list);
+		getContentPane().add(list);*/
 		
 		textField = new JTextField();
 		textField.setBounds(193, 100, 86, 20);
 		getContentPane().add(textField);
 		textField.setColumns(10);
+		
+		listModel = new DefaultListModel();
 	}
 	
 	
 	private class AgregarBusq implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-		// list.add((Component)textField.getText());
+	     listModel.addElement(textField.getText());
+	     list = new JList(listModel);
+			list.setBounds(32, 78, 59, 98);
+			getContentPane().add(list);
+		 
 		
 			
 			}
