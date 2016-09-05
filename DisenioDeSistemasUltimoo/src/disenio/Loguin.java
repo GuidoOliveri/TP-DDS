@@ -2,63 +2,23 @@ package disenio;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
-import javax.swing.JFrame; // todo lo de adentro de la ventana
+import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-	
-/*	private JLabel texto1, texto2;
-	
-	/*public HolaMundoSwing() {
-	setLayout(null);
-	texto1=new JLabel("¡Hola Mundo!");
-	texto2=new JLabel("www.geekytheory.com");
-	texto1.setBounds(100,100,200,40);
-	texto2.setBounds(70,140,200,40);
-	add(texto1);
-	add(texto2);
-	}
-	public HolaMundoSwing() {
-		super("Titulo de ventana");
-		 setSize(400, 300);
-		 setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		 Container cp = getContentPane();
-		 cp.setLayout(new FlowLayout());
-		 JLabel etiqueta = new JLabel("Nombre: ");
-		 JTextField texto = new JTextField(20);
-		 JButton boton = new JButton("Saludar");
-		 cp.add(etiqueta);
-		 cp.add(texto);
-		 cp.add(boton);
-	}
 
 	
-	
-	public static void main(String[] args) {
-	HolaMundoSwing ventana=new HolaMundoSwing();
-	ventana.setBounds(500,250,300,250);
-	ventana.setVisible(true);
-	ventana.setResizable(false);
-	}*/
-	
-	/**
-	 * Clase Ventana
-	 * Muestra la estructuta que deberia tener una Ventana en Java con la libreria
-	 * Swing, contiene una etiqueta, un caja de texto y un boton, que tiene la
-	 * accion de mostrar el texto en la caja por una ventana de mensaje.
-	 * @author Daniel Alvarez (a3dany)
-	 */
-	public class HolaMundoSwing extends JFrame implements ActionListener {
+public class Loguin extends JFrame implements ActionListener {
         
 		private JPanel panel;
 	    private JLabel texto ,texto2;           // etiqueta o texto no editable
 	    private JTextField caja , caja2;        // caja de texto, para insertar datos
 	    private JButton boton , boton2;          // boton con una determinada accion
 
-	    public HolaMundoSwing() {
+	    public Loguin() {
 	        super();                    // usamos el contructor de la clase padre JFrame
 	        configurarVentana();        // configuramos la ventana
 	        inicializarComponentes();   // inicializamos los atributos o componentes
@@ -110,18 +70,18 @@ import javax.swing.JTextField;
 	        String contra = caja2.getText();
 	       // if(usuarioExiste(usuario , contra)){}
 	       // JOptionPane.showMessageDialog(this, "Hola " + usuario + ".");    // mostramos un mensaje (frame, mensaje)
-	        Ventacciones VentLoguin = new Ventacciones();      // creamos una ventana
-	        VentLoguin.setVisible(true);
-	      //  vent.setVisible(true);
+	        HolaMundoSwing vent = new HolaMundoSwing();
+	        vent.setVisible(true);
 	    }
 
 	    public static void main(String[] args) {
-	        HolaMundoSwing V = new HolaMundoSwing();      // creamos una ventana
-	        V.setVisible(true);             // hacemos visible la ventana creada
-	    	//VentAcciones Acciones = new VentAcciones();      // creamos una ventana
-	        //Acciones.setVisible(true);  
+	        Loguin VentLoguin = new Loguin();      // creamos una ventana
+	        VentLoguin.setVisible(true);             // hacemos visible la ventana creada
 	    }
 	}
 	
+
+
+
 
 
