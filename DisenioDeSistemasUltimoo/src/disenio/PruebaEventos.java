@@ -8,7 +8,7 @@ import javax.swing.*;
 
 public class PruebaEventos {
 	public static void main(String[] args) {
-		HistorialBusqueda mimarco =new HistorialBusqueda();
+		BusquedaInt mimarco =new BusquedaInt();
 mimarco.setVisible(true);
 mimarco.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
