@@ -8,7 +8,7 @@ import javax.swing.*;
 
 public class PruebaEventos {
 	public static void main(String[] args) {
-		BusquedaInt mimarco =new BusquedaInt();
+		Loguin mimarco =new Loguin();
 mimarco.setVisible(true);
 mimarco.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 

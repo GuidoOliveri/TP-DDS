@@ -43,6 +43,8 @@ public class Loguin extends JFrame {
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.setBounds(206, 177, 89, 23);
 		getContentPane().add(btnCancelar);
+		Cancelar canc = new Cancelar();
+		btnCancelar.addActionListener(canc);
 		
 		
 		Loguearse melogueo= new Loguearse();
@@ -53,11 +55,20 @@ public class Loguin extends JFrame {
 	private class Loguearse implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			//iniciarsesion
+			//verificar que el logueo coincida con lo nuestro y hacer un if para q se haga
+			//lo que sigue abajo
 			
-			MarcoInicioSesion mimarco2=new MarcoInicioSesion();
+			MenuInt mimarco2=new MenuInt();
 			mimarco2.setVisible(true);
 			mimarco2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			
 			}
 	}
+	
+	private class Cancelar implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			System.exit(0);
+		}
+	
+    }
 }

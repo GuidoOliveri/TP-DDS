@@ -16,8 +16,7 @@ import javax.swing.JTable;
 
 import javax.swing.JList;
 import javax.swing.JTextField;
-
-
+import javax.swing.table.DefaultTableModel;
 import javax.swing.JComponent;
 
 
@@ -27,6 +26,8 @@ public class BusquedaInt extends JFrame {
 	private JList list;
 	private JTextField textField;
 	private DefaultListModel listModel;
+	private DefaultTableModel modelo; 
+	private JTable tabla;
 	
 	public BusquedaInt() {
 		getContentPane().setLayout(null);
@@ -50,10 +51,12 @@ public class BusquedaInt extends JFrame {
 		JButton btnBuscar = new JButton("Buscar");
 		btnBuscar.setBounds(287, 54, 89, 23);
 		getContentPane().add(btnBuscar);
+		AgregarATabla tab = new AgregarATabla();
+		btnBuscar.addActionListener(tab);
 		
-		table = new JTable();
+		/*table = new JTable();
 		table.setBounds(32, 250, 340, -63);
-		getContentPane().add(table);
+		getContentPane().add(table);*/
 		
 	/*	 list = new JList(listModel);
 		list.setBounds(32, 78, 59, 98);
@@ -65,6 +68,7 @@ public class BusquedaInt extends JFrame {
 		textField.setColumns(10);
 		
 		listModel = new DefaultListModel();
+		modelo = new DefaultTableModel();
 	}
 	
 	
@@ -75,8 +79,21 @@ public class BusquedaInt extends JFrame {
 			list.setBounds(32, 78, 59, 98);
 			getContentPane().add(list);
 		 
+		}
+	}
+	
+	
+	public class AgregarATabla implements ActionListener{
 		
+		public void actionPerformed(ActionEvent e) {
+			//agarra la lista y busca los pois q cumplan con ese criterio
+			//y los agrega a la tabla
 			
-			}
+			//  FALTA HACER -> modelo.addRow(arg0);
+			
+			//una vez q guardo todos los resultados en el modelo , lo pasa a la tabla
+			tabla= new JTable(modelo);
+			
+		}
 	}
 }
