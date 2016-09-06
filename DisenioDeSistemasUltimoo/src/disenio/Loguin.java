@@ -39,6 +39,8 @@ public class Loguin extends JFrame {
 		JButton btnLoguearse = new JButton("Loguearse");
 		btnLoguearse.setBounds(45, 177, 89, 23);
 		getContentPane().add(btnLoguearse);
+		EventoLog eventolog =new EventoLog();
+		btnLoguearse.addActionListener(eventolog);
 		
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.setBounds(206, 177, 89, 23);
@@ -50,6 +52,14 @@ public class Loguin extends JFrame {
 		Loguearse melogueo= new Loguearse();
 		
 		btnLoguearse.addActionListener(melogueo);
+		
+	
+	}
+	
+	private class EventoLog implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			System.out.println("usuario logueado");
+		}
 	}
 	
 	private class Loguearse implements ActionListener{
@@ -63,8 +73,7 @@ public class Loguin extends JFrame {
 			mimarco2.setBounds(700,300,500,300);
 			mimarco2.setVisible(true);
 			mimarco2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			//System.out.println(textField_1.getText().trim());
-			//System.out.println("Se encuentra loggeado");
+	
 			
 			}
 	}
@@ -72,6 +81,7 @@ public class Loguin extends JFrame {
 	private class Cancelar implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			System.exit(0);
+			
 		}
 	
     }
