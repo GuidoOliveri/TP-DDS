@@ -183,7 +183,7 @@ public class Terminal {
 
 		do{
 			
-		System.out.println("Elija opcion:\n\n1-Agregar Poi\n2-Modificar Poi\n3-Eliminar Poi\n4-Buscar POI\n5-Calcular cercania (coordenada geografica)\n6-Calcular disponibilidad\n7-Reporte parcial por usuario\n8-Reporte por busqueda\n9-Reporte por fecha\n10-Reporte total por usuario\n11-Salir\n\nProcesos:\n\n12-Actualizar Comercios\n13-Agregar acciones a usuarios\n14-Quitar acciones a usuarios\n15-Baja de POIs inactivos");
+		System.out.println("\nElija opcion:\n\n1-Agregar Poi\n2-Modificar Poi\n3-Eliminar Poi\n4-Buscar POI\n5-Calcular cercania (coordenada geografica)\n6-Calcular disponibilidad\n7-Reporte parcial por usuario\n8-Reporte por busqueda\n9-Reporte por fecha\n10-Reporte total por usuario\n11-Salir\n\nProcesos:\n\n12-Actualizar Comercios\n13-Agregar acciones a usuarios\n14-Quitar acciones a usuarios\n15-Baja de POIs inactivos");
 
 		opcion=capt.nextInt();
 	    if (opcion==1){
@@ -515,7 +515,7 @@ public class Terminal {
 			}
 		
 		do{
-			System.out.println("Elija opcion:\n\n1-Buscar Punto\n2-Calcular cercania (coordenada geografica)\n3-Calcular disponibilidad\n4-Salir\n\n5-Ejecutar procesos anidados");
+			System.out.println("\nElija opcion:\n\n1-Buscar Punto\n2-Calcular cercania (coordenada geografica)\n3-Calcular disponibilidad\n4-Salir\n\n5-Ejecutar procesos anidados");
 
 			opcion=capt.nextInt();
 			texto=capt.nextLine();

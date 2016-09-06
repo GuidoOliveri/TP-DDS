@@ -72,7 +72,7 @@ public class ActualizarComercios extends Command {
 				//las palabras que actualizo son las que me vienen en el txt
 				
 				 poi.setPalabrasClaves(obtenerArrayPalabrasClave(palabrasClave));
-				 System.out.println("Palabras claves actualizadas:"+poi.getPalabrasClaves());
+				 System.out.println("\nPalabras claves actualizadas:"+poi.getPalabrasClaves());
 				 existe = true;
 			}
 		}
@@ -82,7 +82,7 @@ public class ActualizarComercios extends Command {
 		 local.setNombre(nombreFantasia);
 		 local.setPalabrasClaves(obtenerArrayPalabrasClave(palabrasClave));
 		 sistema.agregarPOI(local);
-		 System.out.println("Palabras claves incorporadas a "+local.getNombre()+":"+local.getPalabrasClaves());
+		 System.out.println("Palabras claves incorporadas a "+local.getNombre()+":"+local.getPalabrasClaves()+"\n");
 		}
 						
 	
