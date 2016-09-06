@@ -34,16 +34,15 @@ public class AgregarAccionesUsuarios extends Command {
 	
 	public void ejecutar(){
 		sistema.setCommandUsuarios(componente);
-		System.out.println("Acciones de usuario agregadas");
+		sistema.cambiarPrivilegiosUsuarios(true);
+		System.out.println("Los usuarios tienen privilegios\n");
 	}	
 	
 	public void deshacer(){
-		for(Usuario usuario:sistema.getUsuarios())
-		{
-			//usuario.setCommand(new Base(sistema));
-		}
+		sistema.setCommandUsuarios(new Base(sistema));
+		sistema.cambiarPrivilegiosUsuarios(false);
+		System.out.println("Los usuarios ya no tienen privilegios");
+
 	}
 
-	 
-	
 }

@@ -38,6 +38,8 @@ public class Terminal {
 
 	private int idAAsignarPoi,idAAsignarAdmin;
 	
+	private Boolean usuariosConPrivilegios;
+	
 	public Terminal(){
 		pois = new HashSet<POI>();
 		cgps= new HashSet<CGP>();
@@ -50,6 +52,7 @@ public class Terminal {
 		idAAsignarAdmin=0;
 		fechas =new HashSet<Date>();
 		nicks = new HashSet<String>();
+		usuariosConPrivilegios=false;
 	}
 
 	public Conexion getConexion(){
@@ -83,8 +86,16 @@ public class Terminal {
 	{
 		if(!nickOcupado(usu.getUsuario()))
 		{
-		nicks.add(usu.getUsuario());
-		return usuarios.add(usu);
+			nicks.add(usu.getUsuario());
+			if(getUsuariosConPrivilegios())
+			{
+				Composite componente;
+				componente=new Composite(this);
+				componente.agregarProceso(new BajaDePoi(this));
+				componente.agregarProceso(new ActualizarComercios(this));
+				usu.setCommand(componente);
+			}
+			return usuarios.add(usu);
 		}
 		else
 			return false;
@@ -463,6 +474,7 @@ public class Terminal {
 	    
 		else if(opcion==15)
 		{
+
 			yo.setCommand(new BajaDePoi(sistema));
 			yo.invoke();
 		}
@@ -487,9 +499,7 @@ public class Terminal {
 		POI poiAux = new POI("Utn",34,34,palabras);
 		sistema.asignarIdPoi(poiAux);
 		Usuario yo = null;
-		Boolean logueado;
 		
-			logueado=false;
 			System.out.println("Ingrese Usuario");
 			usu=capt.next();
 			System.out.println("Ingrese Contrasenia");
@@ -854,7 +864,7 @@ public class Terminal {
 		this.idAAsignarAdmin = idAAsignarAdmin;
 	}
 	
-	public void setCommandUsuarios(Composite unCommand)
+	public void setCommandUsuarios(Command unCommand)
 	{
 		for(Usuario unUsuario:usuarios)
 		{
@@ -936,6 +946,17 @@ public class Terminal {
 	public Conexion getConex() {
 		return conex;
 	}
+
+	public Boolean getUsuariosConPrivilegios() {
+		return usuariosConPrivilegios;
+	}
+
+	public void setUsuariosConPrivilegios(Boolean usuariosConPrivilegios) {
+		this.usuariosConPrivilegios = usuariosConPrivilegios;
+	}
 	
-	
+	public void cambiarPrivilegiosUsuarios(Boolean valor)
+	{
+		usuariosConPrivilegios = valor;
+	}
 }
