@@ -59,8 +59,12 @@ public class Loguin extends JFrame {
 			//lo que sigue abajo
 			
 			MenuInt mimarco2=new MenuInt();
+			mimarco2.setTitle("Menu inicio");
+			mimarco2.setBounds(700,300,500,300);
 			mimarco2.setVisible(true);
 			mimarco2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			//System.out.println(textField_1.getText().trim());
+			//System.out.println("Se encuentra loggeado");
 			
 			}
 	}

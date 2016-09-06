@@ -44,6 +44,8 @@ public class MenuInt extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 	  
 			BusquedaInt marco1=new BusquedaInt();
+			marco1.setTitle("Busqueda");
+			marco1.setBounds(700,300,500,300);
 			marco1.setVisible(true);
 			marco1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		}
@@ -53,6 +55,8 @@ public class MenuInt extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			
 			AccionesAnteLaBusqInt marco2=new AccionesAnteLaBusqInt();
+			marco2.setBounds(700,300,500,300);
+			marco2.setTitle("Acciones ante la busqueda");
 			marco2.setVisible(true);
 			marco2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	     
@@ -65,6 +69,8 @@ public class MenuInt extends JFrame {
 	    
 		 
 			HistorialBusqRealInt marco3=new HistorialBusqRealInt();
+			marco3.setBounds(700,300,500,300);
+			marco3.setTitle("Historial de busqueda real");
 			marco3.setVisible(true);
 			marco3.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	     
