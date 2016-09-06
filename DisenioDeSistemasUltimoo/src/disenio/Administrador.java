@@ -8,54 +8,19 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Administrador extends Usuario{
-	
-	private String usuario, contrasenia;
-	
 
 	public Administrador(String usuario, String contrasenia, Terminal sistema) {
-		super(sistema);
-		this.usuario = usuario;
-		this.contrasenia = contrasenia;
-		
+		super(sistema,usuario,contrasenia);
 	}
 
 	public Administrador(Terminal sistema){
 		super(sistema);
-
 	}
 	
 	//GET / SET
-	
-	public String getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(String usuario) {
-		this.usuario = usuario;
-	}
-
-	public String getContrasenia() {
-		return contrasenia;
-	}
-
-	public void setContrasenia(String contrasenia) {
-		this.contrasenia = contrasenia;
-	}
 
 	//OTROS METODOS
 
-	public Boolean logueo(String usu,String cont){
-		usuario=usu;
-		contrasenia =cont;
-		for (Administrador admin:super.getSistema().getAdmins()){
-			if((admin.getUsuario().equals(usu))&&(admin.getContrasenia().equals(cont)))
-			{
-				return true;
-			}
-		}
-		return false;
-	}
-	
 	public void agregarPOI(POI unPOI){
 		
 		super.getSistema().getPois().add(unPOI);
@@ -136,41 +101,6 @@ public class Administrador extends Usuario{
 		return false;
 	}
 
-	public void agregarBusqueda(Busqueda unaBusqueda)
-	{
-		getBusquedas().add(unaBusqueda);
-	}
-	
-	public Set<POI> buscarPoi(String palabra){  
-		Calendar fecha = new GregorianCalendar();
-		getPoisAux().clear();
-		float tfinal,tinicial=System.currentTimeMillis();
-		if(!getSistema().getPois().isEmpty())
-			for (POI poi:getSistema().getPois()){
-				if(poi.getPalabrasClaves().contains(palabra))
-				{
-					getPoisAux().add(poi);
-				}
-			}
-
-		tfinal=System.currentTimeMillis();
-		setBusquedaAux(new Busqueda(fecha.getTime(),getPoisAux().size(),((tfinal-tinicial)/1000),palabra,this));
-		
-		getSistema().actualizarAdminConBusqueda(this,getBusquedaAux());
-		
-		getSistema().getBusquedas().add(getBusquedaAux());
-
-		getSistema().agregarFecha(fecha.getTime());
-		
-		// getSistema().notificarPorMail((tfinal-tinicial)/1000, 1);
-		
-		return getPoisAux();
-	}
-	
-	public void setCommand(Command command){
-		
-		command.ejecutar();
-	}
 	
 	/*
 	public ArrayList<AccionDeUsuario> getAccionesUsuario() {

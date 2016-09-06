@@ -14,11 +14,23 @@ public class Usuario {
 		private Set<POI> poisAux;
 		private Set<Busqueda> busquedas;
 		private ArrayList<Boolean> accionesDelUsuario;
+		private String usuario, contrasenia;
+		private Command command;
 
 		public Usuario(Terminal unSistema) {
 			sistema=unSistema;
 			poisAux=new HashSet<POI>();
 			this.busquedas = new HashSet<Busqueda>();
+			command = new Base(sistema);
+		}
+		
+		public Usuario(Terminal unSistema,String usuario,String contrasenia) {
+			sistema=unSistema;
+			poisAux=new HashSet<POI>();
+			this.busquedas = new HashSet<Busqueda>();
+			this.usuario=usuario;
+			this.contrasenia=contrasenia;
+			command = new Base(sistema);
 		}
 		
 		//GET / SET
@@ -46,10 +58,15 @@ public class Usuario {
 
 		//OTROS METODOS
 		
+		public void agregarBusqueda(Busqueda unaBusqueda)
+		{
+			getBusquedas().add(unaBusqueda);
+		}
+		
 		public Set<POI> buscarPoi(String palabra){  
 			Calendar fecha = new GregorianCalendar();
 			getPoisAux().clear();
-			float tfinal,tinicial=System.currentTimeMillis();
+			long tfinal,tinicial=System.currentTimeMillis();
 			if(!getSistema().getPois().isEmpty())
 				for (POI poi:getSistema().getPois()){
 					if(poi.getPalabrasClaves().contains(palabra))
@@ -57,17 +74,22 @@ public class Usuario {
 						getPoisAux().add(poi);
 					}
 				}
-
+			try {
+				Thread.sleep(2000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			tfinal=System.currentTimeMillis();
-			setBusquedaAux(new Busqueda(fecha.getTime(),getPoisAux().size(),((tfinal-tinicial)/1000),palabra));
+			setBusquedaAux(new Busqueda(fecha.getTime(),getPoisAux().size(),((tfinal-tinicial)/1000),palabra,this));
+			
+			agregarBusqueda(getBusquedaAux());
 			
 			getSistema().getBusquedas().add(getBusquedaAux());
 
 			getSistema().agregarFecha(fecha.getTime());
 			
-			// sistema.notificarPorMail(2, 1);
-			
-			//(tfinal-tinicial)/1000
+			// getSistema().notificarPorMail((tfinal-tinicial)/1000, 1);
 			
 			return getPoisAux();
 		}
@@ -104,7 +126,49 @@ public class Usuario {
 			this.busquedas = busquedas;
 		}
 
+		public ArrayList<Boolean> getAccionesDelUsuario() {
+			return accionesDelUsuario;
+		}
 
+		public void setAccionesDelUsuario(ArrayList<Boolean> accionesDelUsuario) {
+			this.accionesDelUsuario = accionesDelUsuario;
+		}
+
+		public String getUsuario() {
+			return usuario;
+		}
+
+		public void setUsuario(String usuario) {
+			this.usuario = usuario;
+		}
+
+		public String getContrasenia() {
+			return contrasenia;
+		}
+
+		public void setContrasenia(String contrasenia) {
+			this.contrasenia = contrasenia;
+		}
+		
+		public void setCommand(Command command)
+		{
+			this.command=command;
+		}
+		
+		public void invoke()
+		{
+			command.ejecutar();
+		}
+		
+		public void undo()
+		{
+			command.deshacer();
+		}
+
+
+		public Command getCommand() {
+			return command;
+		}
 
 	}
 

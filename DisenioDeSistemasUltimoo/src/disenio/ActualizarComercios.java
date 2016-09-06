@@ -15,9 +15,14 @@ public class ActualizarComercios extends Command {
 
 	public String nombreFantasia;
 	//mi lista nueva de palabras, primero no tiene nada
-	public Set<String> palabrasClavesAActualizar;
-	public Set<String> palabrasClavesActualizar = new HashSet<String>();
-	public Terminal sistema = new Terminal();
+	public Set<String> palabrasClavesActualizar;
+	public Terminal sistema;
+	
+	public ActualizarComercios(Terminal sistema)
+	{
+		palabrasClavesActualizar = new HashSet<String>();
+		this.sistema = sistema;
+	}
 	
 	public Terminal getTerminal(){
 		return sistema;
@@ -32,18 +37,17 @@ public class ActualizarComercios extends Command {
 		System.out.println("No se puede agregar un proceso\n");
 	}
 	
-	
-	
 	public void remover(Command unProceso){
 		
 		System.out.println("No se puede remover un proceso\n");
 	}
 
-	
-	
-	
 	public void ejecutar(){
 		this.leerArchivo("archivo.txt");
+	}
+	
+	public void deshacer(){
+		System.out.println("Nada para deshacer");
 	}
 	
 	private Set<String> obtenerArrayPalabrasClave(String palabrasClave){

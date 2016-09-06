@@ -8,17 +8,15 @@ public abstract class Command {
 		
 	};
 		
-	public void remover( Command unProceso ){
+	public void removerProcesos(){
 		
 	};  
 		   
     public void ejecutar(){
     	
     }
-
     
-		
-	
-	
+	public void deshacer(){
+	}
 
 }

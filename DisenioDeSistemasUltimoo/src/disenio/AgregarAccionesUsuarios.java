@@ -10,37 +10,38 @@ import java.util.Set;
 //hoja del composite
 public class AgregarAccionesUsuarios extends Command {
 	
-	Command command ;
-	Terminal sistema=new Terminal();
+	private Terminal sistema;
 	
-	public ArrayList<AccionDeUsuario> accionesDelUsuarioACambiar;
+	private Composite componente;
 	
-	 
+	public AgregarAccionesUsuarios(Terminal sistema)
+	{
+		this.sistema = sistema;
+		componente=new Composite(sistema);
+		componente.agregarProceso(new BajaDePoi(sistema));
+		componente.agregarProceso(new ActualizarComercios(sistema));
+	}
+	
 	public void agregarProceso(Command unProceso){
 		
 		System.out.println("No se puede agregar un proceso\n");
 	}
-	
-	
 	 
 	public void remover(Command unProceso){
 		
 		System.out.println("No se puede remover un proceso\n");
 	}
 	
-	
 	public void ejecutar(){
-		
-	for (Administrador usuario:sistema.getAdmins()){ 
-		
-		usuario.setCommand(command);
-			
-	}
-}	
-
+		sistema.setCommandUsuarios(componente);
+		System.out.println("Acciones de usuario agregadas");
+	}	
 	
 	public void deshacer(){
-		
+		for(Usuario usuario:sistema.getUsuarios())
+		{
+			//usuario.setCommand(new Base(sistema));
+		}
 	}
 
 	 

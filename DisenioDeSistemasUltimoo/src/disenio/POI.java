@@ -27,11 +27,13 @@ public class POI {
 		radioLimite=5;
 		tipoCercania=new MismaComuna();
 		palabrasClaves.add(nombre);
+		validez = true;
 	}
 	
 	public POI()
 	{
 		palabrasClaves=new HashSet<String>();
+		validez = true;
 	}
 	
 	public String getNombre() {

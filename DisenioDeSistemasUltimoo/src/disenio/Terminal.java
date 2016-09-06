@@ -28,7 +28,11 @@ public class Terminal {
 	
 	private Set<Administrador> admins;
 	
+	private Set<Usuario> usuarios;
+
 	private Set<Date> fechas;
+	
+	private Set<String> nicks;
 
 	private Conexion conex;
 
@@ -40,10 +44,12 @@ public class Terminal {
 		bancos = new HashSet<Banco>();
 		busquedas = new HashSet<Busqueda>();
 		admins = new HashSet<Administrador>();
+		usuarios = new HashSet<Usuario>();
 		conex = new Conexion();
 		idAAsignarPoi=0;
 		idAAsignarAdmin=0;
 		fechas =new HashSet<Date>();
+		nicks = new HashSet<String>();
 	}
 
 	public Conexion getConexion(){
@@ -64,12 +70,24 @@ public class Terminal {
 	
 	public Boolean agregarAdmin(Administrador admin)
 	{
-		for(Administrador administrador:admins)
+		if(!nickOcupado(admin.getUsuario()))
 		{
-			if(administrador.getUsuario().equals(admin.getUsuario()))
-				return false;
-		}
+		nicks.add(admin.getUsuario());
 		return admins.add(admin);
+		}
+		else
+			return false;
+	}
+	
+	public Boolean agregarUsuario(Usuario usu)
+	{
+		if(!nickOcupado(usu.getUsuario()))
+		{
+		nicks.add(usu.getUsuario());
+		return usuarios.add(usu);
+		}
+		else
+			return false;
 	}
 	
 	public Boolean agregarBusqueda(Busqueda busquedaAux)
@@ -106,37 +124,55 @@ public class Terminal {
 		unPoi.setId(idAAsignarPoi-1);
 	}
 
-	public static void menuAdmin(Terminal sistema)
+	
+	public Usuario logueo(String nombre, String contrasenia)
 	{
-		int opcion,valor,tipoPoi,idABuscar,latitud = 0,longitud = 0,masPalabras=1,comuna;
-		Boolean logueado=false,exito=false;
+		for(Usuario unUsuario: usuarios)
+		{
+			if(unUsuario.getUsuario().equals(nombre)&&unUsuario.getContrasenia().equals(contrasenia))
+			{
+				return unUsuario;
+			}
+		}
+		
+		for(Administrador unUsuario: admins)
+		{
+			if(unUsuario.getUsuario().equals(nombre)&&unUsuario.getContrasenia().equals(contrasenia))
+			{
+				return unUsuario;
+			}
+		}
+		return null;
+	}
+
+	public static int menuAdmin(Terminal sistema)
+	{
+		int opcion,opcionLogueo,valor,tipoPoi,idABuscar,latitud = 0,longitud = 0,masPalabras=1,comuna;
+		Boolean exito=false;
 		String usu,cont,texto,nombre,director,gerente,zonas;
 
 		Set<POI>poisAux = new HashSet<POI>();
 		
 		Scanner capt= new Scanner(System.in);
-		Administrador yo = new Administrador(sistema);
+		Administrador yo;
 		
-		do
-		{
-			logueado=false;
 			System.out.println("Ingrese Usuario");
 			usu=capt.next();
 			System.out.println("Ingrese Contrasenia");
 			cont=capt.next();
-			if(logueado = yo.logueo(usu,cont))
+			if(null!=(yo = (Administrador)(sistema.logueo(usu,cont))))
 			{
 				System.out.println("Logueo exitoso\n");
 			}
 			else
+			{
 				System.out.println("Usuario o contrase√±a erroneos\n");
-	
-
-		}while(!logueado);
+				return 0;
+			}
 
 		do{
 			
-		System.out.println("Elija opcion:\n\n1-Agregar Poi\n2-Modificar Poi\n3-Eliminar Poi\n4-Buscar POI\n5-Calcular cercania (coordenada geografica)\n6-Calcular disponibilidad\n7-Reporte parcial por usuario\n8-Reporte por busqueda\n9-Reporte por fecha\n10-Reporte total por usuario\n11-Actualizar locales comerciales\n12-Salir\n");
+		System.out.println("Elija opcion:\n\n1-Agregar Poi\n2-Modificar Poi\n3-Eliminar Poi\n4-Buscar POI\n5-Calcular cercania (coordenada geografica)\n6-Calcular disponibilidad\n7-Reporte parcial por usuario\n8-Reporte por busqueda\n9-Reporte por fecha\n10-Reporte total por usuario\n11-Salir\n\nProcesos:\n\n12-Actualizar Comercios\n13-Agregar acciones a usuarios\n14-Quitar acciones a usuarios\n15-Baja de POIs inactivos");
 
 		opcion=capt.nextInt();
 	    if (opcion==1){
@@ -321,13 +357,16 @@ public class Terminal {
 			texto=capt.nextLine();
 			poisAux.addAll(yo.buscarPoi(texto));
 			if(poisAux.isEmpty())
+			{
 				System.out.println("Sin resultados\n");
+			}
 			else
 			{
 				System.out.println("Cantidad de POIs encontrados: "+poisAux.size()+"\n");
 				for(POI poi:poisAux){
 					poi.listar();
 				}
+				capt.nextLine();
 			}
 
 		}
@@ -337,7 +376,10 @@ public class Terminal {
 			texto=capt.nextLine();
 			poisAux.addAll(yo.buscarPoi(texto));
 			if(poisAux.isEmpty())
+			{
 				System.out.println("Sin resultados\n");
+				capt.nextLine();
+			}
 			else
 			{
 				System.out.println("Cantidad de POIs encontrados: "+poisAux.size()+"\n");
@@ -387,7 +429,7 @@ public class Terminal {
 	    
 		else if(opcion==8)
 		{
-			sistema.reporteConsultas();
+			sistema.reporteConsultas(capt);
 		}
 	    
 		else if(opcion==9)
@@ -400,38 +442,70 @@ public class Terminal {
 			sistema.reporteTotalPorUsuario();
 		} 
 
-		else if(opcion==11){
-			
-			ActualizarComercios actualizar = new ActualizarComercios();
-			actualizar.setTerminal(sistema);
-			System.out.println("Pois que tenia antes: "+actualizar.getTerminal().getPois().size());
-			actualizar.ejecutar();
-			System.out.println("Pois que tengo ahora: "+actualizar.getTerminal().getPois().size());
+	    
+		else if(opcion==12)
+		{
+			yo.setCommand(new ActualizarComercios(sistema));
+			yo.invoke();
 		}
 	    
-		}while(opcion!=12);
-	
-		capt.close();
+		else if(opcion==13)
+		{
+			yo.setCommand(new AgregarAccionesUsuarios(sistema));
+			yo.invoke();
+		}
+	    
+		else if(opcion==14)
+		{
+			yo.setCommand(new AgregarAccionesUsuarios(sistema));
+			yo.undo();
+		}
+	    
+		else if(opcion==15)
+		{
+			yo.setCommand(new BajaDePoi(sistema));
+			yo.invoke();
+		}
+		else if(opcion!=11)
+			System.out.println("Elija una opcion de las ofrecidas\n\n");
+		
+	    
+		}while(opcion!=11);
+		yo=null;
+		return 1;
 	}
 	
-	public static void menuUsuario(Terminal sistema)
+	public static int menuUsuario(Terminal sistema)
 	{
 		int opcion=0;
-		String texto;
+		String texto,usu,cont;
 		Scanner capt= new Scanner(System.in);
 		Set<POI>poisAux = new HashSet<POI>();
-		Calendar fecha = new GregorianCalendar();
 		Set<String> palabras = new HashSet<String>();
 		palabras.add("utn");
 		palabras.add("facultad");
 		POI poiAux = new POI("Utn",34,34,palabras);
 		sistema.asignarIdPoi(poiAux);
-		Usuario yo=new Usuario(sistema);
-		yo.setMiPoi(poiAux);
-		yo.setSistema(sistema);
+		Usuario yo = null;
+		Boolean logueado;
+		
+			logueado=false;
+			System.out.println("Ingrese Usuario");
+			usu=capt.next();
+			System.out.println("Ingrese Contrasenia");
+			cont=capt.next();
+			if(null !=(yo = sistema.logueo(usu,cont)))
+			{
+				System.out.println("Logueo exitoso\n");
+			}
+			else
+			{
+				System.out.println("Usuario o contrase√±a erroneos\n");
+				return 0;
+			}
 		
 		do{
-			System.out.println("Elija opcion:\n\n1-Buscar Punto\n2-Calcular cercania (coordenada geografica)\n3-Calcular disponibilidad\n4-Salir\n\n");
+			System.out.println("Elija opcion:\n\n1-Buscar Punto\n2-Calcular cercania (coordenada geografica)\n3-Calcular disponibilidad\n4-Salir\n\n5-Ejecutar procesos anidados");
 
 			opcion=capt.nextInt();
 			texto=capt.nextLine();
@@ -499,12 +573,19 @@ public class Terminal {
 				}
 			}
 			
+			else if(opcion==5)
+			{
+				yo.invoke();
+			}
+			
 			else if(opcion!=4)
 				System.out.println("Elija una opcion de las ofrecidas\n\n");
 			
+			
 			poisAux.clear();
 			}while(opcion!=4);
-			capt.close();
+		yo=null;
+		return 1;
 	}
 	
 
@@ -562,9 +643,9 @@ public class Terminal {
 
 		do
 		{
-
-			System.out.println("-1 Menu administrador\n-2 Menu usuario\n-3 Salir");
+			System.out.println("-1 Menu administrador\n-2 Menu usuario\n-3 øNo tenes cuenta?, registrate\n-4 Salir");
 			opcion=scanner.nextInt();
+			scanner.nextLine();
 			if(opcion==1)
 			{
 				menuAdmin(sistema);
@@ -576,12 +657,17 @@ public class Terminal {
 				menuUsuario(sistema);
 			}
 			
-			else if(opcion!=3)
+			else if(opcion==3)
+			{
+				sistema.registrar(sistema);
+			}
+			
+			else if(opcion!=4)
 			{
 				System.out.println("Ingrese opcion valida\n\n");
 			}
 
-		}while(opcion!=3);
+		}while(opcion!=4);
 		
 		scanner.close();
 }
@@ -589,6 +675,34 @@ public class Terminal {
 
 	public void setConex(Conexion conex) {
 		this.conex = conex;
+	}
+	
+	public Boolean nickOcupado(String usu)
+	{
+		for(String nombre:nicks)
+		{
+			if(nombre.equals(usu))
+				return true;
+		}
+		return false;
+	}
+	
+	public Boolean registrar(Terminal sistema)
+	{
+		String usu,contra;
+		Scanner scanner= new Scanner(System.in);
+		System.out.println("Ingrese nombre de usuario");
+		usu=scanner.nextLine();
+		System.out.println("Ingrese contraseÒa");
+		contra=scanner.nextLine();
+		if(agregarUsuario(new Usuario(sistema,usu,contra)))
+		{
+			System.out.println("Registrado exitosamente");
+			return true;
+		}
+		else
+			System.out.println("El nombre de usuario ingresado ya existe");
+			return false;
 	}
 
 	public int getIdAAsignarPoi() {
@@ -614,6 +728,19 @@ public class Terminal {
 				{
 					System.out.println("Usuario: "+admin.getUsuario()+"\n");
 					for(Busqueda busq:admin.getBusquedas())
+					{
+						System.out.println(busq.getResultados()+"\n");
+					}
+				}
+			}
+			
+			for(Usuario usu:usuarios)
+			{
+				if(!usu.getBusquedas().isEmpty())
+				//System.out.print(fecha.getDate()+"/"+(fecha.getMonth()+1)+"/"+(fecha.getYear()+1900));
+				{
+					System.out.println("Usuario: "+usu.getUsuario()+"\n");
+					for(Busqueda busq:usu.getBusquedas())
 					{
 						System.out.println(busq.getResultados()+"\n");
 					}
@@ -645,10 +772,24 @@ public class Terminal {
 				}
 				System.out.print(cantidad+"     \n");
 			}
+			
+			for(Usuario usu:usuarios)
+			{
+				System.out.print(usu.getUsuario()+"              ");
+				cantidad=0;
+				if(!usu.getBusquedas().isEmpty())
+				{
+					for(Busqueda busq:usu.getBusquedas())
+					{
+						cantidad = cantidad + busq.getResultados();
+					}
+				}
+				System.out.print(cantidad+"     \n");
+			}
 		}
 	}
 	
-	public void reporteConsultas()
+	public void reporteConsultas(Scanner capt)
 	{
 		if(busquedas.isEmpty())
 		{
@@ -713,17 +854,13 @@ public class Terminal {
 		this.idAAsignarAdmin = idAAsignarAdmin;
 	}
 	
-	public void actualizarAdminConBusqueda(Administrador unAdministrador,Busqueda aux)
+	public void setCommandUsuarios(Composite unCommand)
 	{
-		for(Administrador admin:admins)
+		for(Usuario unUsuario:usuarios)
 		{
-			if(admin.getUsuario().equals(unAdministrador.getUsuario()))
-			{
-				admin.agregarBusqueda(aux);
-			}
+			unUsuario.setCommand(unCommand);
 		}
 	}
-	
 /*	public Boolean notificarPorMail(float tiempoTomado,float tiempoMaximo) //ESTA MAL
 	{
 		if(tiempoTomado>tiempoMaximo)
@@ -778,6 +915,26 @@ public class Terminal {
 
 	public void setBancos(Set<Banco> bancos) {
 		this.bancos = bancos;
+	}
+
+	public Set<Usuario> getUsuarios() {
+		return usuarios;
+	}
+
+	public void setUsuarios(Set<Usuario> usuarios) {
+		this.usuarios = usuarios;
+	}
+
+	public Set<String> getNicks() {
+		return nicks;
+	}
+
+	public void setNicks(Set<String> nicks) {
+		this.nicks = nicks;
+	}
+
+	public Conexion getConex() {
+		return conex;
 	}
 	
 	
