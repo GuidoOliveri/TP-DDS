@@ -1,8 +1,9 @@
 package disenio;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JList;
-
+import javax.swing.JPanel;
 
 
 import java.awt.event.ActionEvent;
@@ -36,6 +37,12 @@ public class MenuInt extends JFrame {
 		
 		btnHistorialDeBusqueda.addActionListener(irAhisto);
 		
+		JButton btnsalir = new JButton("SALIR");
+		getContentPane().add(btnsalir);
+		btnsalir.setBounds(20, 200, 90,22);
+        EventoSalir salir= new EventoSalir();
+		
+        btnsalir.addActionListener(salir);
 		
 	}
 	
@@ -77,4 +84,51 @@ public class MenuInt extends JFrame {
 		}
 	}
 
+	private class EventoSalir implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			PreguntaSalir marco6=new PreguntaSalir();
+			marco6.setBounds(500,150,400,150);
+			marco6.setTitle("REALMENTE DESEA SALIR?");
+			marco6.setVisible(true);
+			marco6.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		}
+		
+		
+			class PreguntaSalir extends JFrame{				
+				 public PreguntaSalir(){
+			     LaminaSalir milamina =new LaminaSalir();
+				 add(milamina);				
+				 }
+				 }
+
+		
+	
+		class LaminaSalir extends JPanel{				
+			public LaminaSalir(){
+				JButton botonOK= new JButton("NO"); 
+				JButton botonsalir= new JButton("SI");
+				EventoVolverAtras eventovolveratras=new EventoVolverAtras();	
+				EventoSalida eventosalir=new EventoSalida();
+				botonsalir.addActionListener(eventosalir);
+				botonOK.addActionListener(eventovolveratras);
+				add(botonOK);
+				add(botonsalir);
+			        }
+	  
+	}
+		}
+		private class EventoVolverAtras implements ActionListener{
+			public void actionPerformed(ActionEvent e) {
+		//no hace falta volver ATRAS, sino con cerrar el frame contra incorrecta bastaria
+				
+			}
+			}
+
+		private class EventoSalida implements ActionListener{
+			public void actionPerformed(ActionEvent e) {
+			 
+					 System.exit( -1); 
+					 
+			}
+			}
 }

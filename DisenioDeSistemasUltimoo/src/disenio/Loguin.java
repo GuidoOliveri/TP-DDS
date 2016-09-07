@@ -68,11 +68,7 @@ public class Loguin extends JFrame {
 			//verificar que el logueo coincida con lo nuestro y hacer un if para q se haga
 			//lo que sigue abajo
 			
-			MenuInt mimarco2=new MenuInt();
-			mimarco2.setTitle("Menu inicio");
-			mimarco2.setBounds(700,300,500,300);
-			mimarco2.setVisible(true);
-			mimarco2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			
 	
 			
 			}
