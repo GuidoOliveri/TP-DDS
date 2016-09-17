@@ -1,5 +1,6 @@
 package disenio;
 
+import javax.swing.*;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -10,13 +11,25 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Point;
+import java.awt.Rectangle;
 
 public class MenuInt extends JFrame {
 	public MenuInt() {
+		
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		getContentPane().setBackground(Color.LIGHT_GRAY);
+		setBackground(Color.GREEN);
+		setTitle("Busqueda de POIs");
+	
+		
 		getContentPane().setLayout(null);
+		this.setResizable(false);
 		
 		JButton btnHacerUnaBusqueda = new JButton("Hacer una Busqueda");
-		btnHacerUnaBusqueda.setBounds(39, 47, 159, 23);
+		btnHacerUnaBusqueda.setBounds(131, 109, 182, 41);
 		getContentPane().add(btnHacerUnaBusqueda);
         IrABusqueda irabusqueda= new IrABusqueda();
 		
@@ -24,25 +37,33 @@ public class MenuInt extends JFrame {
 		
 		
 		JButton btnAccionesDeBusqueda = new JButton("Acciones de Busqueda");
-		btnAccionesDeBusqueda.setBounds(245, 47, 159, 23);
+		btnAccionesDeBusqueda.setBounds(131, 57, 182, 41);
 		getContentPane().add(btnAccionesDeBusqueda);
 		IrAcciones irAcciones= new IrAcciones();
 		
 		btnAccionesDeBusqueda.addActionListener(irAcciones);
 		
 		JButton btnHistorialDeBusqueda = new JButton("Historial de Busqueda");
-		btnHistorialDeBusqueda.setBounds(133, 131, 182, 23);
+		btnHistorialDeBusqueda.setBounds(131, 168, 182, 41);
 		getContentPane().add(btnHistorialDeBusqueda);
 		IrHistorial irAhisto= new IrHistorial();
 		
 		btnHistorialDeBusqueda.addActionListener(irAhisto);
 		
-		JButton btnsalir = new JButton("SALIR");
-		getContentPane().add(btnsalir);
-		btnsalir.setBounds(20, 200, 90,22);
-        EventoSalir salir= new EventoSalir();
+		JLabel lblBienvenidoAlSistema = new JLabel("Bienvenido al sistema de POIs, seleccione una opción:");
+		lblBienvenidoAlSistema.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, 15));
+		lblBienvenidoAlSistema.setForeground(Color.WHITE);
+		lblBienvenidoAlSistema.setBounds(24, 11, 396, 35);
+		getContentPane().add(lblBienvenidoAlSistema);
 		
-        btnsalir.addActionListener(salir);
+		JButton btnNewButton = new JButton("Salir\r\n");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+		btnNewButton.setBounds(331, 226, 89, 35);
+		getContentPane().add(btnNewButton);
 		
 	}
 	
@@ -83,40 +104,6 @@ public class MenuInt extends JFrame {
 	     
 		}
 	}
-
-	private class EventoSalir implements ActionListener{
-		public void actionPerformed(ActionEvent e) {
-			PreguntaSalir marco6=new PreguntaSalir();
-			marco6.setBounds(500,150,400,150);
-			marco6.setTitle("REALMENTE DESEA SALIR?");
-			marco6.setVisible(true);
-			marco6.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		}
-		
-		
-			class PreguntaSalir extends JFrame{				
-				 public PreguntaSalir(){
-			     LaminaSalir milamina =new LaminaSalir();
-				 add(milamina);				
-				 }
-				 }
-
-		
-	
-		class LaminaSalir extends JPanel{				
-			public LaminaSalir(){
-				JButton botonOK= new JButton("NO"); 
-				JButton botonsalir= new JButton("SI");
-				EventoVolverAtras eventovolveratras=new EventoVolverAtras();	
-				EventoSalida eventosalir=new EventoSalida();
-				botonsalir.addActionListener(eventosalir);
-				botonOK.addActionListener(eventovolveratras);
-				add(botonOK);
-				add(botonsalir);
-			        }
-	  
-	}
-		}
 		private class EventoVolverAtras implements ActionListener{
 			public void actionPerformed(ActionEvent e) {
 		//no hace falta volver ATRAS, sino con cerrar el frame contra incorrecta bastaria

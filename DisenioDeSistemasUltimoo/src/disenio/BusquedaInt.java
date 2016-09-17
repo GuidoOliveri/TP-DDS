@@ -19,54 +19,97 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JComponent;
+import java.awt.Font;
+import javax.swing.border.TitledBorder;
+import java.awt.Color;
+import javax.swing.UIManager;
+import javax.swing.border.LineBorder;
 
 
 
 public class BusquedaInt extends JFrame {
 	private JTable table;
 	private JList list;
-	private JTextField textField;
 	private DefaultListModel listModel;
 	private DefaultTableModel modelo; 
 	private JTable tabla;
+	private JTextField tlnombre;
+	private JTextField tlnombre2;
+	private JTable table_1;
 	
 	public BusquedaInt() {
+		setTitle("Busqueda específica");
 		getContentPane().setLayout(null);
 		
-		JLabel lblCriterioDeBusqueda = new JLabel("Criterio de Busqueda");
-		lblCriterioDeBusqueda.setBounds(32, 11, 128, 23);
-		getContentPane().add(lblCriterioDeBusqueda);
-		
-		JLabel lblNombre = new JLabel("Nombre");
-		lblNombre.setBounds(41, 58, 46, 14);
-		getContentPane().add(lblNombre);
-		
-		JButton btnAgregar = new JButton("Agregar");
-		btnAgregar.setBounds(156, 54, 89, 23);
+		JButton btnAgregar = new JButton("Agregar POI\r\n");
+		btnAgregar.setBounds(225, 85, 106, 23);
 		getContentPane().add(btnAgregar);
 		
 	   AgregarBusq busq= new AgregarBusq();
 		
 		btnAgregar.addActionListener(busq);
 		
-		JButton btnBuscar = new JButton("Buscar");
-		btnBuscar.setBounds(287, 54, 89, 23);
+		JButton btnBuscar = new JButton("Buscar POI\r\n");
+		btnBuscar.setBounds(225, 117, 106, 23);
 		getContentPane().add(btnBuscar);
 		AgregarATabla tab = new AgregarATabla();
 		btnBuscar.addActionListener(tab);
 		
-		/*table = new JTable();
-		table.setBounds(32, 250, 340, -63);
-		getContentPane().add(table);*/
+		JLabel lblCriterioDeBsqueda = new JLabel("Criterio de búsqueda a seleccionar:\r\n");
+		lblCriterioDeBsqueda.setFont(new Font("Arial", Font.BOLD, 15));
+		lblCriterioDeBsqueda.setBounds(97, 11, 289, 32);
+		getContentPane().add(lblCriterioDeBsqueda);
 		
-	/*	 list = new JList(listModel);
-		list.setBounds(32, 78, 59, 98);
-		getContentPane().add(list);*/
+		JPanel panel = new JPanel();
+		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Datos del POI a buscar", TitledBorder.LEFT, TitledBorder.TOP, null, new Color(0, 0, 255)));
+		panel.setBounds(21, 73, 174, 102);
+		getContentPane().add(panel);
 		
-		textField = new JTextField();
-		textField.setBounds(193, 100, 86, 20);
-		getContentPane().add(textField);
-		textField.setColumns(10);
+		tlnombre2 = new JTextField();
+		panel.add(tlnombre2);
+		tlnombre2.setColumns(10);
+		
+		tlnombre = new JTextField();
+		tlnombre.setBackground(new Color(255, 255, 255));
+		panel.add(tlnombre);
+		tlnombre.setColumns(10);
+		
+		table_1 = new JTable();
+		table_1.setFont(new Font("Arial", Font.BOLD, 11));
+		table_1.setModel(new DefaultTableModel(
+			new Object[][] {
+				{null, null},
+				{null, null},
+				{null, null},
+			},
+			new String[] {
+				"Nombre", "Direccion"
+			}
+		) {
+			boolean[] columnEditables = new boolean[] {
+				true, false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
+		table_1.getColumnModel().getColumn(1).setResizable(false);
+		table_1.setBorder(new LineBorder(new Color(0, 204, 51)));
+		table_1.setBounds(31, 217, 393, 48);
+		getContentPane().add(table_1);
+		
+		JLabel lblNombre = new JLabel("Nombre");
+		lblNombre.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblNombre.setForeground(Color.BLUE);
+		lblNombre.setBackground(Color.WHITE);
+		lblNombre.setBounds(94, 196, 74, 14);
+		getContentPane().add(lblNombre);
+		
+		JLabel lblDireccin = new JLabel("Dirección");
+		lblDireccin.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblDireccin.setForeground(Color.BLUE);
+		lblDireccin.setBounds(284, 196, 80, 14);
+		getContentPane().add(lblDireccin);
 		
 		listModel = new DefaultListModel();
 		modelo = new DefaultTableModel();
@@ -84,7 +127,7 @@ public class BusquedaInt extends JFrame {
 	mimarco.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);	
 			
 	      if(log){
-	     listModel.addElement(textField.getText());
+	     listModel.addElement(tlnombre.getText());
 	     list = new JList(listModel);
 			list.setBounds(32, 78, 59, 98);
 			getContentPane().add(list);
@@ -112,8 +155,6 @@ public class BusquedaInt extends JFrame {
 			
 		}
 	}
-	
-	
 }
 
 class ContraseniaIncorrecta extends JFrame{
