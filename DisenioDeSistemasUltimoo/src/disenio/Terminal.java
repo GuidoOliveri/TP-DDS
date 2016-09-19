@@ -131,8 +131,7 @@ public class Terminal {
 	
 	public void asignarIdPoi(POI unPoi)
 	{
-		idAAsignarPoi=idAAsignarPoi+1;
-		unPoi.setId(idAAsignarPoi-1);
+		unPoi.setId(idAAsignarPoi);
 	}
 
 	
@@ -653,7 +652,7 @@ public class Terminal {
 
 		do
 		{
-			System.out.println("-1 Menu administrador\n-2 Menu usuario\n-3 ¿No tenes cuenta?, registrate\n-4 Salir");
+			System.out.println("-1 Menu administrador\n-2 Menu usuario\n-3 ï¿½No tenes cuenta?, registrate\n-4 Salir");
 			opcion=scanner.nextInt();
 			scanner.nextLine();
 			if(opcion==1)
@@ -703,7 +702,7 @@ public class Terminal {
 		Scanner scanner= new Scanner(System.in);
 		System.out.println("Ingrese nombre de usuario");
 		usu=scanner.nextLine();
-		System.out.println("Ingrese contraseña");
+		System.out.println("Ingrese contraseï¿½a");
 		contra=scanner.nextLine();
 		if(agregarUsuario(new Usuario(sistema,usu,contra)))
 		{

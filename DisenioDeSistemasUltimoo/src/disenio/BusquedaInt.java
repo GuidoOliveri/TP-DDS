@@ -120,7 +120,7 @@ public class BusquedaInt extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			 
 			boolean log=false;
-			Loguin mimarco =new Loguin();
+			ZLoguinAdmin mimarco =new ZLoguinAdmin();
 			mimarco.setTitle("Inicio Sesion");
 			mimarco.setBounds(700,300,500,300);
 	mimarco.setVisible(true);

@@ -1,8 +1,8 @@
 package disenio;
 
-public class PruebaLoguin {
+public class ZPrueboACA {
 	public static void main (String[] args){
-		Loguin milogueo = new Loguin();
+		ZMenuPrincipal milogueo = new ZMenuPrincipal();
 		milogueo.setVisible(true);
 	}
 }

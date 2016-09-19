@@ -43,7 +43,7 @@ public class Ventacciones extends JFrame implements ActionListener {
         texto.setText("Usuario");    // colocamos un texto a la etiqueta
         texto.setBounds(150, 25, 100, 25);   // colocamos posicion y tamanio al texto (x, y, ancho, alto)
         caja.setBounds(150, 50, 100, 25);   // colocamos posicion y tamanio a la caja (x, y, ancho, alto)
-        texto2.setText("Contraseña");    // colocamos un texto a la etiqueta
+        texto2.setText("Contraseï¿½a");    // colocamos un texto a la etiqueta
         texto2.setBounds(150, 75,100, 25); 
         caja2.setBounds(150, 100, 100, 25);
         
@@ -73,7 +73,7 @@ public class Ventacciones extends JFrame implements ActionListener {
     }
 
     public static void main(String[] args) {
-        Loguin VentLoguin = new Loguin();      // creamos una ventana
+        ZLoguinAdmin VentLoguin = new ZLoguinAdmin();      // creamos una ventana
         VentLoguin.setVisible(true);             // hacemos visible la ventana creada
     }
 }

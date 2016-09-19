@@ -12,21 +12,31 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+
 import java.awt.Font;
 import java.awt.Frame;
 
 import javax.swing.JPasswordField;
 
-public class Loguin extends JFrame {
+public class ZLoguinAdmin extends JFrame {
+	
+	private JPanel contentPane;
+	
 	public static JTextField txt_usuario;
-	public Loguin() {
+	public ZLoguinAdmin() {
+		
 
-		JFrame frame = new JFrame();
-		frame.setBounds(100,100,485,407);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 		
 		setTitle("Evento de logueo");
-		getContentPane().setLayout(null);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 300);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
 		
 		JLabel lblUsuario = new JLabel("Usuario:");
 		lblUsuario.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -67,12 +77,15 @@ public class Loguin extends JFrame {
 	
 	}
 	
-	final DatosUsuario data = new DatosUsuario();
+	final ZDatosAdmin data = new ZDatosAdmin();
 	public static JPasswordField pss_contraseña;
 	private class EventoLog implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			if(data.probarPass()==1){
 				JOptionPane.showMessageDialog(null, "Bienvenido al sistema de POIs Admin!");
+				ZMenuAdmin admin = new ZMenuAdmin();
+				admin.setVisible(true);
+				dispose();
 			}else{
 				JOptionPane.showMessageDialog(null, "ERROR, usuario o contraseña incorrectos");
 			}
@@ -93,7 +106,9 @@ public class Loguin extends JFrame {
 	
 	private class Cancelar implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-			System.exit(0);
+			ZMenuPrincipal mio = new ZMenuPrincipal();
+			mio.setVisible(true);
+			dispose();
 			
 		}
 	
