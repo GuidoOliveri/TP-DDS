@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Frame;
 
@@ -24,10 +25,24 @@ public class ZLoguinAdmin extends JFrame {
 	private JPanel contentPane;
 	
 	public static JTextField txt_usuario;
-	public ZLoguinAdmin() {
-		
+	
+	// OJO CON ESTE MAIN AGREGADO
+	public static void main(Terminal sistema) {
 
-		
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					ZLoguinAdmin frame = new ZLoguinAdmin(sistema);
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	
+	
+	public ZLoguinAdmin(Terminal sistema) {
 		
 		setTitle("Evento de logueo");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -68,13 +83,7 @@ public class ZLoguinAdmin extends JFrame {
 		getContentPane().add(pss_contraseña);
 		Cancelar canc = new Cancelar();
 		btnCancelar.addActionListener(canc);
-		
-		
-		Loguearse melogueo= new Loguearse();
-		
-		btnLoguearse.addActionListener(melogueo);
-		
-	
+			
 	}
 	
 	final ZDatosAdmin data = new ZDatosAdmin();
@@ -92,21 +101,11 @@ public class ZLoguinAdmin extends JFrame {
 		}
 	}
 	
-	private class Loguearse implements ActionListener{
-		public void actionPerformed(ActionEvent e) {
-			//iniciarsesion
-			//verificar que el logueo coincida con lo nuestro y hacer un if para q se haga
-			//lo que sigue abajo
-			
-			
-	
-			
-			}
-	}
 	
 	private class Cancelar implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-			ZMenuPrincipal mio = new ZMenuPrincipal();
+			Terminal sistema = new Terminal();
+			ZMenuPrincipal mio = new ZMenuPrincipal(sistema);
 			mio.setVisible(true);
 			dispose();
 			

@@ -8,7 +8,7 @@ public class ZDatosAdmin {
 	String pass1=  "";
 	
 	public int probarPass(){
-		Administrador yo;
+	
 		Terminal sistema = new Terminal();
 		
 		Administrador unAdmin1=new Administrador("pepe","argento",sistema);
@@ -21,6 +21,8 @@ public class ZDatosAdmin {
 
 		usuario1 = ZLoguinAdmin.txt_usuario.getText();
 		pass1 = ZLoguinAdmin.pss_contraseña.getText();
+		
+		Administrador yo;
 		
 		if(null!=(yo = (Administrador)(sistema.logueo(usuario1,pass1)))){
 			return 1;

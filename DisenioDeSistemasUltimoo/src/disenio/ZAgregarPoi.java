@@ -68,7 +68,7 @@ public class ZAgregarPoi extends JFrame {
 				dispose();
 			}
 		});
-		btnNewButton.setBounds(157, 83, 113, 23);
+		btnNewButton.setBounds(142, 83, 145, 23);
 		contentPane.add(btnNewButton);
 		
 		JButton btnKiosco = new JButton("Kiosco");
@@ -101,7 +101,7 @@ public class ZAgregarPoi extends JFrame {
 				dispose();
 			}
 		});
-		btnParadaColectivo.setBounds(157, 150, 113, 23);
+		btnParadaColectivo.setBounds(142, 150, 145, 23);
 		contentPane.add(btnParadaColectivo);
 		
 		JButton btnOtro = new JButton("Otro");

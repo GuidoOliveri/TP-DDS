@@ -7,6 +7,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -19,7 +21,7 @@ public class ZMenuAdmin extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void main(Terminal sistema) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -38,7 +40,7 @@ public class ZMenuAdmin extends JFrame {
 	public ZMenuAdmin() {
 		setTitle("Menu Administrador");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 538, 386);
+		setBounds(100, 100, 538, 403);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -57,53 +59,62 @@ public class ZMenuAdmin extends JFrame {
 				dispose();
 			}
 		});
-		btnAgregarpoi.setBounds(33, 63, 99, 23);
+		btnAgregarpoi.setBounds(10, 63, 122, 23);
 		contentPane.add(btnAgregarpoi);
 		
 		JButton btnModificarpoi = new JButton("Modificar POI");
 		btnModificarpoi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Terminal sistema = new Terminal();
+				if (sistema.listarPois()){
+					ZModificarPOI modifico = new ZModificarPOI();
+					modifico.setVisible(true);
+					dispose();
+				} else {
+					JOptionPane.showMessageDialog(null, "No hay POIs para modificar");
+				}
 			}
 		});
-		btnModificarpoi.setBounds(157, 63, 119, 23);
+		btnModificarpoi.setBounds(157, 63, 139, 23);
 		contentPane.add(btnModificarpoi);
 		
 		JButton btnEliminarPoi = new JButton("Eliminar POI");
-		btnEliminarPoi.setBounds(295, 63, 158, 23);
+		btnEliminarPoi.setBounds(306, 63, 174, 23);
 		contentPane.add(btnEliminarPoi);
 		
 		JButton btnNewButton = new JButton("Buscar POI");
-		btnNewButton.setBounds(33, 109, 99, 23);
+		btnNewButton.setBounds(10, 109, 99, 23);
 		contentPane.add(btnNewButton);
 		
 		JButton btnCalcularCercania = new JButton("Calcular cercania");
-		btnCalcularCercania.setBounds(157, 109, 119, 23);
+		btnCalcularCercania.setBounds(157, 109, 139, 23);
 		contentPane.add(btnCalcularCercania);
 		
 		JButton btnCalcularDiponibilidad = new JButton("Calcular diponibilidad");
-		btnCalcularDiponibilidad.setBounds(306, 109, 144, 23);
+		btnCalcularDiponibilidad.setBounds(306, 109, 174, 23);
 		contentPane.add(btnCalcularDiponibilidad);
 		
 		JButton btnReporteParcialPor = new JButton("Reporte parcial por Usuario");
-		btnReporteParcialPor.setBounds(32, 160, 191, 23);
+		btnReporteParcialPor.setBounds(10, 148, 213, 23);
 		contentPane.add(btnReporteParcialPor);
 		
 		JButton btnReportePorBsqueda = new JButton("Reporte por búsqueda");
-		btnReportePorBsqueda.setBounds(260, 160, 169, 23);
+		btnReportePorBsqueda.setBounds(267, 148, 213, 23);
 		contentPane.add(btnReportePorBsqueda);
 		
 		JButton btnReportePorFecha = new JButton("Reporte por fecha");
-		btnReportePorFecha.setBounds(33, 205, 128, 23);
+		btnReportePorFecha.setBounds(10, 205, 161, 23);
 		contentPane.add(btnReportePorFecha);
 		
 		JButton btnReporteTotalPor = new JButton("Reporte total Por Usuario");
-		btnReporteTotalPor.setBounds(181, 205, 169, 23);
+		btnReporteTotalPor.setBounds(181, 205, 185, 23);
 		contentPane.add(btnReporteTotalPor);
 		
 		JButton btnSalir = new JButton("Salir");
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ZMenuPrincipal volver = new ZMenuPrincipal();
+				Terminal sistema = new Terminal();
+				ZMenuPrincipal volver = new ZMenuPrincipal(sistema);
 				volver.setVisible(true);
 				dispose();
 			}
@@ -117,19 +128,19 @@ public class ZMenuAdmin extends JFrame {
 		contentPane.add(lblProcesosPosiblesA);
 		
 		JButton btnActualizarComercios = new JButton("Actualizar Comercios");
-		btnActualizarComercios.setBounds(64, 291, 159, 23);
+		btnActualizarComercios.setBounds(41, 291, 197, 23);
 		contentPane.add(btnActualizarComercios);
 		
 		JButton btnAgregarAccionesA = new JButton("Agregar acciones a Usuarios");
-		btnAgregarAccionesA.setBounds(277, 291, 176, 23);
+		btnAgregarAccionesA.setBounds(277, 291, 203, 23);
 		contentPane.add(btnAgregarAccionesA);
 		
 		JButton btnQuitarAccionesA = new JButton("Quitar acciones a usuarios");
-		btnQuitarAccionesA.setBounds(64, 325, 159, 23);
+		btnQuitarAccionesA.setBounds(41, 325, 197, 23);
 		contentPane.add(btnQuitarAccionesA);
 		
 		JButton btnBajaDePois = new JButton("Baja de pois inactivos");
-		btnBajaDePois.setBounds(277, 325, 176, 23);
+		btnBajaDePois.setBounds(277, 325, 203, 23);
 		contentPane.add(btnBajaDePois);
 	}
 

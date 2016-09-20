@@ -25,14 +25,14 @@ public class ZDatosComunes extends JFrame {
 	private JTextField txtNombre;
 	private JTextField txtLatitud;
 	private JTextField txtLongitud;
-	POI poiAux =new POI();
-	Terminal sistema = new Terminal();
 	private JTextField txtTipo;
+	String tipoPOI = "";
 	
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -97,13 +97,16 @@ public class ZDatosComunes extends JFrame {
 		txtLatitud.setColumns(10);
 		
 		JLabel lblLongitud = new JLabel("Longitud:");
-		lblLongitud.setBounds(26, 137, 46, 14);
+		lblLongitud.setBounds(26, 137, 67, 14);
 		panel.add(lblLongitud);
 		
 		txtLongitud = new JTextField();
 		txtLongitud.setBounds(117, 134, 132, 20);
 		panel.add(txtLongitud);
 		txtLongitud.setColumns(10);
+		
+		POI poiAux =new POI();
+		Terminal sistema = new Terminal();
 		
 		JButton btnNewButton = new JButton("Agregar datos");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -133,22 +136,31 @@ public class ZDatosComunes extends JFrame {
 				
 				JOptionPane.showMessageDialog(null, "Datos agregados correctamente");
 				
-				//ZMenuAdmin menu = new ZMenuAdmin();
-				//if(txtTipo.getText()=="Banco"){
-				//	ZBanco banco = new ZBanco();
-					//banco.setVisible(true);
-				//}
-				//else if (txtTipo.getText()=="CGP"){
+				
+				tipoPOI= txtTipo.getText();
+				
+				if(tipoPOI.equalsIgnoreCase("banco")){
+					ZBanco banco = new ZBanco();
+					banco.setVisible(true);
+					dispose();
+				}
+				else if (tipoPOI.equalsIgnoreCase("cgp")){
 					ZCgp cgp = new ZCgp();
 					cgp.setVisible(true);
-				/*} else if (txtTipo.getText()=="Kiosco"){
+					dispose();
+				} else if (tipoPOI.equalsIgnoreCase("kiosco")){
+					ZMenuAdmin menu = new ZMenuAdmin();
 					menu.setVisible(true);
-				} else if (txtTipo.getText()=="Libreria"){
-					menu.setVisible(true);
-				} else if (txtTipo.getText()=="Otro"){
-					menu.setVisible(true);
-				}*/
-				dispose();
+					dispose();
+				} else if (tipoPOI.equalsIgnoreCase("Libreria")){
+					ZMenuAdmin menu1 = new ZMenuAdmin();
+					menu1.setVisible(true);
+					dispose();
+				} else if (tipoPOI.equalsIgnoreCase("Otro")){
+					ZMenuAdmin menu2 = new ZMenuAdmin();
+					menu2.setVisible(true);
+					dispose();
+				}
 				
 			}
 		});

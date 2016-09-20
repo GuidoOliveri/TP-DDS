@@ -23,7 +23,6 @@ public class ZCgp extends JFrame {
 	private JTextField txtTel;
 	private JTextField txtServicios;
 
-	Administrador yo;
 	/**
 	 * Launch the application.
 	 */
@@ -109,6 +108,8 @@ public class ZCgp extends JFrame {
 		JButton btnAgregarCgp = new JButton("Agregar CGP");
 		btnAgregarCgp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Terminal sistema = new Terminal();
+				Administrador yo = new Administrador(sistema);
 				POI poiAux = new POI();
 				poiAux = new CGP(poiAux.getId(),poiAux.getNombre(),poiAux.getLatitud(),poiAux.getLongitud(),poiAux.getPalabrasClaves());
 				

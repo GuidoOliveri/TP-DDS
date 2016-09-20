@@ -19,11 +19,11 @@ public class ZMenuPrincipal extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void main(Terminal sistema) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ZMenuPrincipal frame = new ZMenuPrincipal();
+					ZMenuPrincipal frame = new ZMenuPrincipal(sistema);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -35,7 +35,7 @@ public class ZMenuPrincipal extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ZMenuPrincipal() {
+	public ZMenuPrincipal(Terminal sistema) {
 		setTitle("Sistema de POIs");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -52,12 +52,12 @@ public class ZMenuPrincipal extends JFrame {
 		JButton btnMenuAdministrador = new JButton("Menu Administrador");
 		btnMenuAdministrador.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ZLoguinAdmin logueo = new ZLoguinAdmin();
+				ZLoguinAdmin logueo = new ZLoguinAdmin(sistema);
 				logueo.setVisible(true);
 				dispose();
 			}
 		});
-		btnMenuAdministrador.setBounds(50, 98, 132, 23);
+		btnMenuAdministrador.setBounds(50, 98, 159, 23);
 		contentPane.add(btnMenuAdministrador);
 		
 		JButton btnMenuUsuario = new JButton("Menu Usuario");
@@ -65,7 +65,7 @@ public class ZMenuPrincipal extends JFrame {
 		contentPane.add(btnMenuUsuario);
 		
 		JButton btnNewButton = new JButton("Registrate ");
-		btnNewButton.setBounds(50, 167, 132, 23);
+		btnNewButton.setBounds(50, 167, 159, 23);
 		contentPane.add(btnNewButton);
 		
 		JButton btnSalir = new JButton("Salir");

@@ -19,7 +19,6 @@ public class ZBanco extends JFrame {
 	private JTextField txtGerente;
 	private JTextField txtSucursal;
 	private JTextField txtComuna;
-	Administrador yo;
 
 	/**
 	 * Launch the application.
@@ -79,6 +78,7 @@ public class ZBanco extends JFrame {
 		JButton btnNewButton = new JButton("Agregar Banco\r\n");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Terminal sistema = new Terminal();
 				POI poiAux = new POI();
 				poiAux = new Banco(poiAux.getId(),poiAux.getNombre(),poiAux.getLatitud(),poiAux.getLongitud(),poiAux.getPalabrasClaves());
 				
@@ -95,8 +95,11 @@ public class ZBanco extends JFrame {
 				int com = Integer.parseInt(comuna);
 				poiAux.setComuna(com);
 				
+				Administrador yo = new Administrador(sistema);
+				
 				yo.agregarBanco((Banco)poiAux);
 				yo.agregarPOI(poiAux);
+				
 				JOptionPane.showMessageDialog(null, "Datos agregados!");
 				
 				ZMenuAdmin volver = new ZMenuAdmin();
