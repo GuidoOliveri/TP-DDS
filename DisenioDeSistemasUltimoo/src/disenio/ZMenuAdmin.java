@@ -12,6 +12,8 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.HashSet;
+import java.util.Set;
 import java.awt.event.ActionEvent;
 
 public class ZMenuAdmin extends JFrame {
@@ -38,6 +40,7 @@ public class ZMenuAdmin extends JFrame {
 	 * Create the frame.
 	 */
 	public ZMenuAdmin() {
+		Set<POI>poisAux = new HashSet<POI>();
 		setTitle("Menu Administrador");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 538, 403);
@@ -79,18 +82,46 @@ public class ZMenuAdmin extends JFrame {
 		contentPane.add(btnModificarpoi);
 		
 		JButton btnEliminarPoi = new JButton("Eliminar POI");
+		btnEliminarPoi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ZEliminarPOI eliminar = new ZEliminarPOI();
+				eliminar.setVisible(true);
+				dispose();
+			}
+		});
 		btnEliminarPoi.setBounds(306, 63, 174, 23);
 		contentPane.add(btnEliminarPoi);
 		
 		JButton btnNewButton = new JButton("Buscar POI");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ZBuscarPOI busco = new ZBuscarPOI();
+				busco.setVisible(true);
+				dispose();
+			}
+		});
 		btnNewButton.setBounds(10, 109, 99, 23);
 		contentPane.add(btnNewButton);
 		
 		JButton btnCalcularCercania = new JButton("Calcular cercania");
+		btnCalcularCercania.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ZCalculoCercania cerc = new ZCalculoCercania();
+				cerc.setVisible(true);
+				dispose();
+			}
+		});
 		btnCalcularCercania.setBounds(157, 109, 139, 23);
 		contentPane.add(btnCalcularCercania);
 		
 		JButton btnCalcularDiponibilidad = new JButton("Calcular diponibilidad");
+		btnCalcularDiponibilidad.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ZCalculoDisponibilidad disp = new ZCalculoDisponibilidad();
+				disp.setVisible(true);
+				dispose();
+			}
+		});
 		btnCalcularDiponibilidad.setBounds(306, 109, 174, 23);
 		contentPane.add(btnCalcularDiponibilidad);
 		
@@ -110,7 +141,7 @@ public class ZMenuAdmin extends JFrame {
 		btnReporteTotalPor.setBounds(181, 205, 185, 23);
 		contentPane.add(btnReporteTotalPor);
 		
-		JButton btnSalir = new JButton("Salir");
+		JButton btnSalir = new JButton("Volver al Inicio");
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Terminal sistema = new Terminal();
@@ -119,7 +150,7 @@ public class ZMenuAdmin extends JFrame {
 				dispose();
 			}
 		});
-		btnSalir.setBounds(391, 205, 89, 23);
+		btnSalir.setBounds(376, 205, 136, 23);
 		contentPane.add(btnSalir);
 		
 		JLabel lblProcesosPosiblesA = new JLabel("Procesos posibles a realizar:");
