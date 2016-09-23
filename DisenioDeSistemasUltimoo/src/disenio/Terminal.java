@@ -15,6 +15,7 @@ import java.util.*;
 //import javax.mail.*;
 //import javax.mail.internet.*;
 import javax.activation.*;
+import javax.swing.JOptionPane;
 
 public class Terminal {
 	
@@ -24,7 +25,7 @@ public class Terminal {
 	
 	private Set<Banco> bancos;
 	
-	private Set<Busqueda> busquedas;
+	public Set<Busqueda> busquedas;
 	
 	private Set<Administrador> admins;
 	
@@ -727,6 +728,7 @@ public class Terminal {
 		if(busquedas.isEmpty())
 		{
 			System.out.println("No hay busquedas\n\n");
+			JOptionPane.showMessageDialog(null, "No hay busquedas");
 		}
 		else
 		{
@@ -736,9 +738,11 @@ public class Terminal {
 				//System.out.print(fecha.getDate()+"/"+(fecha.getMonth()+1)+"/"+(fecha.getYear()+1900));
 				{
 					System.out.println("Usuario: "+admin.getUsuario()+"\n");
+					JOptionPane.showMessageDialog(null, "Usuario: "+admin.getUsuario());
 					for(Busqueda busq:admin.getBusquedas())
 					{
 						System.out.println(busq.getResultados()+"\n");
+						JOptionPane.showMessageDialog(null,busq.getResultados());
 					}
 				}
 			}
@@ -749,9 +753,11 @@ public class Terminal {
 				//System.out.print(fecha.getDate()+"/"+(fecha.getMonth()+1)+"/"+(fecha.getYear()+1900));
 				{
 					System.out.println("Usuario: "+usu.getUsuario()+"\n");
+					JOptionPane.showMessageDialog(null, "Usuario: "+usu.getUsuario());
 					for(Busqueda busq:usu.getBusquedas())
 					{
 						System.out.println(busq.getResultados()+"\n");
+						JOptionPane.showMessageDialog(null, busq.getResultados());
 					}
 				}
 			}

@@ -126,10 +126,23 @@ public class ZMenuAdmin extends JFrame {
 		contentPane.add(btnCalcularDiponibilidad);
 		
 		JButton btnReporteParcialPor = new JButton("Reporte parcial por Usuario");
+		btnReporteParcialPor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Terminal sistema = new Terminal();
+				sistema.reporteParcialPorUsuario();
+			}
+		});
 		btnReporteParcialPor.setBounds(10, 148, 213, 23);
 		contentPane.add(btnReporteParcialPor);
 		
 		JButton btnReportePorBsqueda = new JButton("Reporte por búsqueda");
+		btnReportePorBsqueda.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ZReporteBusqueda busq = new ZReporteBusqueda();
+				busq.setVisible(true);
+				dispose();
+			}
+		});
 		btnReportePorBsqueda.setBounds(267, 148, 213, 23);
 		contentPane.add(btnReportePorBsqueda);
 		
