@@ -14,7 +14,7 @@ import javax.swing.JTextField;
 	
 	/*public HolaMundoSwing() {
 	setLayout(null);
-	texto1=new JLabel("¡Hola Mundo!");
+	texto1=new JLabel("ï¿½Hola Mundo!");
 	texto2=new JLabel("www.geekytheory.com");
 	texto1.setBounds(100,100,200,40);
 	texto2.setBounds(70,140,200,40);
@@ -85,7 +85,7 @@ import javax.swing.JTextField;
 	        texto.setText("Usuario");    // colocamos un texto a la etiqueta
 	        texto.setBounds(150, 25, 100, 25);   // colocamos posicion y tamanio al texto (x, y, ancho, alto)
 	        caja.setBounds(150, 50, 100, 25);   // colocamos posicion y tamanio a la caja (x, y, ancho, alto)
-	        texto2.setText("Contraseña");    // colocamos un texto a la etiqueta
+	        texto2.setText("Contraseï¿½a");    // colocamos un texto a la etiqueta
 	        texto2.setBounds(150, 75,100, 25); 
 	        caja2.setBounds(150, 100, 100, 25);
 	        
@@ -110,8 +110,8 @@ import javax.swing.JTextField;
 	        String contra = caja2.getText();
 	       // if(usuarioExiste(usuario , contra)){}
 	       // JOptionPane.showMessageDialog(this, "Hola " + usuario + ".");    // mostramos un mensaje (frame, mensaje)
-	        Ventacciones VentLoguin = new Ventacciones();      // creamos una ventana
-	        VentLoguin.setVisible(true);
+	        //Ventacciones VentLoguin = new Ventacciones();      // creamos una ventana
+	        //VentLoguin.setVisible(true);
 	      //  vent.setVisible(true);
 	    }
 
