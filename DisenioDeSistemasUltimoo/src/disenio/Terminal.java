@@ -19,27 +19,27 @@ import javax.swing.JOptionPane;
 
 public class Terminal {
 	
-	private Set<POI> pois;
+	public Set<POI> pois;
 	
-	private Set<CGP> cgps;
+	public Set<CGP> cgps;
 	
-	private Set<Banco> bancos;
+	public Set<Banco> bancos;
 	
 	public Set<Busqueda> busquedas;
 	
-	private Set<Administrador> admins;
+	public Set<Administrador> admins;
 	
-	private Set<Usuario> usuarios;
+	public Set<Usuario> usuarios;
 
-	private Set<Date> fechas;
+	public Set<Date> fechas;
 	
-	private Set<String> nicks;
+	public Set<String> nicks;
 
-	private Conexion conex;
+	public Conexion conex;
 
-	private int idAAsignarPoi,idAAsignarAdmin;
+	public int idAAsignarPoi,idAAsignarAdmin;
 	
-	private Boolean usuariosConPrivilegios;
+	public Boolean usuariosConPrivilegios;
 	
 	public Terminal(){
 		pois = new HashSet<POI>();

@@ -147,10 +147,24 @@ public class ZMenuAdmin extends JFrame {
 		contentPane.add(btnReportePorBsqueda);
 		
 		JButton btnReportePorFecha = new JButton("Reporte por fecha");
+		btnReportePorFecha.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ZReportePorFecha fecha = new ZReportePorFecha();
+				fecha.setVisible(true);
+				dispose();
+			}
+		});
 		btnReportePorFecha.setBounds(10, 205, 161, 23);
 		contentPane.add(btnReportePorFecha);
 		
 		JButton btnReporteTotalPor = new JButton("Reporte total Por Usuario");
+		btnReporteTotalPor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ZReporteTotalPorUsuario usu = new ZReporteTotalPorUsuario();
+				usu.setVisible(true);
+				dispose();
+			}
+		});
 		btnReporteTotalPor.setBounds(181, 205, 185, 23);
 		contentPane.add(btnReporteTotalPor);
 		
