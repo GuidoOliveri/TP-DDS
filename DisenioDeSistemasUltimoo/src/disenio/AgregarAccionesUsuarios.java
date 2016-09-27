@@ -7,6 +7,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.swing.JOptionPane;
+
 //hoja del composite
 public class AgregarAccionesUsuarios extends Command {
 	
@@ -24,24 +26,24 @@ public class AgregarAccionesUsuarios extends Command {
 	
 	public void agregarProceso(Command unProceso){
 		
-		System.out.println("No se puede agregar un proceso\n");
+		JOptionPane.showMessageDialog(null, "No se puede agregar un proceso");
 	}
 	 
 	public void remover(Command unProceso){
 		
-		System.out.println("No se puede remover un proceso\n");
+		JOptionPane.showMessageDialog(null,"No se puede remover un proceso");
 	}
 	
 	public void ejecutar(){
 		sistema.setCommandUsuarios(componente);
 		sistema.cambiarPrivilegiosUsuarios(true);
-		System.out.println("\nLos usuarios tienen privilegios\n");
+		JOptionPane.showMessageDialog(null,"Los usuarios tienen privilegios");
 	}	
 	
 	public void deshacer(){
 		sistema.setCommandUsuarios(new Base(sistema));
 		sistema.cambiarPrivilegiosUsuarios(false);
-		System.out.println("\nLos usuarios ya no tienen privilegios\n");
+		JOptionPane.showMessageDialog(null,"Los usuarios ya no tienen privilegios");
 
 	}
 

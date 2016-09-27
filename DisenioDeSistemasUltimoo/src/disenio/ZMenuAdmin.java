@@ -40,6 +40,9 @@ public class ZMenuAdmin extends JFrame {
 	 * Create the frame.
 	 */
 	public ZMenuAdmin() {
+		Terminal sistema = new Terminal();
+		Administrador yo = new Administrador(sistema);
+		
 		Set<POI>poisAux = new HashSet<POI>();
 		setTitle("Menu Administrador");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -68,7 +71,6 @@ public class ZMenuAdmin extends JFrame {
 		JButton btnModificarpoi = new JButton("Modificar POI");
 		btnModificarpoi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Terminal sistema = new Terminal();
 				if (sistema.listarPois()){
 					ZModificarPOI modifico = new ZModificarPOI();
 					modifico.setVisible(true);
@@ -128,7 +130,7 @@ public class ZMenuAdmin extends JFrame {
 		JButton btnReporteParcialPor = new JButton("Reporte parcial por Usuario");
 		btnReporteParcialPor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Terminal sistema = new Terminal();
+				
 				sistema.reporteParcialPorUsuario();
 			}
 		});
@@ -171,7 +173,6 @@ public class ZMenuAdmin extends JFrame {
 		JButton btnSalir = new JButton("Volver al Inicio");
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Terminal sistema = new Terminal();
 				ZMenuPrincipal volver = new ZMenuPrincipal(sistema);
 				volver.setVisible(true);
 				dispose();
@@ -186,18 +187,42 @@ public class ZMenuAdmin extends JFrame {
 		contentPane.add(lblProcesosPosiblesA);
 		
 		JButton btnActualizarComercios = new JButton("Actualizar Comercios");
+		btnActualizarComercios.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				yo.setCommand(new ActualizarComercios(sistema));
+				yo.invoke();
+			}
+		});
 		btnActualizarComercios.setBounds(41, 291, 197, 23);
 		contentPane.add(btnActualizarComercios);
 		
 		JButton btnAgregarAccionesA = new JButton("Agregar acciones a Usuarios");
+		btnAgregarAccionesA.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				yo.setCommand(new AgregarAccionesUsuarios(sistema));
+				yo.invoke();
+			}
+		});
 		btnAgregarAccionesA.setBounds(277, 291, 203, 23);
 		contentPane.add(btnAgregarAccionesA);
 		
 		JButton btnQuitarAccionesA = new JButton("Quitar acciones a usuarios");
+		btnQuitarAccionesA.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				yo.setCommand(new AgregarAccionesUsuarios(sistema));
+				yo.undo();
+			}
+		});
 		btnQuitarAccionesA.setBounds(41, 325, 197, 23);
 		contentPane.add(btnQuitarAccionesA);
 		
 		JButton btnBajaDePois = new JButton("Baja de pois inactivos");
+		btnBajaDePois.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				yo.setCommand(new BajaDePoi(sistema));
+				yo.invoke();
+			}
+		});
 		btnBajaDePois.setBounds(277, 325, 203, 23);
 		contentPane.add(btnBajaDePois);
 	}

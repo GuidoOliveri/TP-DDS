@@ -8,6 +8,8 @@ import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.swing.JOptionPane;
+
 //hoja del composite
 public class BajaDePoi extends Command {
 	
@@ -24,13 +26,13 @@ public class BajaDePoi extends Command {
 
 	public void agregarProceso(Command unProceso){
 		
-		System.out.println("No se puede agregar un proceso\n");
+		JOptionPane.showMessageDialog(null,"No se puede agregar un proceso\n");
 	}
 	
 	
 	public void removerProcesos(){
 		
-		System.out.println("No se puede remover procesos\n");
+		JOptionPane.showMessageDialog(null,"No se puede remover procesos\n");
 	}
 
 	public void ejecutar(){
@@ -40,7 +42,7 @@ public class BajaDePoi extends Command {
 	}
 	
 	public void deshacer(){
-		System.out.println("Nada para deshacer");
+		JOptionPane.showMessageDialog(null,"Nada para deshacer");
 	}
 	
 	public Terminal getSistema(){
@@ -55,11 +57,13 @@ public class BajaDePoi extends Command {
 				if(cgp.getValidez()==false)
 				{
 					getSistema().getCgps().remove(cgp);
-					System.out.println("Nombre del CGP dado de baja: "+cgp.getNombre());
-					System.out.println("Latitud y Longitud del CGP: "+cgp.getLatitud()+";"+cgp.getLongitud());
-					System.out.println("Hora que fue dado de baja: "+dateFormat.format(date));
-					System.out.println("Comuna a la que pertenecia este CGP: "+cgp.getComuna());
-					System.out.println("Domicilio del CGP dado de baja: "+cgp.getDomicilio());
+					JOptionPane.showMessageDialog(null, "Nombre del CGP dado de baja: "+cgp.getNombre()+"\n"+ 
+									"Latitud y Longitud del CGP: "+cgp.getLatitud()+";"+cgp.getLongitud()+"\n"+ 
+									"Hora que fue dado de baja: "+dateFormat.format(date)+"\n"+ 
+									"Comuna a la que pertenecia este CGP: "+cgp.getComuna()+"\n"+ 
+									"Domicilio del CGP dado de baja: "+cgp.getDomicilio()+"\n",
+									"cgp dado de baja", JOptionPane.DEFAULT_OPTION);
+					
 					getSistema().getConexion().update("jdbc:sqlserver://localhost;databaseName=bdpois;integratedSecurity=true","DELETE FROM Tabla_CGPs WHERE id="+cgp.getId()+";");
 				}
 			}
@@ -68,9 +72,12 @@ public class BajaDePoi extends Command {
 				if(banco.getValidez()==false)
 				{
 					getSistema().getCgps().remove(banco);
-					System.out.println("Nombre del banco dado de baja: "+banco.getNombre());
-					System.out.println("Latitud y Longitud del banco: "+banco.getLatitud()+";"+banco.getLongitud());
-					System.out.println("Hora que fue dado de baja: "+dateFormat.format(date));
+					
+					JOptionPane.showMessageDialog(null, "Nombre del banco dado de baja: "+banco.getNombre()+"\n"+ 
+							"Latitud y Longitud del banco: "+banco.getLatitud()+";"+banco.getLongitud()+"\n"+ 
+							"Hora que fue dado de baja: "+dateFormat.format(date)+"\n",
+							"banco dado de baja", JOptionPane.DEFAULT_OPTION);
+					
 					getSistema().getConexion().update("jdbc:sqlserver://localhost;databaseName=bdpois;integratedSecurity=true","DELETE FROM Tabla_Bancos WHERE id="+banco.getId()+";");
 				}
 			}
@@ -78,15 +85,16 @@ public class BajaDePoi extends Command {
 			{
 				if(poi.getValidez()==false){
 					getSistema().getPois().remove(poi);
-					System.out.println("Nombre del POI dado de baja: "+poi.getNombre());
-					System.out.println("Latitud y Longitud del POI: "+poi.getLatitud()+";"+poi.getLongitud());
-					System.out.println("Hora que fue dado de baja: "+dateFormat.format(date));
+					
+					JOptionPane.showMessageDialog(null, "Nombre del POI dado de baja: "+poi.getNombre()+"\n"+ 
+							"Latitud y Longitud del POI: "+poi.getLatitud()+";"+poi.getLongitud()+"\n"+ 
+							"Hora que fue dado de baja: "+dateFormat.format(date)+"\n",
+							"POI dado de baja", JOptionPane.DEFAULT_OPTION);
 
 				}
 			}
+			
 		}
-		
-						
-	
+					
 }
 	

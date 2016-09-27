@@ -34,12 +34,12 @@ public class ActualizarComercios extends Command {
 	
 	public void agregarProceso(Command unProceso){
 		
-		System.out.println("No se puede agregar un proceso\n");
+		JOptionPane.showMessageDialog(null, "No se puede agregar un proceso\n");
 	}
 	
 	public void remover(Command unProceso){
 		
-		System.out.println("No se puede remover un proceso\n");
+		JOptionPane.showMessageDialog(null,"No se puede remover un proceso\n");
 	}
 
 	public void ejecutar(){
@@ -47,7 +47,7 @@ public class ActualizarComercios extends Command {
 	}
 	
 	public void deshacer(){
-		System.out.println("Nada para deshacer");
+		JOptionPane.showMessageDialog(null,"Nada para deshacer");
 	}
 	
 	private Set<String> obtenerArrayPalabrasClave(String palabrasClave){
@@ -72,7 +72,7 @@ public class ActualizarComercios extends Command {
 				//las palabras que actualizo son las que me vienen en el txt
 				
 				 poi.setPalabrasClaves(obtenerArrayPalabrasClave(palabrasClave));
-				 System.out.println("\nPalabras claves actualizadas:"+poi.getPalabrasClaves());
+				 JOptionPane.showMessageDialog(null,"\nPalabras claves actualizadas:"+poi.getPalabrasClaves());
 				 existe = true;
 			}
 		}
@@ -82,7 +82,7 @@ public class ActualizarComercios extends Command {
 		 local.setNombre(nombreFantasia);
 		 local.setPalabrasClaves(obtenerArrayPalabrasClave(palabrasClave));
 		 sistema.agregarPOI(local);
-		 System.out.println("Palabras claves incorporadas a "+local.getNombre()+":"+local.getPalabrasClaves()+"\n");
+		 JOptionPane.showMessageDialog(null,"Palabras claves incorporadas a "+local.getNombre()+":"+local.getPalabrasClaves()+"\n");
 		}
 						
 	
