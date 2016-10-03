@@ -61,12 +61,26 @@ public class ZMenuPrincipal extends JFrame {
 		contentPane.add(btnMenuAdministrador);
 		
 		JButton btnMenuUsuario = new JButton("Menu Usuario");
+		btnMenuUsuario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ZLoguinUsuario logue = new ZLoguinUsuario(sistema);
+				logue.setVisible(true);
+				dispose();
+			}
+		});
 		btnMenuUsuario.setBounds(254, 98, 112, 23);
 		contentPane.add(btnMenuUsuario);
 		
-		JButton btnNewButton = new JButton("Registrate ");
-		btnNewButton.setBounds(50, 167, 159, 23);
-		contentPane.add(btnNewButton);
+		JButton btnRegistrarse = new JButton("Registrate ");
+		btnRegistrarse.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ZRegistrarse regist = new ZRegistrarse(sistema);
+				regist.setVisible(true);
+				dispose();
+			}
+		});
+		btnRegistrarse.setBounds(50, 167, 159, 23);
+		contentPane.add(btnRegistrarse);
 		
 		JButton btnSalir = new JButton("Salir");
 		btnSalir.addActionListener(new ActionListener() {
