@@ -195,13 +195,13 @@ public class Terminal {
 	}
 
 	
-	public Usuario logueo(String nombre, String contrasenia)
+	public Administrador logueo(String nombre, String contrasenia)
 	{
 		for(Usuario unUsuario: usuarios)
 		{
 			if(unUsuario.getUsuario().equals(nombre)&&unUsuario.getContrasenia().equals(contrasenia))
 			{
-				return unUsuario;
+				return (Administrador)unUsuario;
 			}
 		}
 		

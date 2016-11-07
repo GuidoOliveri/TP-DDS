@@ -57,7 +57,7 @@ public class ZBuscarPOIUsuario extends JFrame {
 		
 		setTitle("Buscar POIs\r\n");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 486, 323);
+		setBounds(100, 100, 486, 318);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -88,7 +88,6 @@ public class ZBuscarPOIUsuario extends JFrame {
 		});
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
 				String texto = "";
 				texto = txtBuscar.getText();
 				

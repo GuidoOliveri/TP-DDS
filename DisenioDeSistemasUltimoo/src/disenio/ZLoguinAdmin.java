@@ -92,7 +92,7 @@ public class ZLoguinAdmin extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			final ZDatosAdmin data = new ZDatosAdmin(sistema,txt_usuario.getText(),pss_contrasenia.getText());
 			if(data.probarPass()==1){
-				Administrador yo = new Administrador(sistema,txt_usuario.getText(),pss_contrasenia.getText(),sistema.getPoiActual());
+				Administrador yo = sistema.logueo(txt_usuario.getText(), pss_contrasenia.getText());
 				JOptionPane.showMessageDialog(null, "Bienvenido al sistema de POIs Admin!");
 				ZMenuAdmin admin = new ZMenuAdmin(sistema,yo);
 				admin.setVisible(true);
