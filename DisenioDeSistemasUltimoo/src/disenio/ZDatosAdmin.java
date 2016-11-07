@@ -1,30 +1,21 @@
 package disenio;
 
 public class ZDatosAdmin {
-	public ZDatosAdmin() {
-		
+	
+	private Terminal sistema;
+	private String usuario,contrasenia;
+	
+	public ZDatosAdmin(Terminal sistema,String usu,String contra) {
+		this.sistema=sistema;
+		this.usuario=usu;
+		this.contrasenia=contra;
 	}
-	String usuario1 =  "";
-	String pass1=  "";
 	
 	public int probarPass(){
 	
-		Terminal sistema = new Terminal();
-		
-		Administrador unAdmin1=new Administrador("pepe","argento",sistema);
-		Administrador unAdmin2=new Administrador("lionel","messi",sistema);
-		Administrador unAdmin3=new Administrador("caruso","lombardi",sistema);
-		
-		sistema.agregarAdmin(unAdmin1);
-		sistema.agregarAdmin(unAdmin2);
-		sistema.agregarAdmin(unAdmin3);
-
-		usuario1 = ZLoguinAdmin.txt_usuario.getText();
-		pass1 = ZLoguinAdmin.pss_contraseña.getText();
-		
 		Administrador yo;
 		
-		if(null!=(yo = (Administrador)(sistema.logueo(usuario1,pass1)))){
+		if(null!=(yo = (Administrador)(sistema.logueo(usuario,(String)contrasenia)))){
 			return 1;
 		}
 		else {

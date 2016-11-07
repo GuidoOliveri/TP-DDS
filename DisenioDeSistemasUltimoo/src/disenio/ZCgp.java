@@ -22,16 +22,16 @@ public class ZCgp extends JFrame {
 	private JTextField txtDomicilio;
 	private JTextField txtTel;
 	private JTextField txtServicios;
+	private Terminal sistema;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public void main() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ZCgp frame = new ZCgp();
-					frame.setVisible(true);
+					setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -42,7 +42,8 @@ public class ZCgp extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ZCgp() {
+	public ZCgp(Terminal sistema,Administrador yo) {
+		this.sistema=sistema;
 		setTitle("Datos del CGP");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -108,10 +109,7 @@ public class ZCgp extends JFrame {
 		JButton btnAgregarCgp = new JButton("Agregar CGP");
 		btnAgregarCgp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Terminal sistema = new Terminal();
-				Administrador yo = new Administrador(sistema);
-				POI poiAux = new POI();
-				poiAux = new CGP(poiAux.getId(),poiAux.getNombre(),poiAux.getLatitud(),poiAux.getLongitud(),poiAux.getPalabrasClaves());
+				POI poiAux = new CGP();
 				
 				String comuna = "";
 				comuna = txtComuna.getText();
@@ -120,30 +118,30 @@ public class ZCgp extends JFrame {
 				
 				String zonas = "";
 				zonas = txtZonas.getText();
-				poiAux.setGerente(zonas);
+				poiAux.setZonas(zonas);
 				
 				String director = "";
 				director = txtDirector.getText();
-				poiAux.setSucursal(director);
+				poiAux.setDirector(director);
 				
 				String domicilio = "";
 				domicilio = txtDomicilio.getText();
-				poiAux.setSucursal(domicilio);
+				poiAux.setDomicilio(domicilio);
 				
 				String tel = "";
-				tel = txtComuna.getText();
+				tel = txtTel.getText();
 				int t = Integer.parseInt(tel);
-				poiAux.setComuna(t);
+				poiAux.setTelefono(t);
 				
 				String servicios = "";
 				servicios = txtServicios.getText();
-				poiAux.setSucursal(servicios);
+				poiAux.setServicios(servicios);
 				
 				yo.agregarCgp((CGP)poiAux);
 				yo.agregarPOI(poiAux);
 				JOptionPane.showMessageDialog(null, "Datos agregados!");
 				
-				ZMenuAdmin volver = new ZMenuAdmin();
+				ZMenuAdmin volver = new ZMenuAdmin(sistema,yo);
 				volver.setVisible(true);
 				dispose();
 				

@@ -1,135 +1,123 @@
 package disenio;
 
 import javax.swing.JOptionPane;
+import java.io.Serializable;
+import java.io.Serializable;
+import java.util.List;
+import javax.persistence.*;
+import org.hibernate.annotations.IndexColumn;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Set;
-public class POI {
 
-	private Boolean validez;
-	private int radioLimite,id;
-	private String  tipo,nombre;		
-	private Horario disponibilidadHoraria;
-	private Set<String> palabrasClaves;
-	public List<String> palabras;
-	public Cercania tipoCercania;
-	private double latitud=0,longitud=0;
-	private int comuna,altura;
-	private String calle;
+//@Entity
+//@Table(name="POI")
+public class POI implements Serializable{
 
-	public POI(String nombre, double latitud, double longitud, Set<String> palabras) {
-
-		palabrasClaves = palabras;
+	
+    public POI(int id, int altura, int comuna, int horaApertura, int horaCierre, int diaApertura, int diaCierre,
+			int id_horario, int radioLimite, String nombre, String tipo, String calle, Set<PalabraClave> palabrasClave,
+			Boolean validez, Cercania tipoCercania, float latitud, float longitud) {
+		super();
+		this.id_poi = id;
+		this.altura = altura;
+		this.comuna = comuna;
+		this.horaApertura = horaApertura;
+		this.horaCierre = horaCierre;
+		this.diaApertura = diaApertura;
+		this.diaCierre = diaCierre;
+		this.id_horario = id_horario;
+		this.radioLimite = radioLimite;
 		this.nombre = nombre;
+		this.tipo = tipo;
+		this.calle = calle;
+		this.palabrasClave = palabrasClave;
+		this.validez = validez;
+		this.tipoCercania = tipoCercania;
 		this.latitud = latitud;
 		this.longitud = longitud;
-		radioLimite=5;
-		tipoCercania=new MismaComuna();
-		palabrasClaves.add(nombre);
-		validez = true;
-	}
-	
-	public POI()
-	{
-		palabrasClaves=new HashSet<String>();
-		validez = true;
-	}
-	
-	public String getNombre() {
-		return nombre;
 	}
 
+	private int id_poi, altura, comuna,horaApertura,horaCierre,diaApertura,diaCierre,id_horario,radioLimite;
+    
+    private String nombre,calle;
+    
+	private Set<PalabraClave> palabrasClave;
+	
+	private Set<Busqueda> busquedas;
+	
+	private Set<Usuario> usuarios;
+	
+    private String tipo;
+	
+	private Boolean validez;
+	
+	private Cercania tipoCercania;
+	
+	private float latitud=0,longitud=0;
+
+	public POI(String nombre,String calle,int altura,int comuna,Set<PalabraClave> palabras) {
+		this.palabrasClave=palabras;
+		this.id_poi=0;
+		this.nombre=nombre;
+		this.calle=calle;
+		this.altura=altura;
+		this.comuna=comuna;
+	}
+
+	public POI()
+	{
+		palabrasClave=new HashSet<PalabraClave>();
+		//validez = true;
+	}
+	
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
+	
+    //@Column(name="tipo_poi")
 	public String getTipo() {
 		return tipo;
 	}
-
-
 
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
 
-
-
+    //@Column(name="validez_poi")
 	public Boolean getValidez() {
 		return validez;
 	}
-
-
 
 	public void setValidez(Boolean validez) {
 		this.validez = validez;
 	}
 
-	public double getLatitud() {
+    //@Column(name="latitud_poi")
+	public float getLatitud() {
 		return latitud;
 	}
-	public void setLatitud(double latitud) {
+	public void setLatitud(float latitud) {
 		this.latitud = latitud;
 	}
-	public double getLongitud() {
+	
+    //@Column(name="longitud_poi")
+	public float getLongitud() {
 		return longitud;
 	}
-	public void setLongitud(double longitud) {
+	public void setLongitud(float longitud) {
 		this.longitud = longitud;
 	}
-	public void setComuna(int comuna) {
-	}
-	public int getAltura() {
-		return altura;
-	}
-	public void setAltura(int altura) {
-		this.altura = altura;
-	}
-	public String getCalle() {
-		return calle;
-	}
-	public void setCalle(String calle) {
-		this.calle = calle;
-	}
-
-
+	
+    //@Column(name="radioLimite_poi")
 	public int getRadioLimite() {
 		return radioLimite;
 	}
 
-
 	public void setRadioLimite(int radioLimite) {
 		this.radioLimite = radioLimite;
-	}
-
-
-	public Set<String> getPalabrasClaves() {
-		return palabrasClaves;
-	}
-
-
-
-	public void agregarPalabrasClaves(String palabraClave) {
-		this.palabrasClaves.add(palabraClave);
-	}
-
-
-	public Horario getDisponibilidadHoraria() {
-		return disponibilidadHoraria;
-	}
-
-
-
-	public void setDisponibilidadHoraria(int horaA, int horaC, int diaA, int diaC) {
-		this.disponibilidadHoraria = new Horario(horaA,horaC,diaA,diaC);
-	}
-	
-	
-	//OTROS METODOS
-	
-	public Boolean esValido(){
-		return ((nombre.trim().length()==0)&&(getLongitud()!=0)&&(getLatitud()!=0));
 	}
 	
 	public double aCuantoEstoyDe(double latitudPOI, double longitudPOI){
@@ -150,35 +138,87 @@ public class POI {
 	}
 	
 	
-	public Boolean calculoDeDisponibilidad(){
-		Date fechaActual = new Date();
-		if((fechaActual.getHours()<disponibilidadHoraria.getHoraCierre())&&(fechaActual.getHours()>disponibilidadHoraria.getHoraApertura())&&(fechaActual.getDay()>=disponibilidadHoraria.getDiaApertura())&&(fechaActual.getDay()<disponibilidadHoraria.getDiaCierre()))
-			return true;
-		else return false;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public void setDisponibilidadHoraria(Horario disponibilidadHoraria) {
-		this.disponibilidadHoraria = disponibilidadHoraria;
+	public Cercania getTipoCercania() {
+		return tipoCercania;
 	}
 	
-	public void setPalabrasClaves(Set<String> palabrasClaves) {
-		this.palabrasClaves = palabrasClaves;
+	public void setTipoCercania(Cercania tipoCercania) {
+		this.tipoCercania = tipoCercania;
 	}
-	
+
+	public int getHoraApertura() {
+		return horaApertura;
+	}
+
+	public void setHoraApertura(int horaApertura) {
+		this.horaApertura = horaApertura;
+	}
+
+	public int getHoraCierre() {
+		return horaCierre;
+	}
+
+	public void setHoraCierre(int horaCierre) {
+		this.horaCierre = horaCierre;
+	}
+
+	public int getDiaApertura() {
+		return diaApertura;
+	}
+
+	public void setDiaApertura(int diaApertura) {
+		this.diaApertura = diaApertura;
+	}
+
+	public int getDiaCierre() {
+		return diaCierre;
+	}
+
+	public void setDiaCierre(int diaCierre) {
+		this.diaCierre = diaCierre;
+	}
+
+	public int getId_horario() {
+		return id_horario;
+	}
+
+	public void setId_horario(int id_horario) {
+		this.id_horario = id_horario;
+	}
+
 	
 	public void listar()
 	{
-		System.out.println("Id:"+id+"\nNombre:"+nombre+"\nLatitud:"+latitud+"\nLongitud:"+longitud+"\n");//algunos datos de ejemplo
+		System.out.println("Id:"+id_poi+"\nNombre:"+nombre+"\nLatitud:"+latitud+"\nLongitud:"+longitud+"\n");//algunos datos de ejemplo
 	}
 	
+
+	public void agregarPalabraClave(PalabraClave palabraClave) {
+		this.palabrasClave.add(palabraClave);
+	}
+
+	public Boolean esValido(){
+		return ((nombre.trim().length()==0)&&(getLongitud()!=0)&&(getLatitud()!=0));
+	}
+
+	
+	public Boolean calculoDeDisponibilidad(){
+		Date fechaActual = new Date();
+		if((fechaActual.getHours()<getHoraCierre())&&(fechaActual.getHours()>getHoraApertura())&&(fechaActual.getDay()>=getDiaApertura())&&(fechaActual.getDay()<getDiaCierre()))
+			return true;
+		else return false;
+	}
+	
+	
+	public void setId(int id) {
+		this.id_poi = id;
+	}
+	
+	public void setPalabrasClaves(Set<PalabraClave> palabrasClaves) {
+		this.palabrasClave = palabrasClaves;
+	}
+	
+
 	public void setTelefono(int telefono) {
 		
 	}
@@ -198,14 +238,6 @@ public class POI {
 	public void setDomicilio(String domicilio) {
 	
 	}
-	
-	public Cercania getTipoCercania() {
-		return tipoCercania;
-	}
-	
-	public void setTipoCercania(Cercania tipoCercania) {
-		this.tipoCercania = tipoCercania;
-	}
 
 	public void agregarservicios(String servicio) {
 	}
@@ -215,10 +247,111 @@ public class POI {
 	
 	public void setSucursal(String sucursal) {
 	}
+	
+/*
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name="id_poi")
+    */
+	public int getId() {
+		return id_poi;
+	}
+
+
+    //@Column(name="nombre_poi")
+	public String getNombre() {
+		return nombre;
+	}
+    
+    //@Column(name="altura_poi")
+	public int getAltura() {
+		return altura;
+	}
+    
+    //@Column(name="direccion_poi")
+	public String getCalle() {
+		return calle;
+	}
+
+    //@Column(name="comuna_poi")
 	public int getComuna() {
 		return comuna;
 	}
 
+    /*
+    @OneToMany(cascade= CascadeType.ALL)
+    @JoinColumn(name="id_POI")
+    @IndexColumn(name="idx")
+    */
+	public Set<PalabraClave> getPalabrasClave() {
+		return palabrasClave;
+	}
+
+	public void setComuna(int comuna) {
+		this.comuna = comuna;
+	}
+
+
+
+	public void setAltura(int altura) {
+		this.altura = altura;
+	}
+
+
+
+	public void setCalle(String calle) {
+		this.calle = calle;
+	}
+
+
+
+	public int getId_poi() {
+		return id_poi;
+	}
+
+
+
+	public void setId_poi(int id_poi) {
+		this.id_poi = id_poi;
+	}
+
+
+
+	public Set<Busqueda> getBusquedas() {
+		return busquedas;
+	}
+
+
+
+	public void setBusquedas(Set<Busqueda> busquedas) {
+		this.busquedas = busquedas;
+	}
+
+
+
+	public Set<Usuario> getUsuarios() {
+		return usuarios;
+	}
+
+
+
+	public void setUsuarios(Set<Usuario> usuarios) {
+		this.usuarios = usuarios;
+	}
+
+
+
+	public void setPalabrasClave(Set<PalabraClave> palabrasClave) {
+		this.palabrasClave = palabrasClave;
+	}
+	
+	public void setDisponibilidadHoraria(int horaA,int horaC,int diaA,int diaC)
+	{
+		this.horaApertura=horaA;
+		this.horaCierre=horaC;
+		this.diaApertura=diaA;
+		this.diaCierre=diaC;
+	}
 
 }
 

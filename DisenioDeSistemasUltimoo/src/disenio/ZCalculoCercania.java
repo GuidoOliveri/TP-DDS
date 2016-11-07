@@ -28,16 +28,16 @@ public class ZCalculoCercania extends JFrame {
 	private JPanel contentPane;
 	private JTextField txtCerc;
 	private JTable table;
+	private Terminal sistema;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public void main() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ZCalculoCercania frame = new ZCalculoCercania();
-					frame.setVisible(true);
+					setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -48,7 +48,8 @@ public class ZCalculoCercania extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ZCalculoCercania() {
+	public ZCalculoCercania(Terminal sistema,Administrador yo) {
+		this.sistema=sistema;
 		Set<POI>poisAux = new HashSet<POI>();
 		
 		setTitle("Calculo de Cercania \r\n");
@@ -79,9 +80,6 @@ public class ZCalculoCercania extends JFrame {
 		JButton btnCalculando = new JButton("Calculando cercania... ");
 		btnCalculando.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Terminal sistema = new Terminal();
-				Administrador yo = new Administrador(sistema);
-				
 				String texto = "";
 				texto = txtCerc.getText();
 				
@@ -125,7 +123,7 @@ public class ZCalculoCercania extends JFrame {
 		JButton btnNewButton = new JButton("Volver");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				ZMenuAdmin volver = new ZMenuAdmin();
+				ZMenuAdmin volver = new ZMenuAdmin(sistema,yo);
 				volver.setVisible(true);
 				dispose();
 			}

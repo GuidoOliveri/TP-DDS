@@ -22,27 +22,25 @@ import java.awt.Frame;
 public class ZLoguinUsuario extends JFrame {
 
 	private JPanel contentPane;
-	
+	private Terminal sistema;
 	public static JTextField txt_usuario;
 	
 	// OJO CON ESTE MAIN AGREGADO
-/*	public static void main(Terminal sistema) {
-
+	public void main() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ZLoguinUsuario frame = new ZLoguinUsuario(sistema);
-					frame.setVisible(true);
+					setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
-	}*/
+	}
 	
 	
 	public ZLoguinUsuario(Terminal sistema) {
-		
+		this.sistema=sistema;
 		setTitle("Evento de logueo");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -62,7 +60,7 @@ public class ZLoguinUsuario extends JFrame {
 		getContentPane().add(txt_usuario);
 		txt_usuario.setColumns(10);
 		
-		JLabel lblContrasea = new JLabel("Contraseña:");
+		JLabel lblContrasea = new JLabel("Contrasenia:");
 		lblContrasea.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblContrasea.setBounds(75, 85, 103, 14);
 		getContentPane().add(lblContrasea);
@@ -77,25 +75,26 @@ public class ZLoguinUsuario extends JFrame {
 		btnCancelar.setBounds(257, 177, 103, 42);
 		getContentPane().add(btnCancelar);
 		
-		pss_contraseña = new JPasswordField();
-		pss_contraseña.setBounds(206, 84, 86, 20);
-		getContentPane().add(pss_contraseña);
+		pss_contrasenia = new JPasswordField();
+		pss_contrasenia.setBounds(206, 84, 86, 20);
+		getContentPane().add(pss_contrasenia);
 		Cancelar canc = new Cancelar();
 		btnCancelar.addActionListener(canc);
 			
 	}
 	
-	final ZDatosUsuario data = new ZDatosUsuario();
-	public static JPasswordField pss_contraseña;
+
+	public static JPasswordField pss_contrasenia;
 	private class EventoLog implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
+			final ZDatosUsuario data = new ZDatosUsuario(sistema,txt_usuario.getText(),pss_contrasenia.getText());
 			if(data.probarPass()==1){
 				JOptionPane.showMessageDialog(null, "Bienvenido al sistema de POIs Usuario!");
-				ZMenuUsuario usu = new ZMenuUsuario();
+				ZMenuUsuario usu = new ZMenuUsuario(sistema,data.getUsu());
 				usu.setVisible(true);
 				dispose();
 			}else{
-				JOptionPane.showMessageDialog(null, "ERROR, usuario o contraseña incorrectos");
+				JOptionPane.showMessageDialog(null, "ERROR, usuario o contrasenia incorrectos");
 			}
 		}
 	}
@@ -103,7 +102,6 @@ public class ZLoguinUsuario extends JFrame {
 	
 	private class Cancelar implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-			Terminal sistema = new Terminal();
 			ZMenuPrincipal mio = new ZMenuPrincipal(sistema);
 			mio.setVisible(true);
 			dispose();

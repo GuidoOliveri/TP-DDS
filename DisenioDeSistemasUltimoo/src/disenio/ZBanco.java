@@ -19,16 +19,15 @@ public class ZBanco extends JFrame {
 	private JTextField txtGerente;
 	private JTextField txtSucursal;
 	private JTextField txtComuna;
-
+	private Terminal sistema;
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public void main() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ZBanco frame = new ZBanco();
-					frame.setVisible(true);
+					setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -39,7 +38,8 @@ public class ZBanco extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ZBanco() {
+	public ZBanco(Terminal sistema,Administrador yo) {
+		this.sistema=sistema;
 		setTitle("Datos del Banco");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -78,9 +78,7 @@ public class ZBanco extends JFrame {
 		JButton btnNewButton = new JButton("Agregar Banco\r\n");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Terminal sistema = new Terminal();
-				POI poiAux = new POI();
-				poiAux = new Banco(poiAux.getId(),poiAux.getNombre(),poiAux.getLatitud(),poiAux.getLongitud(),poiAux.getPalabrasClaves());
+				Banco poiAux = new Banco();
 				
 				String gerente = "";
 				gerente = txtGerente.getText();
@@ -95,14 +93,13 @@ public class ZBanco extends JFrame {
 				int com = Integer.parseInt(comuna);
 				poiAux.setComuna(com);
 				
-				Administrador yo = new Administrador(sistema);
 				
 				yo.agregarBanco((Banco)poiAux);
 				yo.agregarPOI(poiAux);
 				
 				JOptionPane.showMessageDialog(null, "Datos agregados!");
 				
-				ZMenuAdmin volver = new ZMenuAdmin();
+				ZMenuAdmin volver = new ZMenuAdmin(sistema,yo);
 				volver.setVisible(true);
 				dispose();
 				

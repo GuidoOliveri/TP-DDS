@@ -23,11 +23,11 @@ import javax.swing.JPasswordField;
 public class ZLoguinAdmin extends JFrame {
 	
 	private JPanel contentPane;
-	
+	private Terminal sistema;
 	public static JTextField txt_usuario;
 	
 	// OJO CON ESTE MAIN AGREGADO
-	public static void main(Terminal sistema) {
+	public void main() {
 
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -43,7 +43,7 @@ public class ZLoguinAdmin extends JFrame {
 	
 	
 	public ZLoguinAdmin(Terminal sistema) {
-		
+		this.sistema=sistema;
 		setTitle("Evento de logueo");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -78,25 +78,27 @@ public class ZLoguinAdmin extends JFrame {
 		btnCancelar.setBounds(257, 177, 103, 42);
 		getContentPane().add(btnCancelar);
 		
-		pss_contraseña = new JPasswordField();
-		pss_contraseña.setBounds(206, 84, 86, 20);
-		getContentPane().add(pss_contraseña);
+		pss_contrasenia = new JPasswordField();
+		pss_contrasenia.setBounds(206, 84, 86, 20);
+		getContentPane().add(pss_contrasenia);
 		Cancelar canc = new Cancelar();
 		btnCancelar.addActionListener(canc);
 			
 	}
 	
-	final ZDatosAdmin data = new ZDatosAdmin();
-	public static JPasswordField pss_contraseña;
+
+	public static JPasswordField pss_contrasenia;
 	private class EventoLog implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
+			final ZDatosAdmin data = new ZDatosAdmin(sistema,txt_usuario.getText(),pss_contrasenia.getText());
 			if(data.probarPass()==1){
+				Administrador yo = new Administrador(sistema,txt_usuario.getText(),pss_contrasenia.getText(),sistema.getPoiActual());
 				JOptionPane.showMessageDialog(null, "Bienvenido al sistema de POIs Admin!");
-				ZMenuAdmin admin = new ZMenuAdmin();
+				ZMenuAdmin admin = new ZMenuAdmin(sistema,yo);
 				admin.setVisible(true);
 				dispose();
 			}else{
-				JOptionPane.showMessageDialog(null, "ERROR, usuario o contraseña incorrectos");
+				JOptionPane.showMessageDialog(null, "ERROR, usuario o contrasenia incorrectos");
 			}
 		}
 	}
@@ -104,7 +106,6 @@ public class ZLoguinAdmin extends JFrame {
 	
 	private class Cancelar implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-			Terminal sistema = new Terminal();
 			ZMenuPrincipal mio = new ZMenuPrincipal(sistema);
 			mio.setVisible(true);
 			dispose();

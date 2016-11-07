@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+                                         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+  <hibernate-mapping package="disenio">
+    <class name="Usuario" table="Usuario"> 
+		<id name="id_usuario" column="id_usuario">
+			<generator class="identity" />
+		</id> 
+		<property name="usuario" type="string" column="usuario" /> 
+		<property name="contrasenia" type="string" column="contrasenia" /> 
+        <set name="busquedas" cascade="all">
+        	 <key column="id_usuario"/>
+       	 	 <one-to-many class="Busqueda"/>
+        </set> 
+        <many-to-one name="miPoi" column="id_poi" class="POI" not-null="false"/>
+	</class>
+  </hibernate-mapping>
+  

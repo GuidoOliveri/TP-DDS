@@ -27,17 +27,18 @@ public class ZDatosComunes extends JFrame {
 	private JTextField txtLongitud;
 	private JTextField txtTipo;
 	String tipoPOI = "";
+	private Terminal sistema;
 	
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	
+	public void main() {
 
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ZDatosComunes frame = new ZDatosComunes();
-					frame.setVisible(true);
+					setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -48,7 +49,8 @@ public class ZDatosComunes extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ZDatosComunes() {
+	public ZDatosComunes(Terminal sistema,Administrador yo) {
+		this.sistema=sistema;
 		setTitle("POI a Agregar");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -106,7 +108,6 @@ public class ZDatosComunes extends JFrame {
 		txtLongitud.setColumns(10);
 		
 		POI poiAux =new POI();
-		Terminal sistema = new Terminal();
 		
 		JButton btnNewButton = new JButton("Agregar datos");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -114,7 +115,7 @@ public class ZDatosComunes extends JFrame {
 
 				String etiqueta = "";
 				etiqueta = txtEtiqueta.getText();
-				poiAux.agregarPalabrasClaves(etiqueta);
+				poiAux.agregarPalabraClave(new PalabraClave(etiqueta));
 				
 				String nombre = "";
 				nombre = txtNombre.getText();
@@ -132,7 +133,8 @@ public class ZDatosComunes extends JFrame {
 				int lon = Integer.parseInt(longitud);
 				poiAux.setLongitud(lon);
 				
-				sistema.asignarIdPoi(poiAux);
+				sistema.agregarPOI(poiAux);
+				sistema.persistirPOI(poiAux);
 				
 				JOptionPane.showMessageDialog(null, "Datos agregados correctamente");
 				
@@ -140,24 +142,24 @@ public class ZDatosComunes extends JFrame {
 				tipoPOI= txtTipo.getText();
 				
 				if(tipoPOI.equalsIgnoreCase("banco")){
-					ZBanco banco = new ZBanco();
+					ZBanco banco = new ZBanco(sistema,yo);
 					banco.setVisible(true);
 					dispose();
 				}
 				else if (tipoPOI.equalsIgnoreCase("cgp")){
-					ZCgp cgp = new ZCgp();
+					ZCgp cgp = new ZCgp(sistema,yo);
 					cgp.setVisible(true);
 					dispose();
 				} else if (tipoPOI.equalsIgnoreCase("kiosco")){
-					ZMenuAdmin menu = new ZMenuAdmin();
+					ZMenuAdmin menu = new ZMenuAdmin(sistema,yo);
 					menu.setVisible(true);
 					dispose();
 				} else if (tipoPOI.equalsIgnoreCase("Libreria")){
-					ZMenuAdmin menu1 = new ZMenuAdmin();
+					ZMenuAdmin menu1 = new ZMenuAdmin(sistema,yo);
 					menu1.setVisible(true);
 					dispose();
 				} else if (tipoPOI.equalsIgnoreCase("Otro")){
-					ZMenuAdmin menu2 = new ZMenuAdmin();
+					ZMenuAdmin menu2 = new ZMenuAdmin(sistema,yo);
 					menu2.setVisible(true);
 					dispose();
 				}
@@ -179,7 +181,7 @@ public class ZDatosComunes extends JFrame {
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ZAgregarPoi volver = new ZAgregarPoi();
+				ZAgregarPoi volver = new ZAgregarPoi(sistema,yo);
 				volver.setVisible(true);
 				dispose();
 			}

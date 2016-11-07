@@ -16,9 +16,13 @@ import java.util.Set;
 import javax.swing.JButton;
 
 public class ZRegistrarse extends JFrame {
-	public static JTextField pss_contraseña;
+	
+	private Terminal sistema;
+	public static JTextField pss_contrasenia;
 	public static JTextField txt_usuario;
+	
 	public ZRegistrarse(Terminal sistema) {
+		this.sistema=sistema;
 		setBounds(100, 100, 450, 300);
 		setTitle("Registro de un nuevo Usuario");
 		getContentPane().setLayout(null);
@@ -32,14 +36,14 @@ public class ZRegistrarse extends JFrame {
 		getContentPane().add(txt_usuario);
 		txt_usuario.setColumns(10);
 		
-		JLabel lblIngreseUnaContrasea = new JLabel("Ingrese una contraseña");
+		JLabel lblIngreseUnaContrasea = new JLabel("Ingrese una contrasenia");
 		lblIngreseUnaContrasea.setBounds(134, 127, 177, 14);
 		getContentPane().add(lblIngreseUnaContrasea);
 		
-		pss_contraseña = new JPasswordField();
-		pss_contraseña.setBounds(134, 167, 143, 20);
-		getContentPane().add(pss_contraseña);
-		pss_contraseña.setColumns(10);
+		pss_contrasenia = new JPasswordField();
+		pss_contrasenia.setBounds(134, 167, 143, 20);
+		getContentPane().add(pss_contrasenia);
+		pss_contrasenia.setColumns(10);
 		
 		JButton btnAceptar = new JButton("Aceptar");
 		btnAceptar.setBounds(307, 211, 89, 23);
@@ -52,7 +56,6 @@ public class ZRegistrarse extends JFrame {
 	
 	private class Aceptar implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-			Terminal sistema = new Terminal();
 			ZMenuPrincipal mio = new ZMenuPrincipal(sistema);
 			mio.setVisible(true);
 			dispose();
@@ -61,15 +64,14 @@ public class ZRegistrarse extends JFrame {
 	
     }
 	
-	final ZDatosUsuario data = new ZDatosUsuario();
-	public Terminal sistema;
 	
 	private class EventoLog implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
+			final ZDatosUsuario data = new ZDatosUsuario(sistema,txt_usuario.getText(),pss_contrasenia.getText());
 			if(data.registrarUsu()==1)
 			{
 				JOptionPane.showMessageDialog(null, "Se ha registrado con exito!");
-				ZMenuUsuario admin = new ZMenuUsuario();
+				ZMenuUsuario admin = new ZMenuUsuario(sistema,data.getUsu());
 				admin.setVisible(true);
 				dispose();
 			}else{

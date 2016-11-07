@@ -12,10 +12,19 @@ import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
-//import javax.mail.*;
-//import javax.mail.internet.*;
 import javax.activation.*;
 import javax.swing.JOptionPane;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.HashSet;
+import java.util.Set;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.service.ServiceRegistry;
+
+import org.hibernate.Session;
 
 public class Terminal {
 	
@@ -36,12 +45,13 @@ public class Terminal {
 	public Set<String> nicks;
 
 	public Conexion conex;
-
-	public int idAAsignarPoi,idAAsignarAdmin;
 	
 	public Boolean usuariosConPrivilegios;
 	
-	public Terminal(){
+	public POI poiActual;
+	
+	public Terminal(POI poiActual){
+		this.poiActual=poiActual;
 		pois = new HashSet<POI>();
 		cgps= new HashSet<CGP>();
 		bancos = new HashSet<Banco>();
@@ -49,8 +59,6 @@ public class Terminal {
 		admins = new HashSet<Administrador>();
 		usuarios = new HashSet<Usuario>();
 		conex = new Conexion();
-		idAAsignarPoi=0;
-		idAAsignarAdmin=0;
 		fechas =new HashSet<Date>();
 		nicks = new HashSet<String>();
 		usuariosConPrivilegios=false;
@@ -72,11 +80,67 @@ public class Terminal {
 		pois.add(unPoi);
 	}
 	
+	public void persistirUsuario(Usuario o)
+	{
+        SessionFactory sessionFactory;
+        Configuration configuration = new Configuration();
+        configuration.configure();
+        ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
+        
+        sessionFactory = configuration.buildSessionFactory();
+        
+        Session session=sessionFactory.openSession();
+        session.beginTransaction();
+        
+        session.saveOrUpdate(o);
+
+        session.getTransaction().commit();
+        session.close();
+	}
+	
+	public void persistirPOI(POI o)
+	{
+        SessionFactory sessionFactory;
+        Configuration configuration = new Configuration();
+        configuration.configure();
+        ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
+        
+        sessionFactory = configuration.buildSessionFactory();
+        
+        Session session=sessionFactory.openSession();
+        session.beginTransaction();
+        
+        session.saveOrUpdate(o);
+
+        session.getTransaction().commit();
+        session.close();
+	}
+	
+	public void persistirBusqueda(Busqueda o)
+	{
+        SessionFactory sessionFactory;
+        Configuration configuration = new Configuration();
+        configuration.configure();
+        ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
+        
+        sessionFactory = configuration.buildSessionFactory();
+        
+        Session session=sessionFactory.openSession();
+        session.beginTransaction();
+        
+        session.saveOrUpdate(o);
+
+        session.getTransaction().commit();
+        session.close();
+	}
+	
+	
 	public Boolean agregarAdmin(Administrador admin)
 	{
 		if(!nickOcupado(admin.getUsuario()))
 		{
 		nicks.add(admin.getUsuario());
+		
 		return admins.add(admin);
 		}
 		else
@@ -129,11 +193,6 @@ public class Terminal {
 		else
 			return false;
 	}
-	
-	public void asignarIdPoi(POI unPoi)
-	{
-		unPoi.setId(idAAsignarPoi);
-	}
 
 	
 	public Usuario logueo(String nombre, String contrasenia)
@@ -158,9 +217,10 @@ public class Terminal {
 
 	public static int menuAdmin(Terminal sistema)
 	{
-		int opcion,opcionLogueo,valor,tipoPoi,idABuscar,latitud = 0,longitud = 0,masPalabras=1,comuna;
+		int opcion,opcionLogueo,tipoPoi,idABuscar,latitud = 0,longitud = 0,masPalabras=1,comuna;
 		Boolean exito=false;
 		String usu,cont,texto,nombre,director,gerente,zonas;
+		float valor;
 
 		Set<POI>poisAux = new HashSet<POI>();
 		
@@ -198,7 +258,7 @@ public class Terminal {
 				capt.nextLine();
 				System.out.println("Ingrese una etiqueta para identificar al poi");
 				texto=capt.nextLine();
-				poiAux.agregarPalabrasClaves(texto);
+				poiAux.agregarPalabraClave(new PalabraClave(texto));
 				
 				System.out.println("Quiere agregar mas etiquetas?");
 				System.out.println("1-Si\n2-No");
@@ -212,18 +272,17 @@ public class Terminal {
 			texto=capt.nextLine();
 			poiAux.setNombre(texto);
 			System.out.println("Ingrese latitud de poi");
-			valor=capt.nextInt();
+			valor=capt.nextFloat();
 			poiAux.setLatitud(valor);
 			System.out.println("Ingrese longitud de poi");
-			valor=capt.nextInt();
+			valor=capt.nextFloat();
 			poiAux.setLongitud(valor);
 			//y demas datos...
 			
-		    sistema.asignarIdPoi(poiAux);
 
 		     switch (tipoPoi) {
-	            case 1:  poiAux = new Banco(poiAux.getId(),poiAux.getNombre(),poiAux.getLatitud(),poiAux.getLongitud(),poiAux.getPalabrasClaves());
-						capt.nextLine();
+	            case 1:  poiAux = new Banco(poiAux.getId(),poiAux.getNombre(),poiAux.getCalle(),poiAux.getAltura(),poiAux.getComuna(),poiAux.getPalabrasClave(),poiAux.getLatitud(),poiAux.getLongitud());
+	            capt.nextLine();
 	            		System.out.println("Ingrese gerente del banco");
 						texto=capt.nextLine();
 						poiAux.setGerente(texto);
@@ -234,18 +293,18 @@ public class Terminal {
 						
 						System.out.println("Ingrese comuna que cubre el banco");
 						valor=capt.nextInt();
-						poiAux.setComuna(valor);
+						poiAux.setComuna((int)valor);
 						capt.nextLine();
 
 						yo.agregarBanco((Banco)poiAux);
 	                     break;
 	                     
-	            case 2:  poiAux = new CGP(poiAux.getId(),poiAux.getNombre(),poiAux.getLatitud(),poiAux.getLongitud(),poiAux.getPalabrasClaves());
+	            case 2:  poiAux = new CGP(poiAux.getId(),poiAux.getNombre(),poiAux.getLatitud(),poiAux.getLongitud(),poiAux.getPalabrasClave());
 	       
 	
 						System.out.println("Ingrese comuna que cubre el CGP");
 						valor=capt.nextInt();
-						poiAux.setComuna(valor);
+						poiAux.setComuna((int) valor);
 	            
 						capt.nextLine();
 						System.out.println("Ingrese zonas que cubre el CGP");
@@ -262,7 +321,7 @@ public class Terminal {
 						
 						System.out.println("Ingrese telefono del CGP");
 						valor=capt.nextInt();
-						poiAux.setTelefono(valor);
+						poiAux.setTelefono((int) valor);
 						
 						capt.nextLine();
 						System.out.println("Ingrese servicios del CGP");
@@ -274,15 +333,15 @@ public class Terminal {
 						
 	                     break;
 	                     
-	            case 3:  poiAux = new Kiosco(poiAux.getId(),poiAux.getNombre(),poiAux.getLatitud(),poiAux.getLongitud(),poiAux.getPalabrasClaves());
+	            case 3:  poiAux = new Kiosco(poiAux.getId(),poiAux.getNombre(),poiAux.getLatitud(),poiAux.getLongitud(),poiAux.getPalabrasClave());
 
 	                     break;
 	                     
-	            case 4:  poiAux = new Libreria(poiAux.getId(),poiAux.getNombre(),poiAux.getLatitud(),poiAux.getLongitud(),poiAux.getPalabrasClaves());
+	            case 4:  poiAux = new Libreria(poiAux.getId(),poiAux.getNombre(),poiAux.getLatitud(),poiAux.getLongitud(),poiAux.getPalabrasClave());
 	            
 	                     break;
 	                     
-	            case 5:  poiAux = new ParadaColectivo(poiAux.getId(),poiAux.getNombre(),poiAux.getLatitud(),poiAux.getLongitud(),poiAux.getPalabrasClaves());
+	            case 5:  poiAux = new ParadaColectivo(poiAux.getId(),poiAux.getNombre(),poiAux.getLatitud(),poiAux.getLongitud(),poiAux.getPalabrasClave());
 	            
 	            
 	                     break;
@@ -493,11 +552,12 @@ public class Terminal {
 		String texto,usu,cont;
 		Scanner capt= new Scanner(System.in);
 		Set<POI>poisAux = new HashSet<POI>();
-		Set<String> palabras = new HashSet<String>();
-		palabras.add("utn");
-		palabras.add("facultad");
-		POI poiAux = new POI("Utn",34,34,palabras);
-		sistema.asignarIdPoi(poiAux);
+		Set<PalabraClave> palabras = new HashSet<PalabraClave>();
+		palabras.add(new PalabraClave("utn"));
+		palabras.add(new PalabraClave("facultad"));
+		POI poiAux = new POI("Utn","Medrano",951,4,palabras);
+		poiAux.setLatitud((float) -34.5985524);
+		poiAux.setLongitud((float) -58.4202828);
 		Usuario yo = null;
 		
 			System.out.println("Ingrese Usuario");
@@ -601,18 +661,30 @@ public class Terminal {
 
 	public static void main(String[] args)
 	{
-		Terminal sistema=new Terminal();
-		int opcion;
-		String texto;
+		Set<PalabraClave> palabras = new HashSet<PalabraClave>();
+		palabras.add(new PalabraClave("utn"));
+		palabras.add(new PalabraClave("facultad"));
+		POI poiActual = new POI("Utn","Medrano",951,4,palabras);
+		poiActual.setLatitud((float) -34.5985524);
+		poiActual.setLongitud((float) -58.4202828);
+		Terminal sistema=new Terminal(poiActual);
+		sistema.agregarPOI(poiActual);
+		sistema.persistirPOI(poiActual);
 		Scanner scanner= new Scanner(System.in);
-		Administrador unAdmin1=new Administrador("pepe","argento",sistema);
-		Administrador unAdmin2=new Administrador("lionel","messi",sistema);
-		Administrador unAdmin3=new Administrador("caruso","lombardi",sistema);
+		Administrador unAdmin1=new Administrador(sistema,"pepe","argento",poiActual);
+		Administrador unAdmin2=new Administrador(sistema,"lionel","messi",poiActual);
+		Administrador unAdmin3=new Administrador(sistema,"caruso","lombardi",poiActual);
 		
 		sistema.agregarAdmin(unAdmin1);
 		sistema.agregarAdmin(unAdmin2);
 		sistema.agregarAdmin(unAdmin3);
-
+		
+		
+		ZPrueboACA ventana = new ZPrueboACA(sistema);
+		
+		ventana.ejecutar();
+		
+		
 		/* caso de prueba para el de BajaDePoi, no funciona todavia
 		BajaDePoi baja = new BajaDePoi();
 		POI poi = new POI();
@@ -649,6 +721,8 @@ public class Terminal {
 			System.out.println(colectivo.getPalabrasClaves());
 		*/
 		
+		/*
+		
 		System.out.println("Bienvenido al sistema de busqueda de POIS\n\n");
 
 		do
@@ -680,6 +754,8 @@ public class Terminal {
 		}while(opcion!=4);
 		
 		scanner.close();
+		*/
+		
 }
 
 
@@ -705,7 +781,7 @@ public class Terminal {
 		usu=scanner.nextLine();
 		System.out.println("Ingrese contrase�a");
 		contra=scanner.nextLine();
-		if(agregarUsuario(new Usuario(sistema,usu,contra)))
+		if(agregarUsuario(new Usuario(sistema,usu,contra,sistema.getPoiActual())))
 		{
 			System.out.println("Registrado exitosamente");
 			return true;
@@ -713,14 +789,6 @@ public class Terminal {
 		else
 			System.out.println("El nombre de usuario ingresado ya existe");
 			return false;
-	}
-
-	public int getIdAAsignarPoi() {
-		return idAAsignarPoi;
-	}
-
-	public void setIdAAsignarPoi(int nuevoId) {
-		this.idAAsignarPoi = nuevoId;
 	}
 
 	public void reporteParcialPorUsuario()
@@ -735,6 +803,7 @@ public class Terminal {
 			for(Administrador admin:admins)
 			{
 				if(!admin.getBusquedas().isEmpty())
+					
 				//System.out.print(fecha.getDate()+"/"+(fecha.getMonth()+1)+"/"+(fecha.getYear()+1900));
 				{
 					System.out.println("Usuario: "+admin.getUsuario()+"\n");
@@ -782,7 +851,7 @@ public class Terminal {
 				{
 					for(Busqueda busq:admin.getBusquedas())
 					{
-						cantidad = cantidad + busq.getResultados();
+						cantidad += busq.getResultados().size();
 					}
 				}
 				System.out.print(cantidad+"     \n");
@@ -796,7 +865,7 @@ public class Terminal {
 				{
 					for(Busqueda busq:usu.getBusquedas())
 					{
-						cantidad = cantidad + busq.getResultados();
+						cantidad += busq.getResultados().size();
 					}
 				}
 				System.out.print(cantidad+"     \n");
@@ -815,7 +884,7 @@ public class Terminal {
 			System.out.println("Frase buscada             Cantidad de resultados             Tiempo de respuesta\n");
 			for(Busqueda busq:busquedas)
 			{
-				System.out.println("'"+busq.getFrase()+"'"+"              "+busq.getResultados()+"                         "+busq.getTiempo()+"\n");
+				System.out.println("'"+busq.getFrase()+"'"+"              "+busq.getResultados().size()+"                         "+busq.getTiempo()+"\n");
 			}
 		}
 	}
@@ -861,13 +930,6 @@ public class Terminal {
 		this.fechas = fechas;
 	}
 
-	public int getIdAAsignarAdmin() {
-		return idAAsignarAdmin;
-	}
-
-	public void setIdAAsignarAdmin(int idAAsignarAdmin) {
-		this.idAAsignarAdmin = idAAsignarAdmin;
-	}
 	
 	public void setCommandUsuarios(Command unCommand)
 	{
@@ -963,5 +1025,39 @@ public class Terminal {
 	public void cambiarPrivilegiosUsuarios(Boolean valor)
 	{
 		usuariosConPrivilegios = valor;
+	}
+
+	public POI getPoiActual() {
+		return poiActual;
+	}
+
+	public void setPoiActual(POI poiActual) {
+		this.poiActual = poiActual;
+	}
+	
+	public POI obtenerPoi(int id)
+	{
+		for(CGP cgp:getCgps())
+		{
+			if(cgp.getId()==id)
+			{
+				return cgp;
+			}
+		}
+		for(Banco banco:getBancos())
+		{
+			if(banco.getId()==id)
+			{
+				return banco;
+			}
+		}
+		for(POI poi:getPois())
+		{
+			if(poi.getId()==id)
+			{
+				return poi;
+			}
+		}
+		return null;
 	}
 }

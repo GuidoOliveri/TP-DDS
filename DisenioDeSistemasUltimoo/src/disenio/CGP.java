@@ -10,20 +10,28 @@ public class CGP extends POI {
 	private int telefono;
 	
 
-		public CGP (int horaA, int horaC, int diaA, int diaC) {
+		public CGP (int id,int horaA, int horaC, int diaA, int diaC) {
 			super();
     		setDisponibilidadHoraria(horaA,horaC,diaA, diaC);
-    		tipoCercania=new MismaComuna();
-
+    		setTipoCercania(new MismaComuna());
+    		setId(id);
         }
+		public CGP(int id)
+		{
+			setId(id);
+		}
+		
 		public CGP()
 		{
-			
+			super();
 		}
 
-		public CGP (int id,String nombre,double latitud, double longitud,Set<String> palabras) {
-			super(nombre, latitud,longitud,palabras);
-	    	setId(id);
+		public CGP (int id,String nombre,float latitud, float longitud,Set<PalabraClave> palabras) {
+			setId(id);
+			setNombre(nombre);
+			setLatitud(latitud);
+			setLongitud(longitud);
+			setPalabrasClave(palabras);
         }
 
 		public String getZonas() {
@@ -33,7 +41,7 @@ public class CGP extends POI {
 
 		public void setZonas(String zonas) {
 			this.zonas = zonas;
-    		super.getPalabrasClaves().add(zonas);
+    		getPalabrasClave().add(new PalabraClave(zonas));
 		}
 
 
@@ -54,7 +62,7 @@ public class CGP extends POI {
 
 		public void setDomicilio(String domicilio) {
 			this.domicilio = domicilio;
-    		super.getPalabrasClaves().add(domicilio);
+    		getPalabrasClave().add(new PalabraClave(domicilio));
 		}
 
 

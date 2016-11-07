@@ -22,16 +22,16 @@ public class ZEliminarPOI extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
+	private Terminal sistema;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public void main() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ZEliminarPOI frame = new ZEliminarPOI();
-					frame.setVisible(true);
+					setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -42,7 +42,8 @@ public class ZEliminarPOI extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ZEliminarPOI() {
+	public ZEliminarPOI(Terminal sistema,Administrador yo) {
+		this.sistema=sistema;
 		setTitle("POI a Eliminar");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -57,9 +58,6 @@ public class ZEliminarPOI extends JFrame {
 				boolean exito;
 				exito=false;
 				
-				Terminal sistema = new Terminal();
-				Administrador yo = new Administrador(sistema);
-				
 					if(sistema.listarPois())
 					{
 						do
@@ -72,6 +70,7 @@ public class ZEliminarPOI extends JFrame {
 							
 							if(exito=yo.eliminarPOI(idABuscar))
 							{
+								
 								JOptionPane.showMessageDialog(null, "Eliminado exitosamente\n\n");
 							}
 							
@@ -83,7 +82,7 @@ public class ZEliminarPOI extends JFrame {
 					else
 						JOptionPane.showMessageDialog(null, "No hay pois");
 					
-					ZMenuAdmin admin = new ZMenuAdmin();
+					ZMenuAdmin admin = new ZMenuAdmin(sistema,yo);
 					admin.setVisible(true);
 					dispose();
 				}
@@ -111,7 +110,7 @@ public class ZEliminarPOI extends JFrame {
 		JButton btnNewButton_1 = new JButton("Volver\r\n");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ZMenuAdmin volver = new ZMenuAdmin();
+				ZMenuAdmin volver = new ZMenuAdmin(sistema,yo);
 				volver.setVisible(true);
 				dispose();
 			}

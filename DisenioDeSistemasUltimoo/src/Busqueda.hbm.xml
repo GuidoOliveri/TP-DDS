@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+                                         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+
+  <hibernate-mapping package="disenio">
+    <class name="Busqueda" table="Busqueda"> 
+		<id name="id_busqueda" column="id_busqueda">
+			<generator class="identity" />
+		</id> 
+		<property name="fecha" column="fecha" /> 
+		<property name="frase" type="string" column="frase" />
+		<property name="tiempo" type="float" column="tiempo" /> 
+        <many-to-one name="usuario" column="id_usuario" class="Usuario" not-null="false"/>
+        
+        <set name="resultados" table="Busqueda_Poi" inverse="false" lazy="true" fetch="select" cascade="all">
+            <key column="id_busqueda" />
+			<many-to-many column="id_poi" class="POI" />
+        </set>
+	</class>
+  </hibernate-mapping>
+  

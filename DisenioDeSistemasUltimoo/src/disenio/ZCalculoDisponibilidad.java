@@ -29,16 +29,16 @@ public class ZCalculoDisponibilidad extends JFrame {
 	private JPanel contentPane;
 	private JTextField txtDisp;
 	private JTable table;
+	private Terminal sistema;
 	
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public void main() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ZCalculoDisponibilidad frame = new ZCalculoDisponibilidad();
-					frame.setVisible(true);
+					setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -49,8 +49,8 @@ public class ZCalculoDisponibilidad extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ZCalculoDisponibilidad() {
-
+	public ZCalculoDisponibilidad(Terminal sistema,Administrador yo) {
+		this.sistema=sistema;
 		setTitle("Calculo de la disponibilidad ");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -80,8 +80,6 @@ public class ZCalculoDisponibilidad extends JFrame {
 		btnCalculandoDisponibilidad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Set<POI>poisAux = new HashSet<POI>();
-				Terminal sistema = new Terminal();
-				Administrador yo = new Administrador(sistema);
 				
 				String texto = "";
 				texto = txtDisp.getText();
@@ -122,7 +120,7 @@ public class ZCalculoDisponibilidad extends JFrame {
 		JButton btnNewButton = new JButton("Volver");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ZMenuAdmin volver = new ZMenuAdmin();
+				ZMenuAdmin volver = new ZMenuAdmin(sistema,yo);
 				volver.setVisible(true);
 				dispose();
 			}

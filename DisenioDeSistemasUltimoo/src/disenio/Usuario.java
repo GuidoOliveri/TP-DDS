@@ -8,31 +8,32 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Usuario {
-		private Busqueda busquedaAux;
+	
 		private POI miPoi;
-		private Terminal sistema;
-		private Set<POI> poisAux;
-		private Set<Busqueda> busquedas;
-		private ArrayList<Boolean> accionesDelUsuario;
 		private String usuario, contrasenia;
+		private Set<Busqueda> busquedas;
+		private int id_usuario;
+		private Terminal sistema;
 		private Command command;
-
-		public Usuario(Terminal unSistema) {
-			sistema=unSistema;
-			poisAux=new HashSet<POI>();
-			this.busquedas = new HashSet<Busqueda>();
-			command = new Base(sistema);
-		}
 		
-		public Usuario(Terminal unSistema,String usuario,String contrasenia) {
-			sistema=unSistema;
-			poisAux=new HashSet<POI>();
-			this.busquedas = new HashSet<Busqueda>();
+		public Usuario(Terminal sistema,String usuario,String contrasenia,POI unPoi) {
+			this.sistema=sistema;
 			this.usuario=usuario;
 			this.contrasenia=contrasenia;
-			command = new Base(sistema);
+			this.miPoi=unPoi;
+			this.id_usuario=0;
 		}
 		
+		public Usuario(Terminal sistema) {
+			this.id_usuario=0;
+			this.sistema=sistema;
+		}
+		
+		public Usuario() {
+			this.id_usuario=0;
+		}
+
+
 		//GET / SET
 		
 		public POI obtenerPOI(){
@@ -60,18 +61,20 @@ public class Usuario {
 		
 		public void agregarBusqueda(Busqueda unaBusqueda)
 		{
+			sistema.persistirBusqueda(unaBusqueda);
 			getBusquedas().add(unaBusqueda);
 		}
 		
 		public Set<POI> buscarPoi(String palabra){  
+			Set<POI> poisAux = new HashSet<POI>();
+			Busqueda busquedaAux;
 			Calendar fecha = new GregorianCalendar();
-			getPoisAux().clear();
 			long tfinal,tinicial=System.currentTimeMillis();
 			if(!getSistema().getPois().isEmpty())
 				for (POI poi:getSistema().getPois()){
-					if(poi.getPalabrasClaves().contains(palabra))
+					if(poi.getPalabrasClave().contains(palabra))
 					{
-						getPoisAux().add(poi);
+						poisAux.add(poi);
 					}
 				}
 			try {
@@ -81,17 +84,18 @@ public class Usuario {
 				e.printStackTrace();
 			}
 			tfinal=System.currentTimeMillis();
-			setBusquedaAux(new Busqueda(fecha.getTime(),getPoisAux().size(),((tfinal-tinicial)/1000),palabra,this));
+			busquedaAux = new Busqueda(fecha.getTime(),poisAux,((tfinal-tinicial)/1000),palabra,this);
 			
-			agregarBusqueda(getBusquedaAux());
+			agregarBusqueda(busquedaAux);
 			
-			getSistema().getBusquedas().add(getBusquedaAux());
+			getSistema().getBusquedas().add(busquedaAux);
+			
+			getSistema().persistirBusqueda(busquedaAux);
 
 			getSistema().agregarFecha(fecha.getTime());
 			
-			// getSistema().notificarPorMail((tfinal-tinicial)/1000, 1);
 			
-			return getPoisAux();
+			return poisAux;
 		}
 		
 		Boolean meQuedaCerca(POI unPoi){
@@ -102,22 +106,6 @@ public class Usuario {
 			return poi.calculoDeDisponibilidad();
 		}
 
-		public Busqueda getBusquedaAux() {
-			return busquedaAux;
-		}
-
-		public void setBusquedaAux(Busqueda busquedaAux) {
-			this.busquedaAux = busquedaAux;
-		}
-
-		public Set<POI> getPoisAux() {
-			return poisAux;
-		}
-
-		public void setPoisAux(Set<POI> poisAux) {
-			this.poisAux = poisAux;
-		}
-
 		public Set<Busqueda> getBusquedas() {
 			return busquedas;
 		}
@@ -125,7 +113,7 @@ public class Usuario {
 		public void setBusquedas(Set<Busqueda> busquedas) {
 			this.busquedas = busquedas;
 		}
-
+/*
 		public ArrayList<Boolean> getAccionesDelUsuario() {
 			return accionesDelUsuario;
 		}
@@ -133,7 +121,7 @@ public class Usuario {
 		public void setAccionesDelUsuario(ArrayList<Boolean> accionesDelUsuario) {
 			this.accionesDelUsuario = accionesDelUsuario;
 		}
-
+*/
 		public String getUsuario() {
 			return usuario;
 		}
@@ -168,6 +156,24 @@ public class Usuario {
 
 		public Command getCommand() {
 			return command;
+		}
+		
+		private void setId(int id)
+		{
+			this.id_usuario = id;
+		}
+		
+		public int getId()
+		{
+			return id_usuario;
+		}
+
+		public int getId_usuario() {
+			return id_usuario;
+		}
+
+		public void setId_usuario(int id_usuario) {
+			this.id_usuario = id_usuario;
 		}
 
 	}

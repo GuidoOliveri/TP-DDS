@@ -30,16 +30,16 @@ public class ZBuscarPOI extends JFrame {
 	private JPanel contentPane;
 	private JTextField txtBuscar;
 	private JTable table;
+	private Terminal sistema;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public void main() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ZBuscarPOI frame = new ZBuscarPOI();
-					frame.setVisible(true);
+					setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -50,7 +50,8 @@ public class ZBuscarPOI extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ZBuscarPOI() {
+	public ZBuscarPOI(Terminal sistema,Administrador yo) {
+		this.sistema=sistema;
 		Set<POI>poisAux = new HashSet<POI>();
 		poisAux.clear();
 		
@@ -87,9 +88,6 @@ public class ZBuscarPOI extends JFrame {
 		});
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Terminal sistema = new Terminal();
-				Administrador yo = new Administrador(sistema);
-				
 				String texto = "";
 				texto = txtBuscar.getText();
 				
@@ -128,7 +126,7 @@ public class ZBuscarPOI extends JFrame {
 		JButton btnNewButton_1 = new JButton("Volver");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				ZMenuAdmin volver = new ZMenuAdmin();
+				ZMenuAdmin volver = new ZMenuAdmin(sistema,yo);
 				volver.setVisible(true);
 				dispose();
 			}

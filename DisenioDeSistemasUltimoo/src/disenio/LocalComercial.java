@@ -6,9 +6,12 @@ public class LocalComercial extends POI {
     public LocalComercial () {
     		super();
         } 
-    public LocalComercial(String nombre, double latitud, double longitud,Set<String> palabras)
+    public LocalComercial(String nombre, float latitud, float longitud,Set<PalabraClave> palabras)
     {
-    	super(nombre, latitud, longitud,palabras);
+    	setNombre(nombre);
+    	setLatitud(latitud);
+    	setLongitud(longitud);
+    	setPalabrasClave(palabras);
     }
 	
 }

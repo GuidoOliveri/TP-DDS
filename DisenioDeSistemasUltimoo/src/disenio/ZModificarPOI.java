@@ -22,16 +22,16 @@ public class ZModificarPOI extends JFrame {
 	private JTextField txtZonas;
 	private JTextField txtDirector;
 	private JTextField txtGerente;
+	private Terminal sistema;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public void main() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ZModificarPOI frame = new ZModificarPOI();
-					frame.setVisible(true);
+					setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -42,7 +42,8 @@ public class ZModificarPOI extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ZModificarPOI() {
+	public ZModificarPOI(Terminal sistema,Administrador yo) {
+		this.sistema=sistema;
 		setTitle("Moficar POI existente");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -50,15 +51,6 @@ public class ZModificarPOI extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
-		JLabel lblIngreseNuevoId = new JLabel("Ingrese nuevo ID:");
-		lblIngreseNuevoId.setBounds(29, 34, 118, 23);
-		contentPane.add(lblIngreseNuevoId);
-		
-		txtId = new JTextField();
-		txtId.setBounds(173, 35, 118, 20);
-		contentPane.add(txtId);
-		txtId.setColumns(10);
 		
 		JLabel lblIngreseNuevoNombre = new JLabel("Ingrese nuevo nombre:");
 		lblIngreseNuevoNombre.setBounds(29, 79, 130, 14);
@@ -112,9 +104,6 @@ public class ZModificarPOI extends JFrame {
 		JButton btnModificarlo = new JButton("Modificarlo");
 		btnModificarlo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// despues cambiar esto al main para que lo reciba por argumento
-				Terminal sistema = new Terminal ();
-				Administrador yo = new Administrador(sistema);
 				
 				boolean exito;
 				exito=false;
@@ -142,14 +131,15 @@ public class ZModificarPOI extends JFrame {
 					gerente = txtGerente.getText();
 					
 					if(exito=yo.modificarPOI(idABuscar,nombre, comuna, zonas, director,gerente))
-						
+					{
+						sistema.persistirPOI(sistema.obtenerPoi(idABuscar));
 						JOptionPane.showMessageDialog(null, "Modificado exitosamente\n\n");
-					
+					}
 					else
 						JOptionPane.showMessageDialog(null,"Hubo un problema, intente nuevamente\n\n");
 
 				}while(!exito);
-				ZMenuAdmin admin = new ZMenuAdmin();
+				ZMenuAdmin admin = new ZMenuAdmin(sistema,yo);
 				admin.setVisible(true);
 				dispose();
 			}

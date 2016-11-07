@@ -22,16 +22,16 @@ public class ZReporteTotalPorUsuario extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
+	private Terminal sistema;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public void main() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ZReporteTotalPorUsuario frame = new ZReporteTotalPorUsuario();
-					frame.setVisible(true);
+					setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -42,8 +42,8 @@ public class ZReporteTotalPorUsuario extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ZReporteTotalPorUsuario() {
-		
+	public ZReporteTotalPorUsuario(Terminal sistema,Administrador yo) {
+		this.sistema=sistema;
 		setTitle("Reporte total por usuario\r\n");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -66,7 +66,6 @@ public class ZReporteTotalPorUsuario extends JFrame {
 		JButton btnIniciarReporteTotal = new JButton("Iniciar Reporte Total Por Usuario");
 		btnIniciarReporteTotal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Terminal sistema = new Terminal();
 				
 				int numCols = table.getModel().getColumnCount();
 				Object [] fila = new Object[numCols]; 
@@ -84,7 +83,7 @@ public class ZReporteTotalPorUsuario extends JFrame {
 						{
 							for(Busqueda busq:admin.getBusquedas())
 							{
-								cantidad = cantidad + busq.getResultados();
+								cantidad += busq.getResultados().size();
 							}
 						}
 						fila[1] = cantidad;
@@ -96,7 +95,7 @@ public class ZReporteTotalPorUsuario extends JFrame {
 						{
 							for(Busqueda busq:usu.getBusquedas())
 							{
-								cantidad = cantidad + busq.getResultados();
+								cantidad += busq.getResultados().size();
 							}
 						}
 						fila[1] = cantidad;
@@ -110,7 +109,7 @@ public class ZReporteTotalPorUsuario extends JFrame {
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ZMenuAdmin volver1 = new ZMenuAdmin();
+				ZMenuAdmin volver1 = new ZMenuAdmin(sistema,yo);
 				volver1.setVisible(true);
 				dispose();
 			}

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+                                         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+
+  <hibernate-mapping package="disenio">
+    <class name="PalabraClave" table="PalabraClave"> 
+		<id name="id_palabra" column="id_palabra">
+			<generator class="identity" />
+		</id> 
+		<property name="frase" type="string" column="frase" /> 
+        <set name="pois" table="Palabra_Poi"
+			inverse="true" lazy="true" fetch="select">
+			<key column="id_poi" />
+			<many-to-many column="id_palabra" class="PalabraClave" />
+		</set>
+	</class>
+  </hibernate-mapping>
+  

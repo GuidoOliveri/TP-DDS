@@ -20,16 +20,16 @@ public class ZReportePorFecha extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
+	private Terminal sistema;
 	
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ZReportePorFecha frame = new ZReportePorFecha();
-					frame.setVisible(true);
+					setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -40,8 +40,8 @@ public class ZReportePorFecha extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ZReportePorFecha() {
-
+	public ZReportePorFecha(Terminal sistema,Administrador yo) {
+		this.sistema=sistema;
 		setTitle("Reporte Por Fecha\r\n");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -65,7 +65,6 @@ public class ZReportePorFecha extends JFrame {
 		JButton btnIniciarReportePor = new JButton("Iniciar Reporte Por Fecha");
 		btnIniciarReportePor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Terminal sistema = new Terminal();
 				int cantidadDeBusquedas;
 				if(sistema.fechas.isEmpty())
 				{
@@ -99,7 +98,7 @@ public class ZReportePorFecha extends JFrame {
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ZMenuAdmin volver = new ZMenuAdmin();
+				ZMenuAdmin volver = new ZMenuAdmin(sistema,yo);
 				volver.setVisible(true);
 				dispose();
 			}

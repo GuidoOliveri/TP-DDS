@@ -9,9 +9,12 @@ public class Libreria extends LocalComercial{
 	    setDisponibilidadHoraria(horaA,horaC,diaA,diaC);        
     	setRadioLimite(5);
     } 
-    public Libreria(int id,String nombre, double latitud, double longitud,Set<String> palabras){
-		super(nombre,latitud,longitud,palabras);
+    public Libreria(int id,String nombre, float latitud, float longitud,Set<PalabraClave> palabras){
     	setId(id);
+    	setNombre(nombre);
+    	setLatitud(latitud);
+    	setLongitud(longitud);
+    	setPalabrasClave(palabras);
     	setRadioLimite(5);
     }
 	

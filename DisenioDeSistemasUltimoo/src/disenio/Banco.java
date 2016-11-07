@@ -19,18 +19,27 @@ public class Banco extends POI{
 	private String gerente, sucursal;
 	private  Set<String> serviciosC;
 	
-    public Banco (int horaA,int horaC, int diaA, int diaC) {
+    public Banco (int id,int horaA,int horaC, int diaA, int diaC) {
     	super();
+    	setId(id);
 	    setDisponibilidadHoraria(horaA,horaC,diaA,diaC); 
 		serviciosC = new HashSet<String>();
     }
+    
+    public Banco (int id) {
+    	super();
+    	setId(id);
+    }
+    
     
     public Banco () {
     	super();
     }
     
-    public Banco(int id,String nombre, double latitud, double longitud,Set<String> palabras){
-		super(nombre,latitud,longitud,palabras);
+    public Banco(int id,String nombre,String calle,int altura,int comuna,Set<PalabraClave> palabras,float latitud,float longitud){
+		super(nombre,calle,altura,comuna,palabras);
+		setLatitud(latitud);
+		setLongitud(longitud);
     	setId(id);
     }
     	

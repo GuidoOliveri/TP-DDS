@@ -15,11 +15,11 @@ import java.awt.event.ActionEvent;
 public class ZMenuPrincipal extends JFrame {
 
 	private JPanel contentPane;
-
+	private Terminal sistema;
 	/**
 	 * Launch the application.
 	 */
-	public static void main(Terminal sistema) {
+	public void main() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -36,6 +36,7 @@ public class ZMenuPrincipal extends JFrame {
 	 * Create the frame.
 	 */
 	public ZMenuPrincipal(Terminal sistema) {
+		this.sistema=sistema;
 		setTitle("Sistema de POIs");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -44,7 +45,7 @@ public class ZMenuPrincipal extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblBienvenidoAlSistema = new JLabel("Bienvenido al Sistema de POIs, eliga una opcion:");
+		JLabel lblBienvenidoAlSistema = new JLabel("Bienvenido al Sistema de POIs, elija una opcion:");
 		lblBienvenidoAlSistema.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblBienvenidoAlSistema.setBounds(63, 22, 361, 23);
 		contentPane.add(lblBienvenidoAlSistema);

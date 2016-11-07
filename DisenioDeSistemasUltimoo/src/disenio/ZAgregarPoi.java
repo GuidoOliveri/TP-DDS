@@ -15,16 +15,15 @@ import java.awt.event.ActionEvent;
 public class ZAgregarPoi extends JFrame {
 
 	private JPanel contentPane;
-
+	private Terminal sistema;
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public void main() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ZAgregarPoi frame = new ZAgregarPoi();
-					frame.setVisible(true);
+					setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -35,7 +34,8 @@ public class ZAgregarPoi extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ZAgregarPoi() {
+	public ZAgregarPoi(Terminal sistema,Administrador yo) {
+		this.sistema= sistema;
 		setTitle("Tipo de POI");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -52,7 +52,7 @@ public class ZAgregarPoi extends JFrame {
 		JButton btnBanco = new JButton("Banco");
 		btnBanco.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ZDatosComunes banco = new ZDatosComunes();
+				ZDatosComunes banco = new ZDatosComunes(sistema,yo);
 				banco.setVisible(true);
 				dispose();
 			}
@@ -63,7 +63,7 @@ public class ZAgregarPoi extends JFrame {
 		JButton btnNewButton = new JButton("CGP");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ZDatosComunes cgp = new ZDatosComunes();
+				ZDatosComunes cgp = new ZDatosComunes(sistema,yo);
 				cgp.setVisible(true);
 				dispose();
 			}
@@ -74,7 +74,7 @@ public class ZAgregarPoi extends JFrame {
 		JButton btnKiosco = new JButton("Kiosco");
 		btnKiosco.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ZDatosComunes kiosco = new ZDatosComunes();
+				ZDatosComunes kiosco = new ZDatosComunes(sistema,yo);
 				kiosco.setVisible(true);
 				dispose();
 			}
@@ -85,7 +85,7 @@ public class ZAgregarPoi extends JFrame {
 		JButton btnLibreria = new JButton("Libreria");
 		btnLibreria.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ZDatosComunes lib = new ZDatosComunes();
+				ZDatosComunes lib = new ZDatosComunes(sistema,yo);
 				lib.setVisible(true);
 				dispose();
 			}
@@ -96,7 +96,7 @@ public class ZAgregarPoi extends JFrame {
 		JButton btnParadaColectivo = new JButton("Parada Colectivo");
 		btnParadaColectivo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ZDatosComunes bondi = new ZDatosComunes();
+				ZDatosComunes bondi = new ZDatosComunes(sistema,yo);
 				bondi.setVisible(true);
 				dispose();
 			}
@@ -107,7 +107,7 @@ public class ZAgregarPoi extends JFrame {
 		JButton btnOtro = new JButton("Otro");
 		btnOtro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ZDatosComunes otro = new ZDatosComunes();
+				ZDatosComunes otro = new ZDatosComunes(sistema,yo);
 				otro.setVisible(true);
 				dispose();
 			}
@@ -118,7 +118,7 @@ public class ZAgregarPoi extends JFrame {
 		JButton btnNewButton_1 = new JButton("Volver\r\n");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ZMenuAdmin volver = new ZMenuAdmin();
+				ZMenuAdmin volver = new ZMenuAdmin(sistema,yo);
 				volver.setVisible(true);
 				dispose();
 			}

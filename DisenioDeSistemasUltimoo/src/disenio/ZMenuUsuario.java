@@ -7,7 +7,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class ZMenuUsuario extends JFrame {
-	public ZMenuUsuario() {
+	
+	private Terminal sistema;
+	
+	public ZMenuUsuario(Terminal sistema,Usuario yo) {
+		this.sistema=sistema;
 		setBounds(100, 100, 450, 300);
 		setTitle("Menu del Usuario");
 		getContentPane().setLayout(null);
@@ -15,10 +19,9 @@ public class ZMenuUsuario extends JFrame {
 		JButton btnBuscarPuntoDe = new JButton("Buscar Punto de interes");
 		btnBuscarPuntoDe.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ZBuscarPOIUsuario mio = new ZBuscarPOIUsuario();
-				mio.setVisible(true);
+				ZBuscarPOIUsuario busco = new ZBuscarPOIUsuario(sistema,yo);
+				busco.setVisible(true);
 				dispose();
-
 			}
 		});
 		btnBuscarPuntoDe.setBounds(30, 42, 166, 23);
@@ -28,7 +31,7 @@ public class ZMenuUsuario extends JFrame {
 		JButton btnCalcularCercania = new JButton("Calcular cercania");
 		btnCalcularCercania.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ZCalculoCercaniaUsuario mio = new ZCalculoCercaniaUsuario();
+				ZCalculoCercaniaUsuario mio = new ZCalculoCercaniaUsuario(sistema,yo);
 				mio.setVisible(true);
 				dispose();
 
@@ -40,7 +43,7 @@ public class ZMenuUsuario extends JFrame {
 		JButton btnCalcularDisponibilidad = new JButton("Calcular Disponibilidad");
 		btnCalcularDisponibilidad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ZCalculoDisponibilidadUsuario mio = new ZCalculoDisponibilidadUsuario();
+				ZCalculoDisponibilidadUsuario mio = new ZCalculoDisponibilidadUsuario(sistema,yo);
 				mio.setVisible(true);
 				dispose();
 
@@ -61,7 +64,6 @@ public class ZMenuUsuario extends JFrame {
 		JButton btnSalir = new JButton("Volver\r\n");
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Terminal sistema = new Terminal();
 				ZMenuPrincipal hola = new ZMenuPrincipal(sistema);
 				hola.setVisible(true);
 				dispose();

@@ -19,16 +19,17 @@ import java.awt.event.ActionEvent;
 public class ZMenuAdmin extends JFrame {
 
 	private JPanel contentPane;
-
+	private Terminal sistema;
 	/**
 	 * Launch the application.
 	 */
-	public static void main(Terminal sistema) {
+	
+	
+	public void main() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ZMenuAdmin frame = new ZMenuAdmin();
-					frame.setVisible(true);
+					setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -39,9 +40,8 @@ public class ZMenuAdmin extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ZMenuAdmin() {
-		Terminal sistema = new Terminal();
-		Administrador yo = new Administrador(sistema);
+	public ZMenuAdmin(Terminal sistema,Administrador yo) {
+		this.sistema = sistema;
 		
 		Set<POI>poisAux = new HashSet<POI>();
 		setTitle("Menu Administrador");
@@ -52,7 +52,7 @@ public class ZMenuAdmin extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblElijaUnaOpcin = new JLabel("Elija una opción que desee realizar: ");
+		JLabel lblElijaUnaOpcin = new JLabel("Elija una opcion que desee realizar: ");
 		lblElijaUnaOpcin.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblElijaUnaOpcin.setBounds(135, 25, 301, 23);
 		contentPane.add(lblElijaUnaOpcin);
@@ -60,7 +60,7 @@ public class ZMenuAdmin extends JFrame {
 		JButton btnAgregarpoi = new JButton("Agregar POI");
 		btnAgregarpoi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ZAgregarPoi poi = new ZAgregarPoi();
+				ZAgregarPoi poi = new ZAgregarPoi(sistema,yo);
 				poi.setVisible(true);
 				dispose();
 			}
@@ -72,7 +72,7 @@ public class ZMenuAdmin extends JFrame {
 		btnModificarpoi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (sistema.listarPois()){
-					ZModificarPOI modifico = new ZModificarPOI();
+					ZModificarPOI modifico = new ZModificarPOI(sistema,yo);
 					modifico.setVisible(true);
 					dispose();
 				} else {
@@ -86,7 +86,7 @@ public class ZMenuAdmin extends JFrame {
 		JButton btnEliminarPoi = new JButton("Eliminar POI");
 		btnEliminarPoi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				ZEliminarPOI eliminar = new ZEliminarPOI();
+				ZEliminarPOI eliminar = new ZEliminarPOI(sistema,yo);
 				eliminar.setVisible(true);
 				dispose();
 			}
@@ -97,7 +97,7 @@ public class ZMenuAdmin extends JFrame {
 		JButton btnNewButton = new JButton("Buscar POI");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ZBuscarPOI busco = new ZBuscarPOI();
+				ZBuscarPOI busco = new ZBuscarPOI(sistema,yo);
 				busco.setVisible(true);
 				dispose();
 			}
@@ -108,7 +108,7 @@ public class ZMenuAdmin extends JFrame {
 		JButton btnCalcularCercania = new JButton("Calcular cercania");
 		btnCalcularCercania.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ZCalculoCercania cerc = new ZCalculoCercania();
+				ZCalculoCercania cerc = new ZCalculoCercania(sistema,yo);
 				cerc.setVisible(true);
 				dispose();
 			}
@@ -119,7 +119,7 @@ public class ZMenuAdmin extends JFrame {
 		JButton btnCalcularDiponibilidad = new JButton("Calcular diponibilidad");
 		btnCalcularDiponibilidad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ZCalculoDisponibilidad disp = new ZCalculoDisponibilidad();
+				ZCalculoDisponibilidad disp = new ZCalculoDisponibilidad(sistema,yo);
 				disp.setVisible(true);
 				dispose();
 			}
@@ -137,10 +137,10 @@ public class ZMenuAdmin extends JFrame {
 		btnReporteParcialPor.setBounds(10, 148, 213, 23);
 		contentPane.add(btnReporteParcialPor);
 		
-		JButton btnReportePorBsqueda = new JButton("Reporte por búsqueda");
+		JButton btnReportePorBsqueda = new JButton("Reporte por busqueda");
 		btnReportePorBsqueda.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ZReporteBusqueda busq = new ZReporteBusqueda();
+				ZReporteBusqueda busq = new ZReporteBusqueda(sistema,yo);
 				busq.setVisible(true);
 				dispose();
 			}
@@ -151,7 +151,7 @@ public class ZMenuAdmin extends JFrame {
 		JButton btnReportePorFecha = new JButton("Reporte por fecha");
 		btnReportePorFecha.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				ZReportePorFecha fecha = new ZReportePorFecha();
+				ZReportePorFecha fecha = new ZReportePorFecha(sistema,yo);
 				fecha.setVisible(true);
 				dispose();
 			}
@@ -162,7 +162,7 @@ public class ZMenuAdmin extends JFrame {
 		JButton btnReporteTotalPor = new JButton("Reporte total Por Usuario");
 		btnReporteTotalPor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ZReporteTotalPorUsuario usu = new ZReporteTotalPorUsuario();
+				ZReporteTotalPorUsuario usu = new ZReporteTotalPorUsuario(sistema,yo);
 				usu.setVisible(true);
 				dispose();
 			}

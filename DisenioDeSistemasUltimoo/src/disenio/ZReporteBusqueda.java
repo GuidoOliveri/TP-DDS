@@ -20,17 +20,16 @@ import java.awt.event.ActionEvent;
 public class ZReporteBusqueda extends JFrame {
 
 	private JPanel contentPane;
-	private JTable table;
+	private Terminal sistema;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public void main() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ZReporteBusqueda frame = new ZReporteBusqueda();
-					frame.setVisible(true);
+					setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -41,8 +40,9 @@ public class ZReporteBusqueda extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ZReporteBusqueda() {
-		setTitle("Reporte por Búsqueda");
+	public ZReporteBusqueda(Terminal sistema,Administrador yo) {
+		this.sistema=sistema;
+		setTitle("Reporte por Busqueda");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -64,7 +64,6 @@ public class ZReporteBusqueda extends JFrame {
 		JButton btnNewButton = new JButton("Iniciar Reporte");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Terminal sistema = new Terminal();
 				if(sistema.busquedas.isEmpty()){
 					JOptionPane.showMessageDialog(null, "No hay busquedas");
 				} else
@@ -88,7 +87,7 @@ public class ZReporteBusqueda extends JFrame {
 		JButton btnNewButton_1 = new JButton("Volver");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ZMenuAdmin volver = new ZMenuAdmin();
+				ZMenuAdmin volver = new ZMenuAdmin(sistema,yo);
 				volver.setVisible(true);
 				dispose();
 			}

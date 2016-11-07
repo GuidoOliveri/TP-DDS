@@ -7,10 +7,16 @@ import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.service.ServiceRegistry;
+
 public class Administrador extends Usuario{
 
-	public Administrador(String usuario, String contrasenia, Terminal sistema) {
-		super(sistema,usuario,contrasenia);
+	public Administrador(Terminal sistema,String usuario, String contrasenia, POI unPoi) {
+		super(sistema,usuario,contrasenia,unPoi);
 	}
 
 	public Administrador(Terminal sistema){
@@ -29,14 +35,10 @@ public class Administrador extends Usuario{
 	public void agregarCgp(CGP unCgp)
 	{
 		super.getSistema().getCgps().add(unCgp);
-		getSistema().getConexion().update("jdbc:sqlserver://localhost;databaseName=bdpois;integratedSecurity=true","insert into Tabla_CGPs (id,comuna,zonas,director,domicilio,telefono,servicios) values ("+unCgp.getId()+","+unCgp.getComuna()+",'"+unCgp.getZonas()+"','"+unCgp.getDirector()+"','"+unCgp.getDomicilio()+"',"+unCgp.getTelefono()+",'"+unCgp.getServicios()+"')");
-		
 	}	
 	public void agregarBanco(Banco unBanco)
 	{
 		super.getSistema().getBancos().add(unBanco);
-		getSistema().getConexion().update("jdbc:sqlserver://localhost;databaseName=bdpois;integratedSecurity=true","INSERT INTO Tabla_Bancos (id, nombre, comuna, gerente, sucursal) VALUES ("+(unBanco.getId())+",'"+(unBanco.getNombre())+"',"+(unBanco.getComuna())+",'"+(unBanco.getGerente())+"','"+(unBanco.getSucursal())+"')");
-		
 	}
 	
 	public Boolean modificarPOI(int id,String nombre,int comuna, String zonas, String director,String gerente){//y demas datos
@@ -49,7 +51,6 @@ public class Administrador extends Usuario{
 				cgp.setComuna(comuna);
 				cgp.setDirector(director);
 				cgp.setZonas(zonas);
-				getSistema().getConexion().update("jdbc:sqlserver://localhost;databaseName=bdpois;integratedSecurity=true","UPDATE Tabla_CGPs SET comuna="+comuna+",zonas='"+zonas+"',director='"+director+"' WHERE id="+id+";");
 			}
 		}
 		for(Banco banco:getSistema().getBancos())
@@ -59,13 +60,13 @@ public class Administrador extends Usuario{
 				banco.setNombre(nombre);
 				banco.setComuna(comuna);
 				banco.setGerente(gerente);
-				getSistema().getConexion().update("jdbc:sqlserver://localhost;databaseName=bdpois;integratedSecurity=true","UPDATE Tabla_Bancos SET nombre='"+nombre+"',comuna="+comuna+",gerente='"+gerente+"' WHERE id="+id+";");
 			}
 		}
-		for(POI poi:super.getSistema().getPois())
+		for(POI poi:getSistema().getPois())
 		{
 			if(poi.getId()==id)
 			{
+				getSistema().persistirPOI(poi);
 				poi.setNombre(nombre);
 				return true;
 			}
@@ -80,7 +81,6 @@ public class Administrador extends Usuario{
 			if(cgp.getId()==id)
 			{
 				getSistema().getCgps().remove(cgp);
-				getSistema().getConexion().update("jdbc:sqlserver://localhost;databaseName=bdpois;integratedSecurity=true","DELETE FROM Tabla_CGPs WHERE id="+id+";");
 			}
 		}
 		for(Banco banco:getSistema().getBancos())
@@ -88,23 +88,34 @@ public class Administrador extends Usuario{
 			if(banco.getId()==id)
 			{
 				getSistema().getCgps().remove(banco);
-				getSistema().getConexion().update("jdbc:sqlserver://localhost;databaseName=bdpois;integratedSecurity=true","DELETE FROM Tabla_Bancos WHERE id="+id+";");
 			}
 		}
-		for(POI poi:super.getSistema().getPois())
+		
+        SessionFactory sessionFactory;
+        Configuration configuration = new Configuration();
+        configuration.configure();
+        ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
+        
+        sessionFactory = configuration.buildSessionFactory();
+        
+        Session session=sessionFactory.openSession();
+        session.beginTransaction();
+        
+
+		
+		for(POI poi:getSistema().getPois())
 		{
 			if(poi.getId()==id){
-				super.getSistema().getPois().remove(poi);
+				getSistema().getPois().remove(poi);
+		        session.delete(poi);
+
+		        session.getTransaction().commit();
+		        session.close();
 				return true;
 			}
 		}
 		return false;
 	}
 
-	
-	/*
-	public ArrayList<AccionDeUsuario> getAccionesUsuario() {
-		return accionesDelUsuario;
-	}*/
 
 }
