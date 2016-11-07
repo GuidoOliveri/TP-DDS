@@ -28,27 +28,27 @@ import org.hibernate.Session;
 
 public class Terminal {
 	
-	public Set<POI> pois;
+	private Set<POI> pois;
 	
-	public Set<CGP> cgps;
+	private Set<CGP> cgps;
 	
-	public Set<Banco> bancos;
+	private Set<Banco> bancos;
 	
-	public Set<Busqueda> busquedas;
+	private Set<Busqueda> busquedas;
 	
-	public Set<Administrador> admins;
+	private Set<Administrador> admins;
 	
-	public Set<Usuario> usuarios;
+	private Set<Usuario> usuarios;
 
-	public Set<Date> fechas;
+	private Set<Date> fechas;
 	
-	public Set<String> nicks;
+	private Set<String> nicks;
 
-	public Conexion conex;
+	private Conexion conex;
 	
-	public Boolean usuariosConPrivilegios;
+	private Boolean usuariosConPrivilegios;
 	
-	public POI poiActual;
+	private POI poiActual;
 	
 	public Terminal(POI poiActual){
 		this.poiActual=poiActual;
@@ -661,6 +661,7 @@ public class Terminal {
 
 	public static void main(String[] args)
 	{
+		int opcion;
 		Set<PalabraClave> palabras = new HashSet<PalabraClave>();
 		palabras.add(new PalabraClave("utn"));
 		palabras.add(new PalabraClave("facultad"));
@@ -803,8 +804,6 @@ public class Terminal {
 			for(Administrador admin:admins)
 			{
 				if(!admin.getBusquedas().isEmpty())
-					
-				//System.out.print(fecha.getDate()+"/"+(fecha.getMonth()+1)+"/"+(fecha.getYear()+1900));
 				{
 					System.out.println("Usuario: "+admin.getUsuario()+"\n");
 					JOptionPane.showMessageDialog(null, "Usuario: "+admin.getUsuario());
@@ -819,7 +818,6 @@ public class Terminal {
 			for(Usuario usu:usuarios)
 			{
 				if(!usu.getBusquedas().isEmpty())
-				//System.out.print(fecha.getDate()+"/"+(fecha.getMonth()+1)+"/"+(fecha.getYear()+1900));
 				{
 					System.out.println("Usuario: "+usu.getUsuario()+"\n");
 					JOptionPane.showMessageDialog(null, "Usuario: "+usu.getUsuario());

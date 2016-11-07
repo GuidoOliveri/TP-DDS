@@ -63,7 +63,7 @@ public class ZLoguinAdmin extends JFrame {
 		getContentPane().add(txt_usuario);
 		txt_usuario.setColumns(10);
 		
-		JLabel lblContrasea = new JLabel("Contraseña:");
+		JLabel lblContrasea = new JLabel("Contrasenia:");
 		lblContrasea.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblContrasea.setBounds(75, 85, 103, 14);
 		getContentPane().add(lblContrasea);

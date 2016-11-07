@@ -66,20 +66,20 @@ public class ZReportePorFecha extends JFrame {
 		btnIniciarReportePor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				int cantidadDeBusquedas;
-				if(sistema.fechas.isEmpty())
+				if(sistema.getFechas().isEmpty())
 				{
 					JOptionPane.showMessageDialog(null, "No hay busquedas por fecha");
 				}
 				else
 				{
-					for(Date fecha:sistema.fechas)
+					for(Date fecha:sistema.getFechas())
 					{
 						int numCols = table.getModel().getColumnCount();
 						Object [] fila = new Object[numCols]; 
-						fila[0] =fecha.getDate()+"/"+fecha.getMonth()+1+"/"+fecha.getYear()+1900;
+						fila[0] =fecha.getDate()+"/"+(fecha.getMonth()+1)+"/"+(fecha.getYear()+1900);
 					
 						cantidadDeBusquedas=0;
-						for(Busqueda busq:sistema.busquedas)
+						for(Busqueda busq:sistema.getBusquedas())
 						{
 							if((busq.getFecha().getDate()==fecha.getDate())&&(busq.getFecha().getMonth()==fecha.getMonth())&&(busq.getFecha().getYear()==fecha.getYear()))
 								cantidadDeBusquedas = cantidadDeBusquedas +1;

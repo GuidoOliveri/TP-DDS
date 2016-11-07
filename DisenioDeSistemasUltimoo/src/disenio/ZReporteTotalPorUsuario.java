@@ -66,16 +66,16 @@ public class ZReporteTotalPorUsuario extends JFrame {
 		JButton btnIniciarReporteTotal = new JButton("Iniciar Reporte Total Por Usuario");
 		btnIniciarReporteTotal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				int i;
 				int numCols = table.getModel().getColumnCount();
 				Object [] fila = new Object[numCols]; 
 				int cantidad;
-				if(sistema.busquedas.isEmpty()){
+				if(sistema.getBusquedas().isEmpty()){
 					JOptionPane.showMessageDialog(null, "No hay reportes totales por usuario disponibles");
 				}
 				else
 				{
-					for(Administrador admin:sistema.admins){
+					for(Administrador admin:sistema.getAdmins()){
 		
 						fila[0] = admin.getUsuario();
 						cantidad=0;
@@ -87,8 +87,9 @@ public class ZReporteTotalPorUsuario extends JFrame {
 							}
 						}
 						fila[1] = cantidad;
+						((DefaultTableModel) table.getModel()).addRow(fila);
 					}
-					for(Usuario usu:sistema.usuarios){
+					for(Usuario usu:sistema.getUsuarios()){
 						fila[0] = usu.getUsuario();
 						cantidad=0;
 						if(!usu.getBusquedas().isEmpty())
@@ -99,8 +100,9 @@ public class ZReporteTotalPorUsuario extends JFrame {
 							}
 						}
 						fila[1] = cantidad;
+						((DefaultTableModel) table.getModel()).addRow(fila);
 					}
-					((DefaultTableModel) table.getModel()).addRow(fila);
+
 				}
 			}
 

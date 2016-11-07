@@ -66,7 +66,7 @@ public class PruebaHibernate {
         usu.setMiPoi(unPoi);
 		Calendar fecha = new GregorianCalendar();
 		
-        Busqueda busq = new Busqueda(fecha.getTime(), pois, 4, "lala",usu,0); 
+        Busqueda busq = new Busqueda(fecha.getTime(), pois, 4, "lala",usu); 
 		Set<Busqueda> busquedas = new HashSet<Busqueda>();
 		busquedas.add(busq);
 		usu.setBusquedas(busquedas);
@@ -78,6 +78,7 @@ public class PruebaHibernate {
         session.saveOrUpdate(otroPoi);
         session.saveOrUpdate(busq);
         session.saveOrUpdate(usu);
+        
         
         unPoi.getPalabrasClave().clear();
         

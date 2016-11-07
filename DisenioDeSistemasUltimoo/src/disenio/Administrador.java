@@ -17,6 +17,7 @@ public class Administrador extends Usuario{
 
 	public Administrador(Terminal sistema,String usuario, String contrasenia, POI unPoi) {
 		super(sistema,usuario,contrasenia,unPoi);
+		
 	}
 
 	public Administrador(Terminal sistema){

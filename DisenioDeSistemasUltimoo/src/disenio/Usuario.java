@@ -22,15 +22,18 @@ public class Usuario {
 			this.contrasenia=contrasenia;
 			this.miPoi=unPoi;
 			this.id_usuario=0;
+			busquedas= new HashSet<Busqueda>();
 		}
 		
 		public Usuario(Terminal sistema) {
 			this.id_usuario=0;
 			this.sistema=sistema;
+			busquedas= new HashSet<Busqueda>();
 		}
 		
 		public Usuario() {
 			this.id_usuario=0;
+			busquedas= new HashSet<Busqueda>();
 		}
 
 
@@ -77,20 +80,11 @@ public class Usuario {
 						poisAux.add(poi);
 					}
 				}
-			try {
-				Thread.sleep(2000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 			tfinal=System.currentTimeMillis();
 			busquedaAux = new Busqueda(fecha.getTime(),poisAux,((tfinal-tinicial)/1000),palabra,this);
-			
-			agregarBusqueda(busquedaAux);
+			//agregarBusqueda(busquedaAux);
 			
 			getSistema().getBusquedas().add(busquedaAux);
-			
-			getSistema().persistirBusqueda(busquedaAux);
 
 			getSistema().agregarFecha(fecha.getTime());
 			

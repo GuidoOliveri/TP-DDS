@@ -64,16 +64,16 @@ public class ZReporteBusqueda extends JFrame {
 		JButton btnNewButton = new JButton("Iniciar Reporte");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(sistema.busquedas.isEmpty()){
+				if(sistema.getBusquedas().isEmpty()){
 					JOptionPane.showMessageDialog(null, "No hay busquedas");
 				} else
 				{
-					for(Busqueda busq:sistema.busquedas){
+					for(Busqueda busq:sistema.getBusquedas()){
 						int numCols = table.getModel().getColumnCount();
 						
 						Object [] fila = new Object[numCols]; 
 						fila[0] = busq.getFrase();
-						fila[1] = busq.getResultados();
+						fila[1] = busq.getResultados().size();
 						fila[2] = busq.getTiempo();
 						((DefaultTableModel) table.getModel()).addRow(fila);
 					}
