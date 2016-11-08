@@ -62,7 +62,6 @@ public class ZEliminarPOI extends JFrame {
 					{
 						do
 						{
-							
 							// obtengo el ID del POI con getText
 							String id = "";
 							id = textField.getText();

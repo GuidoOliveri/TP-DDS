@@ -44,7 +44,7 @@ public class ZAgregarPoi extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblAQuCategoria = new JLabel("A qué categoria pertenece el POI ? ");
+		JLabel lblAQuCategoria = new JLabel("A que categoria pertenece el POI ? ");
 		lblAQuCategoria.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblAQuCategoria.setBounds(72, 11, 282, 25);
 		contentPane.add(lblAQuCategoria);

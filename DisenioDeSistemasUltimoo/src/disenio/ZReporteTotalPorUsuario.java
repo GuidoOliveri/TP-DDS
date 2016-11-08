@@ -83,7 +83,7 @@ public class ZReporteTotalPorUsuario extends JFrame {
 						{
 							for(Busqueda busq:admin.getBusquedas())
 							{
-								cantidad += busq.getResultados().size();
+								cantidad = cantidad + busq.getResultados().size();
 							}
 						}
 						fila[1] = cantidad;
@@ -96,7 +96,7 @@ public class ZReporteTotalPorUsuario extends JFrame {
 						{
 							for(Busqueda busq:usu.getBusquedas())
 							{
-								cantidad += busq.getResultados().size();
+								cantidad = cantidad + busq.getResultados().size();
 							}
 						}
 						fila[1] = cantidad;

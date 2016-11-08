@@ -133,7 +133,7 @@ public class ZDatosComunes extends JFrame {
 				int lon = Integer.parseInt(longitud);
 				poiAux.setLongitud(lon);
 				
-				sistema.agregarPOI(poiAux);
+				yo.agregarPOI(poiAux);
 				sistema.persistirPOI(poiAux);
 				
 				JOptionPane.showMessageDialog(null, "Datos agregados correctamente");
