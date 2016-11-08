@@ -90,16 +90,33 @@ public class ZLoguinAdmin extends JFrame {
 	public static JPasswordField pss_contrasenia;
 	private class EventoLog implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-			final ZDatosAdmin data = new ZDatosAdmin(sistema,txt_usuario.getText(),pss_contrasenia.getText());
-			if(data.probarPass()==1){
-				Administrador yo = sistema.logueo(txt_usuario.getText(), pss_contrasenia.getText());
-				JOptionPane.showMessageDialog(null, "Bienvenido al sistema de POIs Admin!");
-				ZMenuAdmin admin = new ZMenuAdmin(sistema,yo);
-				admin.setVisible(true);
-				dispose();
-			}else{
-				JOptionPane.showMessageDialog(null, "ERROR, usuario o contrasenia incorrectos");
-			}
+			Boolean logueado=false;
+				Usuario yo = sistema.logueoAdmin(txt_usuario.getText(), pss_contrasenia.getText());
+				if(yo!=null)
+				{
+					yo=sistema.logueoAdmin(txt_usuario.getText(), pss_contrasenia.getText());
+					JOptionPane.showMessageDialog(null, "Bienvenido al sistema de POIs Admin!");
+					ZMenuAdmin admin = new ZMenuAdmin(sistema,(Administrador)yo);
+					admin.setVisible(true);
+					dispose();
+					logueado=true;
+				}
+				else
+				{
+					yo = sistema.logueoUsu(txt_usuario.getText(), pss_contrasenia.getText());
+					if(yo!=null)
+					{
+						yo=sistema.logueoAdmin(txt_usuario.getText(), pss_contrasenia.getText());
+						JOptionPane.showMessageDialog(null, "Bienvenido al sistema de POIs!");
+						ZMenuUsuario admin = new ZMenuUsuario(sistema,yo);
+						admin.setVisible(true);
+						dispose();
+						logueado=true;
+					}
+				}
+				if(!logueado)
+					JOptionPane.showMessageDialog(null, "ERROR, usuario o contrasenia incorrectos");
+			
 		}
 	}
 	

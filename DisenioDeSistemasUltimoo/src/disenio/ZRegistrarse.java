@@ -71,7 +71,7 @@ public class ZRegistrarse extends JFrame {
 			if(data.registrarUsu()==1)
 			{
 				JOptionPane.showMessageDialog(null, "Se ha registrado con exito!");
-				ZMenuUsuario admin = new ZMenuUsuario(sistema,data.getUsu());
+				ZMenuPrincipal admin = new ZMenuPrincipal(sistema);
 				admin.setVisible(true);
 				dispose();
 			}else{

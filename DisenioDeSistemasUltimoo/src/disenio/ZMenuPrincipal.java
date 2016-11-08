@@ -50,7 +50,7 @@ public class ZMenuPrincipal extends JFrame {
 		lblBienvenidoAlSistema.setBounds(63, 22, 361, 23);
 		contentPane.add(lblBienvenidoAlSistema);
 		
-		JButton btnMenuAdministrador = new JButton("Menu Administrador");
+		JButton btnMenuAdministrador = new JButton("Ingresar");
 		btnMenuAdministrador.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ZLoguinAdmin logueo = new ZLoguinAdmin(sistema);
@@ -58,9 +58,9 @@ public class ZMenuPrincipal extends JFrame {
 				dispose();
 			}
 		});
-		btnMenuAdministrador.setBounds(50, 98, 159, 23);
+		btnMenuAdministrador.setBounds(130, 98, 159, 23);
 		contentPane.add(btnMenuAdministrador);
-		
+		/*
 		JButton btnMenuUsuario = new JButton("Menu Usuario");
 		btnMenuUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -71,7 +71,7 @@ public class ZMenuPrincipal extends JFrame {
 		});
 		btnMenuUsuario.setBounds(254, 98, 112, 23);
 		contentPane.add(btnMenuUsuario);
-		
+		*/
 		JButton btnRegistrarse = new JButton("Registrate ");
 		btnRegistrarse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

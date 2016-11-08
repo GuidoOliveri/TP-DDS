@@ -100,14 +100,12 @@ public class Administrador extends Usuario{
         sessionFactory = configuration.buildSessionFactory();
         
         Session session=sessionFactory.openSession();
-        session.beginTransaction();
         
-
-		
 		for(POI poi:getSistema().getPois())
 		{
 			if(poi.getId()==id){
 				getSistema().getPois().remove(poi);
+		        session.beginTransaction();
 		        session.delete(poi);
 
 		        session.getTransaction().commit();

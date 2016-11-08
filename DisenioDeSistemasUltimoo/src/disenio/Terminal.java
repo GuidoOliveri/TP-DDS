@@ -195,17 +195,20 @@ public class Terminal {
 	}
 
 	
-	public Administrador logueo(String nombre, String contrasenia)
+	public Administrador logueoAdmin(String nombre, String contrasenia)
 	{
-		for(Usuario unUsuario: usuarios)
+		for(Administrador unUsuario: admins)
 		{
 			if(unUsuario.getUsuario().equals(nombre)&&unUsuario.getContrasenia().equals(contrasenia))
 			{
 				return (Administrador)unUsuario;
 			}
 		}
-		
-		for(Administrador unUsuario: admins)
+		return null;
+	}
+	public Usuario logueoUsu(String nombre, String contrasenia)
+	{
+		for(Usuario unUsuario: usuarios)
 		{
 			if(unUsuario.getUsuario().equals(nombre)&&unUsuario.getContrasenia().equals(contrasenia))
 			{
@@ -231,7 +234,7 @@ public class Terminal {
 			usu=capt.next();
 			System.out.println("Ingrese Contrasenia");
 			cont=capt.next();
-			if(null!=(yo = (Administrador)(sistema.logueo(usu,cont))))
+			if(null!=(yo = (Administrador)(sistema.logueoAdmin(usu,cont))))
 			{
 				System.out.println("Logueo exitoso\n");
 			}
@@ -564,7 +567,7 @@ public class Terminal {
 			usu=capt.next();
 			System.out.println("Ingrese Contrasenia");
 			cont=capt.next();
-			if(null !=(yo = sistema.logueo(usu,cont)))
+			if(null !=(yo = sistema.logueoUsu(usu,cont)))
 			{
 				System.out.println("Logueo exitoso\n");
 			}
