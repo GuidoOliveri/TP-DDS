@@ -76,9 +76,7 @@ public class ZEliminarPOI extends JFrame {
 				
 					if(sistema.listarPois())
 					{
-						do
-						{
-							
+	
 							// obtengo el ID del POI con getText
 							String id = "";
 							id = textField.getText();
@@ -91,8 +89,7 @@ public class ZEliminarPOI extends JFrame {
 							
 							else
 								JOptionPane.showMessageDialog(null, "Hubo un problema, intente nuevamente\n\n");
-							
-						}while(!exito);
+
 					}
 					else
 						JOptionPane.showMessageDialog(null, "No hay pois");

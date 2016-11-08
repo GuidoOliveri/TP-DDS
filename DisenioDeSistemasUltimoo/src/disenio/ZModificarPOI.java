@@ -48,7 +48,7 @@ public class ZModificarPOI extends JFrame {
 	public ZModificarPOI(Terminal sistema,Administrador yo) {
 		setTitle("Moficar POI existente");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 150, 450, 350);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -196,6 +196,17 @@ public class ZModificarPOI extends JFrame {
 			});
 		btnBuscarpois.setBounds(324, 11, 89, 23);
 		contentPane.add(btnBuscarpois);
+		
+		JButton btnNewButton_1 = new JButton("Volver\r\n");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ZMenuAdmin volver = new ZMenuAdmin(sistema,yo);
+				volver.setVisible(true);
+				dispose();
+			}
+		});
+		btnNewButton_1.setBounds(157, 260, 107, 23);
+		contentPane.add(btnNewButton_1);
 	}
 
 }

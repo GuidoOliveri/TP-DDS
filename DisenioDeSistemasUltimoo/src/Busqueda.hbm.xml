@@ -11,7 +11,7 @@
 		<property name="fecha" column="fecha" /> 
 		<property name="frase" type="string" column="frase" />
 		<property name="tiempo" type="float" column="tiempo" /> 
-        <many-to-one name="usuario" column="id_usuario" class="Usuario" not-null="false"/>
+        <many-to-one name="usuario" column="id_usuario" class="Usuario" />
         
         <set name="resultados" table="Busqueda_Poi" inverse="false" lazy="true" fetch="select" cascade="all">
             <key column="id_busqueda" />

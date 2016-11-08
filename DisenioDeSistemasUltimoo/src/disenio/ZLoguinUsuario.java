@@ -89,7 +89,7 @@ public class ZLoguinUsuario extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			final ZDatosUsuario data = new ZDatosUsuario(sistema,txt_usuario.getText(),pss_contrasenia.getText());
 			if(data.probarPass()==1){
-				Usuario yo = (Usuario)sistema.logueo(txt_usuario.getText(), pss_contrasenia.getText());
+				Usuario yo =sistema.logueoUsu(txt_usuario.getText(), pss_contrasenia.getText());
 				JOptionPane.showMessageDialog(null, "Bienvenido al sistema de POIs Usuario!");
 				ZMenuUsuario usu = new ZMenuUsuario(sistema,yo);
 				usu.setVisible(true);

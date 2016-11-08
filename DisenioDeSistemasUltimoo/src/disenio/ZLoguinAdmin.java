@@ -91,24 +91,22 @@ public class ZLoguinAdmin extends JFrame {
 	private class EventoLog implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			Boolean logueado=false;
-				Usuario yo = sistema.logueoAdmin(txt_usuario.getText(), pss_contrasenia.getText());
+				Administrador yo = sistema.logueoAdmin(txt_usuario.getText(), pss_contrasenia.getText());
 				if(yo!=null)
 				{
-					yo=sistema.logueoAdmin(txt_usuario.getText(), pss_contrasenia.getText());
 					JOptionPane.showMessageDialog(null, "Bienvenido al sistema de POIs Admin!");
-					ZMenuAdmin admin = new ZMenuAdmin(sistema,(Administrador)yo);
+					ZMenuAdmin admin = new ZMenuAdmin(sistema,yo);
 					admin.setVisible(true);
 					dispose();
 					logueado=true;
 				}
 				else
 				{
-					yo = sistema.logueoUsu(txt_usuario.getText(), pss_contrasenia.getText());
-					if(yo!=null)
+					Usuario yo2 = sistema.logueoUsu(txt_usuario.getText(), pss_contrasenia.getText());
+					if(yo2!=null)
 					{
-						yo=sistema.logueoAdmin(txt_usuario.getText(), pss_contrasenia.getText());
 						JOptionPane.showMessageDialog(null, "Bienvenido al sistema de POIs!");
-						ZMenuUsuario admin = new ZMenuUsuario(sistema,yo);
+						ZMenuUsuario admin = new ZMenuUsuario(sistema,yo2);
 						admin.setVisible(true);
 						dispose();
 						logueado=true;

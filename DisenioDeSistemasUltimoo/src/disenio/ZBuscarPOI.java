@@ -13,6 +13,8 @@ import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Set;
 import java.awt.event.ActionEvent;
@@ -53,7 +55,6 @@ public class ZBuscarPOI extends JFrame {
 	public ZBuscarPOI(Terminal sistema,Administrador yo) {
 		this.sistema=sistema;
 		Set<POI>poisAux = new HashSet<POI>();
-		poisAux.clear();
 		
 		setTitle("Buscar POIs\r\n");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -96,6 +97,9 @@ public class ZBuscarPOI extends JFrame {
 				}
 				else {
 					poisAux.addAll(yo.buscarPoi(texto));
+					Calendar fecha = new GregorianCalendar();
+					Busqueda busquedaAux = new Busqueda(fecha.getTime(),poisAux,4,texto,yo);
+					yo.agregarBusqueda(busquedaAux);
 					if(poisAux.isEmpty())
 					{
 						JOptionPane.showMessageDialog(null, "Sin resultados\n");

@@ -11,8 +11,6 @@ import java.util.HashSet;
 import java.util.ArrayList;
 import java.util.Set;
 
-//@Entity
-//@Table(name="POI")
 public class POI implements Serializable{
 
 	
@@ -76,8 +74,6 @@ public class POI implements Serializable{
 		this.nombre = nombre;
 	}
 
-	
-    //@Column(name="tipo_poi")
 	public String getTipo() {
 		return tipo;
 	}
@@ -86,7 +82,6 @@ public class POI implements Serializable{
 		this.tipo = tipo;
 	}
 
-    //@Column(name="validez_poi")
 	public Boolean getValidez() {
 		return validez;
 	}
@@ -95,7 +90,6 @@ public class POI implements Serializable{
 		this.validez = validez;
 	}
 
-    //@Column(name="latitud_poi")
 	public float getLatitud() {
 		return latitud;
 	}
@@ -103,15 +97,12 @@ public class POI implements Serializable{
 		this.latitud = latitud;
 	}
 	
-    //@Column(name="longitud_poi")
 	public float getLongitud() {
 		return longitud;
 	}
 	public void setLongitud(float longitud) {
 		this.longitud = longitud;
 	}
-	
-    //@Column(name="radioLimite_poi")
 	public int getRadioLimite() {
 		return radioLimite;
 	}
@@ -248,41 +239,26 @@ public class POI implements Serializable{
 	public void setSucursal(String sucursal) {
 	}
 	
-/*
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name="id_poi")
-    */
 	public int getId() {
 		return id_poi;
 	}
 
-
-    //@Column(name="nombre_poi")
 	public String getNombre() {
 		return nombre;
 	}
     
-    //@Column(name="altura_poi")
 	public int getAltura() {
 		return altura;
 	}
     
-    //@Column(name="direccion_poi")
 	public String getCalle() {
 		return calle;
 	}
 
-    //@Column(name="comuna_poi")
 	public int getComuna() {
 		return comuna;
 	}
 
-    /*
-    @OneToMany(cascade= CascadeType.ALL)
-    @JoinColumn(name="id_POI")
-    @IndexColumn(name="idx")
-    */
 	public Set<PalabraClave> getPalabrasClave() {
 		return palabrasClave;
 	}

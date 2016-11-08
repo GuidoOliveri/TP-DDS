@@ -12,8 +12,6 @@ import java.util.ArrayList;
 import java.util.Set;
 
 
-@Entity
-@Table(name="PalabraClave")
 public class PalabraClave implements Serializable {
     
     public PalabraClave(String frase) {
@@ -30,11 +28,7 @@ public class PalabraClave implements Serializable {
      private String frase;
      
      private Set<POI> pois;
-/*
- 	@Id
- 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name="id_palabra")
-    */
+
 	public int getId_palabra() {
 		return id_palabra;
 	}
@@ -43,7 +37,6 @@ public class PalabraClave implements Serializable {
 		this.id_palabra = id_palabra;
 	}
 
-    //@Column(name="frase")
 	public String getFrase() {
 		return frase;
 	}
@@ -51,10 +44,6 @@ public class PalabraClave implements Serializable {
 	public void setFrase(String frase) {
 		this.frase = frase;
 	}
-/*
-    @ManyToOne
-    @JoinColumn(name="id_POI")
-    */
 	public Set<POI> getPoi() {
 		return pois;
 	}

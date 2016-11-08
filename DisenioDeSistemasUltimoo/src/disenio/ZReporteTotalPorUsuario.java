@@ -89,6 +89,7 @@ public class ZReporteTotalPorUsuario extends JFrame {
 						fila[1] = cantidad;
 						((DefaultTableModel) table.getModel()).addRow(fila);
 					}
+					
 					for(Usuario usu:sistema.getUsuarios()){
 						fila[0] = usu.getUsuario();
 						cantidad=0;

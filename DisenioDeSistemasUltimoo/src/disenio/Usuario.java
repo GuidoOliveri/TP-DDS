@@ -64,8 +64,8 @@ public class Usuario {
 		
 		public void agregarBusqueda(Busqueda unaBusqueda)
 		{
-			sistema.persistirBusqueda(unaBusqueda);
 			getBusquedas().add(unaBusqueda);
+			//sistema.persistirBusqueda(unaBusqueda);
 		}
 		
 		public Set<POI> buscarPoi(String palabra){  
@@ -76,9 +76,11 @@ public class Usuario {
 			if(!getSistema().getPois().isEmpty())
 				for (POI poi:getSistema().getPois()){
 					for(PalabraClave pal:poi.getPalabrasClave())
-					if(pal.getFrase().equals(palabra))
 					{
-						poisAux.add(poi);
+						if(pal.getFrase().equals(palabra))
+						{
+							poisAux.add(poi);
+						}
 					}
 				}
 			tfinal=System.currentTimeMillis();
@@ -87,7 +89,7 @@ public class Usuario {
 			
 			getSistema().getBusquedas().add(busquedaAux);
 
-			getSistema().agregarFecha(fecha.getTime());
+		 	getSistema().agregarFecha(fecha.getTime());
 			
 			
 			return poisAux;
@@ -153,16 +155,6 @@ public class Usuario {
 			return command;
 		}
 		
-		private void setId(int id)
-		{
-			this.id_usuario = id;
-		}
-		
-		public int getId()
-		{
-			return id_usuario;
-		}
-
 		public int getId_usuario() {
 			return id_usuario;
 		}

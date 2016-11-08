@@ -79,6 +79,25 @@ public class Terminal {
 	public void agregarPOI(POI unPoi){
 		pois.add(unPoi);
 	}
+
+	
+	public void persistirPalabra(PalabraClave o)
+	{
+        SessionFactory sessionFactory;
+        Configuration configuration = new Configuration();
+        configuration.configure();
+        ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
+        
+        sessionFactory = configuration.buildSessionFactory();
+        
+        Session session=sessionFactory.openSession();
+        session.beginTransaction();
+        
+        session.saveOrUpdate(o);
+
+        session.getTransaction().commit();
+        session.close();
+	}
 	
 	public void persistirUsuario(Usuario o)
 	{
@@ -199,9 +218,9 @@ public class Terminal {
 	{
 		for(Administrador unUsuario: admins)
 		{
-			if(unUsuario.getUsuario().equals(nombre)&&unUsuario.getContrasenia().equals(contrasenia))
+			if((unUsuario.getUsuario().equals(nombre))&&(unUsuario.getContrasenia().equals(contrasenia)))
 			{
-				return (Administrador)unUsuario;
+				return unUsuario;
 			}
 		}
 		return null;
@@ -210,7 +229,7 @@ public class Terminal {
 	{
 		for(Usuario unUsuario: usuarios)
 		{
-			if(unUsuario.getUsuario().equals(nombre)&&unUsuario.getContrasenia().equals(contrasenia))
+			if((unUsuario.getUsuario().equals(nombre))&&(unUsuario.getContrasenia().equals(contrasenia)))
 			{
 				return unUsuario;
 			}
@@ -666,12 +685,17 @@ public class Terminal {
 	{
 		int opcion;
 		Set<PalabraClave> palabras = new HashSet<PalabraClave>();
-		palabras.add(new PalabraClave("utn"));
-		palabras.add(new PalabraClave("facultad"));
+		PalabraClave pala1,pala2;
+		pala1 = new PalabraClave("utn");
+		pala2 = new PalabraClave("facultad");
+		palabras.add(pala1);
+		palabras.add(pala2);
 		POI poiActual = new POI("Utn","Medrano",951,4,palabras);
 		poiActual.setLatitud((float) -34.5985524);
 		poiActual.setLongitud((float) -58.4202828);
 		Terminal sistema=new Terminal(poiActual);
+		sistema.persistirPalabra(pala1);
+		sistema.persistirPalabra(pala2);
 		sistema.agregarPOI(poiActual);
 		sistema.persistirPOI(poiActual);
 		Scanner scanner= new Scanner(System.in);
@@ -682,12 +706,11 @@ public class Terminal {
 		sistema.agregarAdmin(unAdmin1);
 		sistema.agregarAdmin(unAdmin2);
 		sistema.agregarAdmin(unAdmin3);
-		sistema.persistirUsuario((Usuario)unAdmin1);
-		sistema.persistirUsuario((Usuario)unAdmin2);
-		sistema.persistirUsuario((Usuario)unAdmin3);
+		sistema.persistirUsuario(unAdmin1);
+		sistema.persistirUsuario(unAdmin2);
+		sistema.persistirUsuario(unAdmin3);
 		
-		
-		
+	
 		ZPrueboACA ventana = new ZPrueboACA(sistema);
 		
 		ventana.ejecutar();

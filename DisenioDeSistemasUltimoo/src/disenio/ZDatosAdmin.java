@@ -15,7 +15,7 @@ public class ZDatosAdmin {
 	
 		Administrador yo;
 		
-		if(null!=(yo = (Administrador)(sistema.logueo(usuario,(String)contrasenia)))){
+		if(null!=(yo = (Administrador)(sistema.logueoAdmin(usuario,(String)contrasenia)))){
 			return 1;
 		}
 		else {

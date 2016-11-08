@@ -76,13 +76,23 @@ public class PruebaHibernate {
         
         session.saveOrUpdate(unPoi);
         session.saveOrUpdate(otroPoi);
-        session.saveOrUpdate(busq);
         session.saveOrUpdate(usu);
+
+        session.saveOrUpdate(busq);
+        Busqueda busq2 = new Busqueda(fecha.getTime(), pois, 4, "lala",usu); 
+        session.saveOrUpdate(busq2);
+
+        /*
+        unPoi.setNombre("Garbarino");
         
+        session.saveOrUpdate(unPoi);
+        
+        session.saveOrUpdate(usu);
         
         unPoi.getPalabrasClave().clear();
         
         session.saveOrUpdate(unPoi);
+        */
 
         session.getTransaction().commit();
         session.close();

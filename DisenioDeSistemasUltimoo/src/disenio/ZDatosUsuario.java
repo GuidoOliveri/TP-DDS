@@ -31,7 +31,7 @@ public class ZDatosUsuario  {
 	
 		Usuario yo;
 		
-		if(null!=(yo = (Usuario)(sistema.logueo(usuario,contra)))){
+		if(null!=(yo = (Usuario)(sistema.logueoUsu(usuario,contra)))){
 			return 1;
 		}
 		else {
