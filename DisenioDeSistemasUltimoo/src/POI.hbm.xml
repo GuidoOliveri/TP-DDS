@@ -20,7 +20,7 @@
 			<many-to-many column="id_palabra" class="PalabraClave" />
 		</set>		
         <set name="busquedas" table="Busqueda_Poi"
-			inverse="true" lazy="true" fetch="select">
+			inverse="true" lazy="true" fetch="select" cascade="all">
 			<key column="id_busqueda" />
 			<many-to-many column="id_poi" class="POI" />
 		</set>

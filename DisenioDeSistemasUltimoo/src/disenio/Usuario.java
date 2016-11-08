@@ -83,7 +83,7 @@ public class Usuario {
 				}
 			tfinal=System.currentTimeMillis();
 			busquedaAux = new Busqueda(fecha.getTime(),poisAux,((tfinal-tinicial)/1000),palabra,this);
-			//agregarBusqueda(busquedaAux);
+			agregarBusqueda(busquedaAux);
 			
 			getSistema().getBusquedas().add(busquedaAux);
 

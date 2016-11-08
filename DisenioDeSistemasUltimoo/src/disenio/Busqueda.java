@@ -14,7 +14,7 @@ public class Busqueda {
 	private Usuario usuario;
 
 	public Busqueda() {
-
+		this.id_busqueda=0;
 	}	
 	
 	public Busqueda(Date date, Set<POI> resultados, float tiempo, String frase,Administrador admin) {

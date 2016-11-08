@@ -12,5 +12,6 @@
   <mapping resource="Usuario.hbm.xml"/>
   <mapping resource="Busqueda.hbm.xml"/>
   <mapping resource="PalabraClave.hbm.xml"/>
+  <mapping resource="Administrador.hbm.xml"/>
  </session-factory>
 </hibernate-configuration>

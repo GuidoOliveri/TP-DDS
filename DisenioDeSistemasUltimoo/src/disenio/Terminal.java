@@ -682,6 +682,10 @@ public class Terminal {
 		sistema.agregarAdmin(unAdmin1);
 		sistema.agregarAdmin(unAdmin2);
 		sistema.agregarAdmin(unAdmin3);
+		sistema.persistirUsuario((Usuario)unAdmin1);
+		sistema.persistirUsuario((Usuario)unAdmin2);
+		sistema.persistirUsuario((Usuario)unAdmin3);
+		
 		
 		
 		ZPrueboACA ventana = new ZPrueboACA(sistema);

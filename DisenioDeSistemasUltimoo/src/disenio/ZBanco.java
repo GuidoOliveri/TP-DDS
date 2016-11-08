@@ -95,7 +95,6 @@ public class ZBanco extends JFrame {
 				
 				
 				yo.agregarBanco((Banco)poiAux);
-				yo.agregarPOI(poiAux);
 				
 				JOptionPane.showMessageDialog(null, "Datos agregados!");
 				

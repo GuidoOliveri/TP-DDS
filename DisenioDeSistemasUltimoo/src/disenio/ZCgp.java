@@ -138,7 +138,6 @@ public class ZCgp extends JFrame {
 				poiAux.setServicios(servicios);
 				
 				yo.agregarCgp((CGP)poiAux);
-				yo.agregarPOI(poiAux);
 				JOptionPane.showMessageDialog(null, "Datos agregados!");
 				
 				ZMenuAdmin volver = new ZMenuAdmin(sistema,yo);

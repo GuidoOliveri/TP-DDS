@@ -7,6 +7,7 @@ import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -22,6 +23,10 @@ public class Administrador extends Usuario{
 
 	public Administrador(Terminal sistema){
 		super(sistema);
+	}
+	
+	public Administrador(){
+		super();
 	}
 	
 	//GET / SET
@@ -67,8 +72,8 @@ public class Administrador extends Usuario{
 		{
 			if(poi.getId()==id)
 			{
-				getSistema().persistirPOI(poi);
 				poi.setNombre(nombre);
+				getSistema().persistirPOI(poi);
 				return true;
 			}
 		}
@@ -106,7 +111,9 @@ public class Administrador extends Usuario{
 			if(poi.getId()==id){
 				getSistema().getPois().remove(poi);
 		        session.beginTransaction();
-		        session.delete(poi);
+		        
+		        Query q = session.createQuery("delete POI where id_poi = "+poi.getId());
+		        q.executeUpdate();
 
 		        session.getTransaction().commit();
 		        session.close();

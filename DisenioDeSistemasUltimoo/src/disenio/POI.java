@@ -68,8 +68,8 @@ public class POI implements Serializable{
 
 	public POI()
 	{
+		this.id_poi = 0 ;
 		palabrasClave=new HashSet<PalabraClave>();
-		//validez = true;
 	}
 	
 	public void setNombre(String nombre) {

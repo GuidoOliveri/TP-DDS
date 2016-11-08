@@ -6,12 +6,15 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 public class ZModificarPOI extends JFrame {
 
@@ -22,12 +25,12 @@ public class ZModificarPOI extends JFrame {
 	private JTextField txtZonas;
 	private JTextField txtDirector;
 	private JTextField txtGerente;
-	private Terminal sistema;
+	private JTable table;
 
 	/**
 	 * Launch the application.
 	 */
-	public void main() {
+	public void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -43,7 +46,6 @@ public class ZModificarPOI extends JFrame {
 	 * Create the frame.
 	 */
 	public ZModificarPOI(Terminal sistema,Administrador yo) {
-		this.sistema=sistema;
 		setTitle("Moficar POI existente");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -51,6 +53,26 @@ public class ZModificarPOI extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
+		DefaultTableModel modelo = new DefaultTableModel();
+		JTable table = new JTable(modelo);
+		
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"id", "nombre"
+			}
+		));
+		
+		JLabel lblIngreseNuevoId = new JLabel("Ingrese id del poi a modificar:");
+		lblIngreseNuevoId.setBounds(29, 34, 118, 23);
+		contentPane.add(lblIngreseNuevoId);
+		
+		txtId = new JTextField();
+		txtId.setBounds(173, 35, 118, 20);
+		contentPane.add(txtId);
+		txtId.setColumns(10);
 		
 		JLabel lblIngreseNuevoNombre = new JLabel("Ingrese nuevo nombre:");
 		lblIngreseNuevoNombre.setBounds(29, 79, 130, 14);
@@ -104,6 +126,7 @@ public class ZModificarPOI extends JFrame {
 		JButton btnModificarlo = new JButton("Modificarlo");
 		btnModificarlo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				// despues cambiar esto al main para que lo reciba por argumento
 				
 				boolean exito;
 				exito=false;
@@ -131,10 +154,9 @@ public class ZModificarPOI extends JFrame {
 					gerente = txtGerente.getText();
 					
 					if(exito=yo.modificarPOI(idABuscar,nombre, comuna, zonas, director,gerente))
-					{
-						sistema.persistirPOI(sistema.obtenerPoi(idABuscar));
+						
 						JOptionPane.showMessageDialog(null, "Modificado exitosamente\n\n");
-					}
+					
 					else
 						JOptionPane.showMessageDialog(null,"Hubo un problema, intente nuevamente\n\n");
 
@@ -146,6 +168,34 @@ public class ZModificarPOI extends JFrame {
 		});
 		btnModificarlo.setBounds(324, 216, 89, 23);
 		contentPane.add(btnModificarlo);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(324, 34, 100, 173);
+		contentPane.add(scrollPane);
+		
+		
+		scrollPane.setViewportView(table);
+		
+		JButton btnBuscarpois = new JButton("Buscar Pois");
+		btnBuscarpois.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				
+				
+					for(POI poi:sistema.getPois())
+					{
+						int numCols = table.getModel().getColumnCount();
+						Object [] fila = new Object[numCols]; 
+						fila[0] =poi.getId();
+						fila[1]= poi.getNombre();
+						
+						((DefaultTableModel) table.getModel()).addRow(fila);
+
+					}
+				}
+			});
+		btnBuscarpois.setBounds(324, 11, 89, 23);
+		contentPane.add(btnBuscarpois);
 	}
 
 }
