@@ -8,8 +8,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+//import org.hibernate.Session;
+//import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
@@ -97,26 +97,26 @@ public class Administrador extends Usuario{
 			}
 		}
 		
-        SessionFactory sessionFactory;
+		//SessionFactory sessionFactory;
         Configuration configuration = new Configuration();
         configuration.configure();
         ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
         
-        sessionFactory = configuration.buildSessionFactory();
+        //sessionFactory = configuration.buildSessionFactory();
         
-        Session session=sessionFactory.openSession();
+        //Session session=sessionFactory.openSession();
         
 		for(POI poi:getSistema().getPois())
 		{
 			if(poi.getId()==id){
 				getSistema().getPois().remove(poi);
-		        session.beginTransaction();
+				//session.beginTransaction();
 		        
-		        Query q = session.createQuery("delete POI where id_poi = "+poi.getId());
-		        q.executeUpdate();
+				//Query q = session.createQuery("delete POI where id_poi = "+poi.getId());
+				//q.executeUpdate();
 
-		        session.getTransaction().commit();
-		        session.close();
+		        //session.getTransaction().commit();
+		        //session.close();
 				return true;
 			}
 		}

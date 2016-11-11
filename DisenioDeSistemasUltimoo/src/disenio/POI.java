@@ -41,7 +41,7 @@ public class POI implements Serializable{
     
     private String nombre,calle;
     
-	private Set<PalabraClave> palabrasClave;
+	public Set<PalabraClave> palabrasClave;
 	
 	private Set<Busqueda> busquedas;
 	
