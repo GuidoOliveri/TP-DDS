@@ -51,7 +51,7 @@ public class BajaDePoi extends Command {
 
 
 		public void eliminarPOIsInactivos(){
-			
+			Boolean encontrado= false;
 			for(CGP cgp:getSistema().getCgps())
 			{
 				if(cgp.getValidez()==false)
@@ -64,7 +64,8 @@ public class BajaDePoi extends Command {
 									"Domicilio del CGP dado de baja: "+cgp.getDomicilio()+"\n",
 									"cgp dado de baja", JOptionPane.DEFAULT_OPTION);
 					
-					getSistema().getConexion().update("jdbc:sqlserver://localhost;databaseName=bdpois;integratedSecurity=true","DELETE FROM Tabla_CGPs WHERE id="+cgp.getId()+";");
+					encontrado = true;
+					//getSistema().getConexion().update("jdbc:sqlserver://localhost;databaseName=bdpois;integratedSecurity=true","DELETE FROM Tabla_CGPs WHERE id="+cgp.getId()+";");
 				}
 			}
 			for(Banco banco:getSistema().getBancos())
@@ -77,8 +78,8 @@ public class BajaDePoi extends Command {
 							"Latitud y Longitud del banco: "+banco.getLatitud()+";"+banco.getLongitud()+"\n"+ 
 							"Hora que fue dado de baja: "+dateFormat.format(date)+"\n",
 							"banco dado de baja", JOptionPane.DEFAULT_OPTION);
-					
-					getSistema().getConexion().update("jdbc:sqlserver://localhost;databaseName=bdpois;integratedSecurity=true","DELETE FROM Tabla_Bancos WHERE id="+banco.getId()+";");
+					encontrado=true;
+					//getSistema().getConexion().update("jdbc:sqlserver://localhost;databaseName=bdpois;integratedSecurity=true","DELETE FROM Tabla_Bancos WHERE id="+banco.getId()+";");
 				}
 			}
 			for(POI poi:getSistema().getPois())
@@ -90,10 +91,13 @@ public class BajaDePoi extends Command {
 							"Latitud y Longitud del POI: "+poi.getLatitud()+";"+poi.getLongitud()+"\n"+ 
 							"Hora que fue dado de baja: "+dateFormat.format(date)+"\n",
 							"POI dado de baja", JOptionPane.DEFAULT_OPTION);
-
+					encontrado=true;
 				}
 			}
-			
+			if(!encontrado)
+			{
+				JOptionPane.showMessageDialog(null,"No hay POIs inactivos","Error",JOptionPane.DEFAULT_OPTION);		
+			}
 		}
 					
 }

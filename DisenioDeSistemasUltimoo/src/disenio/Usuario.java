@@ -61,6 +61,7 @@ public class Usuario {
 			long tfinal,tinicial=System.currentTimeMillis();
 			if(!getSistema().getPois().isEmpty())
 				for (POI poi:getSistema().getPois()){
+					if(poi.getValidez())
 					for(PalabraClave pal:poi.getPalabrasClave())
 					{
 						if(pal.getFrase().equals(palabra))
