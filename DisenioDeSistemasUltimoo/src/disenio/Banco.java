@@ -37,7 +37,7 @@ public class Banco extends POI{
     }
     
     public Banco(int id,String nombre,String calle,int altura,int comuna,Set<PalabraClave> palabras,float latitud,float longitud){
-		super(nombre,calle,altura,comuna,palabras);
+		super(nombre,calle,altura,comuna,palabras,true);
 		setLatitud(latitud);
 		setLongitud(longitud);
     	setId(id);

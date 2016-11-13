@@ -50,8 +50,8 @@ public class Usuario {
 		
 		public void agregarBusqueda(Busqueda unaBusqueda)
 		{
-			getBusquedas().add(unaBusqueda);
-			//sistema.persistirBusqueda(unaBusqueda);
+			busquedas.add(unaBusqueda);
+			sistema.agregarBusqueda(unaBusqueda);
 		}
 		
 		public Set<POI> buscarPoi(String palabra){  
@@ -73,8 +73,6 @@ public class Usuario {
 			tfinal=System.currentTimeMillis();
 			busquedaAux = new Busqueda(fecha.getTime(),poisAux,((tfinal-tinicial)/1000),palabra,this);
 			agregarBusqueda(busquedaAux);
-			
-			getSistema().getBusquedas().add(busquedaAux);
 
 		 	getSistema().agregarFecha(fecha.getTime());
 			

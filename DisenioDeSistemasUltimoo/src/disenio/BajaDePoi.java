@@ -10,6 +10,13 @@ import java.util.Set;
 
 import javax.swing.JOptionPane;
 
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.service.ServiceRegistry;
+
 //hoja del composite
 public class BajaDePoi extends Command {
 	
@@ -85,6 +92,24 @@ public class BajaDePoi extends Command {
 			for(POI poi:getSistema().getPois())
 			{
 				if(poi.getValidez()==false){
+			        SessionFactory sessionFactory;
+			        Configuration configuration = new Configuration();
+			        configuration.configure();
+			        ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
+			        
+			        sessionFactory = configuration.buildSessionFactory();
+			        
+			        Session session=sessionFactory.openSession();
+			        session.beginTransaction();
+			        
+					/*Query q = session.createQuery("DELETE FROM Palabra_Poi where id_poi = "+poi.getId());
+					q.executeUpdate();
+				    q = session.createQuery("DELETE FROM Busqueda_Poi where id_poi = "+poi.getId());
+					q.executeUpdate();*/
+					session.delete(poi);
+
+			        session.getTransaction().commit();
+			        session.close();
 					getSistema().getPois().remove(poi);
 					
 					JOptionPane.showMessageDialog(null, "Nombre del POI dado de baja: "+poi.getNombre()+"\n"+ 

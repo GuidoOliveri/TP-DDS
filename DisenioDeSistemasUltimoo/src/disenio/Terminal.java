@@ -78,6 +78,7 @@ public class Terminal {
 
 	public void agregarPOI(POI unPoi){
 		pois.add(unPoi);
+		persistirPOI(unPoi);
 	}
 
 	
@@ -159,7 +160,7 @@ public class Terminal {
 		if(!nickOcupado(admin.getUsuario()))
 		{
 		nicks.add(admin.getUsuario());
-		
+		persistirUsuario(admin);
 		return admins.add(admin);
 		}
 		else
@@ -171,6 +172,7 @@ public class Terminal {
 		if(!nickOcupado(usu.getUsuario()))
 		{
 			nicks.add(usu.getUsuario());
+			persistirUsuario(usu);
 			if(getUsuariosConPrivilegios())
 			{
 				Composite componente;
@@ -187,6 +189,7 @@ public class Terminal {
 	
 	public Boolean agregarBusqueda(Busqueda busquedaAux)
 	{
+		persistirBusqueda(busquedaAux);
 		return busquedas.add(busquedaAux);
 	}
 
@@ -577,7 +580,7 @@ public class Terminal {
 		Set<PalabraClave> palabras = new HashSet<PalabraClave>();
 		palabras.add(new PalabraClave("utn"));
 		palabras.add(new PalabraClave("facultad"));
-		POI poiAux = new POI("Utn","Medrano",951,4,palabras,true);
+		POI poiAux = new POI("Utn","Medrano",951,4,palabras);
 		poiAux.setLatitud((float) -34.5985524);
 		poiAux.setLongitud((float) -58.4202828);
 		Usuario yo = null;
@@ -690,25 +693,19 @@ public class Terminal {
 		pala2 = new PalabraClave("facultad");
 		palabras.add(pala1);
 		palabras.add(pala2);
-		POI poiActual = new POI("Utn","Medrano",951,4,palabras,true);
+		POI poiActual = new POI("Utn","Medrano",951,4,palabras);
 		poiActual.setLatitud((float) -34.5985524);
 		poiActual.setLongitud((float) -58.4202828);
 		Terminal sistema=new Terminal(poiActual);
-		sistema.persistirPalabra(pala1);
-		sistema.persistirPalabra(pala2);
-		sistema.agregarPOI(poiActual);
-		sistema.persistirPOI(poiActual);
 		Scanner scanner= new Scanner(System.in);
 		Administrador unAdmin1=new Administrador(sistema,"pepe","argento",poiActual);
 		Administrador unAdmin2=new Administrador(sistema,"lionel","messi",poiActual);
 		Administrador unAdmin3=new Administrador(sistema,"caruso","lombardi",poiActual);
 		
+		sistema.setPoiActual(poiActual);
 		sistema.agregarAdmin(unAdmin1);
 		sistema.agregarAdmin(unAdmin2);
 		sistema.agregarAdmin(unAdmin3);
-		sistema.persistirUsuario(unAdmin1);
-		sistema.persistirUsuario(unAdmin2);
-		sistema.persistirUsuario(unAdmin3);
 		
 	
 		ZPrueboACA ventana = new ZPrueboACA(sistema);
@@ -1060,6 +1057,7 @@ public class Terminal {
 	}
 
 	public void setPoiActual(POI poiActual) {
+		agregarPOI(poiActual);
 		this.poiActual = poiActual;
 	}
 	

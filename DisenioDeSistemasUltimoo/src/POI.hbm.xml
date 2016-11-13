@@ -14,13 +14,14 @@
 		<property name="comuna" type="integer" column="comuna_poi" /> 
 		<property name="latitud" type="float" column="latitud" /> 
 		<property name="longitud" type="float" column="longitud" /> 
+		<property name="validez" type="boolean" column="validez" /> 
         <set name="palabrasClave" table="Palabra_Poi"
 			inverse="false" lazy="true" fetch="select" cascade="all">
 			<key column="id_poi" />
 			<many-to-many column="id_palabra" class="PalabraClave" />
 		</set>		
         <set name="busquedas" table="Busqueda_Poi"
-			inverse="true" lazy="true" fetch="select" cascade="all">
+			inverse="false" lazy="true" fetch="select" cascade="all">
 			<key column="id_busqueda" />
 			<many-to-many column="id_poi" class="POI" />
 		</set>

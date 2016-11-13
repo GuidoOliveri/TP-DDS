@@ -36,6 +36,7 @@ public class Administrador extends Usuario{
 	public void agregarPOI(POI unPOI){
 		
 		super.getSistema().getPois().add(unPOI);
+		getSistema().persistirPOI(unPOI);
 	}
 	
 	public void agregarCgp(CGP unCgp)
@@ -102,15 +103,7 @@ public class Administrador extends Usuario{
 		{
 			if(poi.getId()==id){
 				poi.setValidez(false);
-				//session.beginTransaction();
-		        
-				//session.saveorupdate(poi);
-				//o
-				//Query q = session.createQuery("UPDATE POI where id_poi = "+poi.getId());
-				//q.executeUpdate();
-
-		        //session.getTransaction().commit();
-		        //session.close();
+				getSistema().persistirPOI(poi);
 				return true;
 			}
 		}
