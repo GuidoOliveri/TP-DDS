@@ -24,10 +24,6 @@
 			<key column="id_busqueda" />
 			<many-to-many column="id_poi" class="POI" />
 		</set>
-        <set name="usuarios" cascade="all">
-        	 <key column="id_usuario"/>
-       	 	 <one-to-many class="Usuario"/>
-        </set> 
 	</class>
   </hibernate-mapping>
   

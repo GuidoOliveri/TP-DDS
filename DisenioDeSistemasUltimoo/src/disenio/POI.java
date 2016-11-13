@@ -55,13 +55,14 @@ public class POI implements Serializable{
 	
 	private float latitud=0,longitud=0;
 
-	public POI(String nombre,String calle,int altura,int comuna,Set<PalabraClave> palabras) {
+	public POI(String nombre,String calle,int altura,int comuna,Set<PalabraClave> palabras,Boolean validez) {
 		this.palabrasClave=palabras;
 		this.id_poi=0;
 		this.nombre=nombre;
 		this.calle=calle;
 		this.altura=altura;
 		this.comuna=comuna;
+		this.validez=validez;
 	}
 
 	public POI()

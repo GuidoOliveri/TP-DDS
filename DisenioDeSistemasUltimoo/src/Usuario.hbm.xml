@@ -13,7 +13,6 @@
         	 <key column="id_usuario"/>
        	 	 <one-to-many class="Busqueda"/>
         </set> 
-        <many-to-one name="miPoi" column="id_poi" class="POI" not-null="false"/>
 	</class>
   </hibernate-mapping>
   

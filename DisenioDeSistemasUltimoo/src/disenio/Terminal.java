@@ -476,8 +476,8 @@ public class Terminal {
 			{
 				System.out.println("Cantidad de POIs encontrados: "+poisAux.size()+"\n");
 				for(POI poi:poisAux){
-					System.out.println("Nombre:"+poi.getNombre()+"\nCalle:"+poi.getCalle()+"\nAltura"+poi.getAltura()+"\n\n"+"La distancia a "+poi.getNombre()+"es:"+yo.getMiPoi().aCuantoEstoyDe(poi.getLatitud(),poi.getLongitud())+"\n");
-					if(yo.getMiPoi().calculoDeCercania(poi))
+					System.out.println("Nombre:"+poi.getNombre()+"\nCalle:"+poi.getCalle()+"\nAltura"+poi.getAltura()+"\n\n"+"La distancia a "+poi.getNombre()+"es:"+sistema.getPoiActual().aCuantoEstoyDe(poi.getLatitud(),poi.getLongitud())+"\n");
+					if(sistema.getPoiActual().calculoDeCercania(poi))
 						
 						System.out.println("Usted esta cerca de "+poi.getNombre()+"\n");
 					else
@@ -577,7 +577,7 @@ public class Terminal {
 		Set<PalabraClave> palabras = new HashSet<PalabraClave>();
 		palabras.add(new PalabraClave("utn"));
 		palabras.add(new PalabraClave("facultad"));
-		POI poiAux = new POI("Utn","Medrano",951,4,palabras);
+		POI poiAux = new POI("Utn","Medrano",951,4,palabras,true);
 		poiAux.setLatitud((float) -34.5985524);
 		poiAux.setLongitud((float) -58.4202828);
 		Usuario yo = null;
@@ -628,8 +628,8 @@ public class Terminal {
 				{
 					System.out.println("Cantidad de POIs encontrados: "+poisAux.size()+"\n");
 					for(POI poi:poisAux){
-						System.out.println("Nombre:"+poi.getNombre()+"\nCalle:"+poi.getCalle()+"\nAltura"+poi.getAltura()+"\n\n"+"La distancia a "+poi.getNombre()+"es:"+yo.getMiPoi().aCuantoEstoyDe(poi.getLatitud(),poi.getLongitud())+"\n");
-						if(yo.getMiPoi().calculoDeCercania(poi))
+						System.out.println("Nombre:"+poi.getNombre()+"\nCalle:"+poi.getCalle()+"\nAltura"+poi.getAltura()+"\n\n"+"La distancia a "+poi.getNombre()+"es:"+sistema.getPoiActual().aCuantoEstoyDe(poi.getLatitud(),poi.getLongitud())+"\n");
+						if(sistema.getPoiActual().calculoDeCercania(poi))
 							
 							System.out.println("Usted esta cerca de "+poi.getNombre()+"\n");
 						else
@@ -690,7 +690,7 @@ public class Terminal {
 		pala2 = new PalabraClave("facultad");
 		palabras.add(pala1);
 		palabras.add(pala2);
-		POI poiActual = new POI("Utn","Medrano",951,4,palabras);
+		POI poiActual = new POI("Utn","Medrano",951,4,palabras,true);
 		poiActual.setLatitud((float) -34.5985524);
 		poiActual.setLongitud((float) -58.4202828);
 		Terminal sistema=new Terminal(poiActual);

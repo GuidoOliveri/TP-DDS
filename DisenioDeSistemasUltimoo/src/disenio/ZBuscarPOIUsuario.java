@@ -73,15 +73,8 @@ public class ZBuscarPOIUsuario extends JFrame {
 		DefaultTableModel modelo = new DefaultTableModel();
 		JTable table = new JTable(modelo);
 		
-		table.setModel(new DefaultTableModel(
-				new Object[][] {
-				},
-				new String[] {
-					"Id", "Nombre", "Latitud", "Longitud"
-				}
-			));
 		
-		JButton btnNewButton = new JButton("Buscando... ");
+		JButton btnNewButton = new JButton("Buscar");
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -91,7 +84,14 @@ public class ZBuscarPOIUsuario extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String texto = "";
 				texto = txtBuscar.getText();
-				
+				table.setModel(new DefaultTableModel(
+						new Object[][] {
+						},
+						new String[] {
+							"Id", "Nombre", "Latitud", "Longitud"
+						}
+					));
+				poisAux.clear();
 				if (texto.contentEquals("")){
 					JOptionPane.showMessageDialog(null, "No ingresaste nada!", "Error", JOptionPane.ERROR_MESSAGE);
 				}

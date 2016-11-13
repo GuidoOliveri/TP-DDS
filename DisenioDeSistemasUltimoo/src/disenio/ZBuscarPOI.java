@@ -90,15 +90,7 @@ public class ZBuscarPOI extends JFrame {
 		DefaultTableModel modelo = new DefaultTableModel();
 		JTable table = new JTable(modelo);
 		
-		table.setModel(new DefaultTableModel(
-				new Object[][] {
-				},
-				new String[] {
-					"Id", "Nombre", "Latitud", "Longitud"
-				}
-			));
-		
-		JButton btnNewButton = new JButton("Buscando... ");
+		JButton btnNewButton = new JButton("Buscar");
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -109,20 +101,31 @@ public class ZBuscarPOI extends JFrame {
 				String texto = "";
 				texto = txtBuscar.getText();
 				
+				table.setModel(new DefaultTableModel(
+						new Object[][] {
+						},
+						new String[] {
+							"Id", "Nombre", "Latitud", "Longitud"
+						}
+					));
+				
 				if (texto.contentEquals("")){
 					JOptionPane.showMessageDialog(null, "No ingresaste nada!", "Error", JOptionPane.ERROR_MESSAGE);
 				}
 				else {
+					poisAux.clear();
 					poisAux.addAll(yo.buscarPoi(texto));
 					Calendar fecha = new GregorianCalendar();
 					Busqueda busquedaAux = new Busqueda(fecha.getTime(),poisAux,4,texto,yo);
 					yo.agregarBusqueda(busquedaAux);
 					if(poisAux.isEmpty())
 					{
+						table.removeAll();
 						JOptionPane.showMessageDialog(null, "Sin resultados\n");
 					}
 					else
 					{
+						table.removeAll();
 						JOptionPane.showMessageDialog(null, "Cantidad de POIs encontrados: "+poisAux.size()+"\n");
 						for(POI poi:poisAux){
 							poi.listar();

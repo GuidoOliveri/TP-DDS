@@ -86,33 +86,27 @@ public class Administrador extends Usuario{
 		{
 			if(cgp.getId()==id)
 			{
-				getSistema().getCgps().remove(cgp);
+				cgp.setValidez(false);
 			}
 		}
 		for(Banco banco:getSistema().getBancos())
 		{
 			if(banco.getId()==id)
 			{
-				getSistema().getCgps().remove(banco);
+				banco.setValidez(false);
 			}
 		}
 		
-		//SessionFactory sessionFactory;
-        Configuration configuration = new Configuration();
-        configuration.configure();
-        ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
-        
-        //sessionFactory = configuration.buildSessionFactory();
-        
-        //Session session=sessionFactory.openSession();
         
 		for(POI poi:getSistema().getPois())
 		{
 			if(poi.getId()==id){
-				getSistema().getPois().remove(poi);
+				poi.setValidez(false);
 				//session.beginTransaction();
 		        
-				//Query q = session.createQuery("delete POI where id_poi = "+poi.getId());
+				//session.saveorupdate(poi);
+				//o
+				//Query q = session.createQuery("UPDATE POI where id_poi = "+poi.getId());
 				//q.executeUpdate();
 
 		        //session.getTransaction().commit();

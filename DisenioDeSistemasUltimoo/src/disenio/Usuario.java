@@ -9,7 +9,6 @@ import java.util.Set;
 
 public class Usuario {
 	
-		private POI miPoi;
 		private String usuario, contrasenia;
 		private Set<Busqueda> busquedas;
 		private int id_usuario;
@@ -20,7 +19,6 @@ public class Usuario {
 			this.sistema=sistema;
 			this.usuario=usuario;
 			this.contrasenia=contrasenia;
-			this.miPoi=unPoi;
 			this.id_usuario=0;
 			busquedas= new HashSet<Busqueda>();
 		}
@@ -38,19 +36,7 @@ public class Usuario {
 
 
 		//GET / SET
-		
-		public POI obtenerPOI(){
-			return miPoi;
-		}
-		
-		public POI getMiPoi() {
-			return miPoi;
-		}
 
-		public void setMiPoi(POI miPoi) {
-			
-			this.miPoi = miPoi;
-		}
 		
 		public Terminal getSistema() {
 			return sistema;
@@ -96,7 +82,7 @@ public class Usuario {
 		}
 		
 		Boolean meQuedaCerca(POI unPoi){
-			return miPoi.calculoDeCercania(unPoi);
+			return sistema.getPoiActual().calculoDeCercania(unPoi);
 		}
 
 		Boolean estaDisponible(POI poi){
