@@ -30,6 +30,7 @@ public class ZDatosComunes extends JFrame {
 	private Terminal sistema;
 	private JTextField textCalle;
 	private JTextField textAltura;
+	private JTextField textComuna;
 	
 	/**
 	 * Launch the application.
@@ -55,7 +56,7 @@ public class ZDatosComunes extends JFrame {
 		this.sistema=sistema;
 		setTitle("POI a Agregar");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 404);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -63,13 +64,14 @@ public class ZDatosComunes extends JFrame {
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Detalles del POI", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 255)));
-		panel.setBounds(26, 29, 354, 199);
+		panel.setBounds(26, 29, 354, 265);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
 		JLabel lblIngreseEtiqueta = new JLabel("Etiqueta: ");
 		lblIngreseEtiqueta.setBounds(26, 44, 67, 14);
 		panel.add(lblIngreseEtiqueta);
+		
 		
 		txtEtiqueta = new JTextField();
 		txtEtiqueta.setBounds(117, 41, 132, 20);
@@ -96,6 +98,15 @@ public class ZDatosComunes extends JFrame {
 				
 			}
 		});
+		
+		JLabel lblComuna = new JLabel("Comuna:");
+		lblComuna.setBounds(26, 220, 75, 17);
+		panel.add(lblComuna);
+		
+		textComuna = new JTextField();
+		textComuna.setColumns(10);
+		textComuna.setBounds(117, 216, 132, 20);
+		panel.add(textComuna);
 		txtLatitud.setBounds(117, 103, 132, 20);
 		panel.add(txtLatitud);
 		txtLatitud.setColumns(10);
@@ -121,20 +132,20 @@ public class ZDatosComunes extends JFrame {
 		txtTipo.setColumns(10);
 		
 		JLabel lblCalle = new JLabel("Calle:");
-		lblCalle.setBounds(26, 162, 46, 14);
+		lblCalle.setBounds(26, 168, 46, 14);
 		panel.add(lblCalle);
 		
 		JLabel lblAltura = new JLabel("Altura:");
-		lblAltura.setBounds(26, 185, 46, 14);
+		lblAltura.setBounds(26, 193, 46, 14);
 		panel.add(lblAltura);
 		
 		textCalle = new JTextField();
-		textCalle.setBounds(117, 159, 132, 20);
+		textCalle.setBounds(117, 162, 132, 20);
 		panel.add(textCalle);
 		textCalle.setColumns(10);
 		
 		textAltura = new JTextField();
-		textAltura.setBounds(117, 182, 132, 20);
+		textAltura.setBounds(117, 190, 132, 20);
 		panel.add(textAltura);
 		textAltura.setColumns(10);
 		
@@ -146,11 +157,11 @@ public class ZDatosComunes extends JFrame {
 				dispose();
 			}
 		});
-		btnVolver.setBounds(23, 239, 89, 23);
+		btnVolver.setBounds(45, 307, 89, 23);
 		contentPane.add(btnVolver);
 		
 		JButton btnNewButton = new JButton("Agregar datos");
-		btnNewButton.setBounds(299, 239, 125, 23);
+		btnNewButton.setBounds(236, 307, 125, 23);
 		contentPane.add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -186,6 +197,11 @@ public class ZDatosComunes extends JFrame {
 				altura = textAltura.getText();
 				int alt = Integer.parseInt(altura);
 				poiAux.setAltura(alt);
+				
+				String comuna = "";
+				comuna = textComuna.getText();
+				int com = Integer.parseInt(comuna);
+				poiAux.setComuna(com);
 				
 				yo.agregarPOI(poiAux);
 				

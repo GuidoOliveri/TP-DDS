@@ -18,7 +18,6 @@ public class ZBanco extends JFrame {
 	private JPanel contentPane;
 	private JTextField txtGerente;
 	private JTextField txtSucursal;
-	private JTextField txtComuna;
 	private Terminal sistema;
 	/**
 	 * Launch the application.
@@ -65,15 +64,7 @@ public class ZBanco extends JFrame {
 		txtSucursal.setBounds(182, 87, 117, 20);
 		contentPane.add(txtSucursal);
 		txtSucursal.setColumns(10);
-		
-		txtComuna = new JTextField();
-		txtComuna.setBounds(182, 143, 117, 20);
-		contentPane.add(txtComuna);
-		txtComuna.setColumns(10);
-		
-		JLabel lblNewLabel_1 = new JLabel("Comuna que pertence:");
-		lblNewLabel_1.setBounds(34, 145, 138, 17);
-		contentPane.add(lblNewLabel_1);
+	
 		
 		JButton btnNewButton = new JButton("Agregar Banco\r\n");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -87,12 +78,6 @@ public class ZBanco extends JFrame {
 				String sucursal = "";
 				sucursal = txtSucursal.getText();
 				poiAux.setSucursal(sucursal);
-				
-				String comuna = "";
-				comuna = txtComuna.getText();
-				int com = Integer.parseInt(comuna);
-				poiAux.setComuna(com);
-				
 				
 				yo.agregarBanco((Banco)poiAux);
 				

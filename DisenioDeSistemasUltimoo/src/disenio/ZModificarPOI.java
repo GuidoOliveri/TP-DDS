@@ -24,7 +24,7 @@ public class ZModificarPOI extends JFrame {
 	private JTextField txtComuna;
 	private JTextField txtZonas;
 	private JTextField txtDirector;
-	private JTextField txtGerente;
+	private JTextField txtEtiqueta;
 	private JTable table;
 
 	/**
@@ -114,14 +114,14 @@ public class ZModificarPOI extends JFrame {
 		contentPane.add(txtDirector);
 		txtDirector.setColumns(10);
 		
-		JLabel lblNuevoGerente = new JLabel("Nuevo gerente:");
+		JLabel lblNuevoGerente = new JLabel("Nueva etiqueta:");
 		lblNuevoGerente.setBounds(29, 216, 118, 23);
 		contentPane.add(lblNuevoGerente);
 		
-		txtGerente = new JTextField();
-		txtGerente.setBounds(173, 217, 118, 20);
-		contentPane.add(txtGerente);
-		txtGerente.setColumns(10);
+		txtEtiqueta = new JTextField();
+		txtEtiqueta.setBounds(173, 217, 118, 20);
+		contentPane.add(txtEtiqueta);
+		txtEtiqueta.setColumns(10);
 		
 		JButton btnModificarlo = new JButton("Modificarlo");
 		btnModificarlo.addActionListener(new ActionListener() {
@@ -150,10 +150,10 @@ public class ZModificarPOI extends JFrame {
 					String director = "";
 					director = txtDirector.getText();
 					
-					String gerente = "";
-					gerente = txtGerente.getText();
+					String etiqueta = "";
+					etiqueta = txtEtiqueta.getText();
 					
-					if(exito=yo.modificarPOI(idABuscar,nombre, comuna, zonas, director,gerente))
+					if(exito=yo.modificarPOI(idABuscar,nombre, comuna, zonas, director,etiqueta))
 						
 						JOptionPane.showMessageDialog(null, "Modificado exitosamente\n\n");
 					

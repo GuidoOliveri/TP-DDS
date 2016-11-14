@@ -108,6 +108,7 @@ public class ZEliminarPOI extends JFrame {
 										((DefaultTableModel) table.getModel()).addRow(fila);
 									}
 								}
+								
 								JOptionPane.showMessageDialog(null, "Poi dado de baja exitosamente\n\n");
 							}
 							

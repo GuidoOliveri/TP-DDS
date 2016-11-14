@@ -48,7 +48,7 @@ public class Administrador extends Usuario{
 		super.getSistema().getBancos().add(unBanco);
 	}
 	
-	public Boolean modificarPOI(int id,String nombre,int comuna, String zonas, String director,String gerente){//y demas datos
+	public Boolean modificarPOI(int id,String nombre,int comuna, String zonas, String director,String etiqueta){//y demas datos
 
 		for(CGP cgp:getSistema().getCgps())
 		{
@@ -66,7 +66,6 @@ public class Administrador extends Usuario{
 			{
 				banco.setNombre(nombre);
 				banco.setComuna(comuna);
-				banco.setGerente(gerente);
 			}
 		}
 		for(POI poi:getSistema().getPois())
@@ -74,6 +73,9 @@ public class Administrador extends Usuario{
 			if(poi.getId()==id)
 			{
 				poi.setNombre(nombre);
+				PalabraClave palabra = new PalabraClave(etiqueta);
+				poi.agregarPalabraClave(palabra);
+				palabra.agregarPoi(poi);
 				getSistema().persistirPOI(poi);
 				return true;
 			}
