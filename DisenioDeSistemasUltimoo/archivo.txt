@@ -1,1 +1,2 @@
 bondi;114 parada colectivo
+tienda;local comercial

@@ -71,8 +71,13 @@ public class ActualizarComercios extends Command {
 			if(poi.getNombre().equals(nombreFantasia)){
 				//las palabras que actualizo son las que me vienen en el txt
 				
-				 poi.setPalabrasClave(obtenerArrayPalabrasClave(palabrasClave));
-				 JOptionPane.showMessageDialog(null,"\nPalabras claves actualizadas:"+poi.getPalabrasClave());
+				 poi.setPalabrasClave(obtenerArrayPalabrasClave(palabrasClave)); 
+				 String s = new String();
+				 for(PalabraClave palabra : poi.getPalabrasClave()){
+				 	s += palabra.getFrase();
+				 	s += " ";
+				 }
+				 JOptionPane.showMessageDialog(null,"\nPalabras claves actualizadas:"+s);
 				 existe = true;
 			}
 		}
@@ -82,8 +87,13 @@ public class ActualizarComercios extends Command {
 		 local.setNombre(nombreFantasia);
 		 local.setPalabrasClave(obtenerArrayPalabrasClave(palabrasClave));
 		 sistema.agregarPOI(local);
-		 JOptionPane.showMessageDialog(null,"Palabras claves incorporadas a "+local.getNombre()+":"+local.getPalabrasClave()+"\n");
-		}
+		 String agrega = new String();
+			 for(PalabraClave palabra : local.getPalabrasClave()){
+			 	agrega += palabra.getFrase();
+			 	agrega += " ";
+			 }
+			 JOptionPane.showMessageDialog(null,"Palabras claves incorporadas a "+local.getNombre()+":"+agrega+"\n");
+		 }
 						
 	
 			

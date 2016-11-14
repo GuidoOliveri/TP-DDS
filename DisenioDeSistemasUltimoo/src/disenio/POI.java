@@ -62,7 +62,7 @@ public class POI implements Serializable{
 		this.calle=calle;
 		this.altura=altura;
 		this.comuna=comuna;
-		this.validez=true;
+		this.validez = true;
 	}
 
 	public POI()

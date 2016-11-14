@@ -14,6 +14,7 @@ public class Usuario {
 		private int id_usuario;
 		private Terminal sistema;
 		private Command command;
+		public POI poi;
 		
 		public Usuario(Terminal sistema,String usuario,String contrasenia,POI unPoi) {
 			this.sistema=sistema;
@@ -21,6 +22,7 @@ public class Usuario {
 			this.contrasenia=contrasenia;
 			this.id_usuario=0;
 			busquedas= new HashSet<Busqueda>();
+			this.poi = unPoi;
 		}
 		
 		public Usuario(Terminal sistema) {
@@ -148,6 +150,15 @@ public class Usuario {
 			this.id_usuario = id_usuario;
 		}
 
+		public POI getMiPoi() {
+			return poi;
+		}
+
+		public void setMiPoi(POI unPoi) {
+			this.poi = unPoi;	
+		}
+		
+		
 	}
 
 //lalala
