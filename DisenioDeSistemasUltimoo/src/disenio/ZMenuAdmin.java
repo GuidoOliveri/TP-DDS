@@ -130,8 +130,9 @@ public class ZMenuAdmin extends JFrame {
 		JButton btnReporteParcialPor = new JButton("Reporte parcial por Usuario");
 		btnReporteParcialPor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				sistema.reporteParcialPorUsuario();
+				ZReporteParcial rep = new ZReporteParcial(sistema,yo);
+				rep.setVisible(true);
+				dispose();
 			}
 		});
 		btnReporteParcialPor.setBounds(10, 148, 213, 23);

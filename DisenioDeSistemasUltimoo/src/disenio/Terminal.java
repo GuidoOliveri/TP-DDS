@@ -91,13 +91,13 @@ public class Terminal {
         
         sessionFactory = configuration.buildSessionFactory();
         
-        Session session=sessionFactory.openSession();
-        session.beginTransaction();
+        //Session session=sessionFactory.openSession();
+        //session.beginTransaction();
         
-        session.saveOrUpdate(o);
+        //session.saveOrUpdate(o);
 
-        session.getTransaction().commit();
-        session.close();
+        //session.getTransaction().commit();
+        //session.close();
 	}
 	
 	public void persistirUsuario(Usuario o)
@@ -109,13 +109,13 @@ public class Terminal {
         
         sessionFactory = configuration.buildSessionFactory();
         
-        Session session=sessionFactory.openSession();
-        session.beginTransaction();
+        //Session session=sessionFactory.openSession();
+        //session.beginTransaction();
         
-        session.saveOrUpdate(o);
+        //session.saveOrUpdate(o);
 
-        session.getTransaction().commit();
-        session.close();
+        //session.getTransaction().commit();
+        //session.close();
 	}
 	
 	public void persistirPOI(POI o)
@@ -127,13 +127,13 @@ public class Terminal {
         
         sessionFactory = configuration.buildSessionFactory();
         
-        Session session=sessionFactory.openSession();
-        session.beginTransaction();
+        //Session session=sessionFactory.openSession();
+        //session.beginTransaction();
         
-        session.saveOrUpdate(o);
+        //session.saveOrUpdate(o);
 
-        session.getTransaction().commit();
-        session.close();
+        //session.getTransaction().commit();
+        //session.close();
 	}
 	
 	public void persistirBusqueda(Busqueda o)
@@ -145,13 +145,13 @@ public class Terminal {
         
         sessionFactory = configuration.buildSessionFactory();
         
-        Session session=sessionFactory.openSession();
-        session.beginTransaction();
+        //Session session=sessionFactory.openSession();
+        //session.beginTransaction();
         
-        session.saveOrUpdate(o);
+        //session.saveOrUpdate(o);
 
-        session.getTransaction().commit();
-        session.close();
+        //session.getTransaction().commit();
+        //session.close();
 	}
 	
 	
