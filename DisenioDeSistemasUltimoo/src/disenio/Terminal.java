@@ -78,12 +78,11 @@ public class Terminal {
 
 	public void agregarPOI(POI unPoi){
 		pois.add(unPoi);
-		persistirPOI(unPoi);
 	}
 
 	
 	public void persistirPalabra(PalabraClave o)
-	{ /*
+	{
         SessionFactory sessionFactory;
         Configuration configuration = new Configuration();
         configuration.configure();
@@ -91,17 +90,17 @@ public class Terminal {
         
         sessionFactory = configuration.buildSessionFactory();
         
-        //Session session=sessionFactory.openSession();
-        //session.beginTransaction();
+        Session session=sessionFactory.openSession();
+        session.beginTransaction();
         
-        //session.saveOrUpdate(o);
+        session.saveOrUpdate(o);
 
-        //session.getTransaction().commit();
-        //session.close();*/
+        session.getTransaction().commit();
+        session.close();
 	}
 	
 	public void persistirUsuario(Usuario o)
-	{/*
+	{
         SessionFactory sessionFactory;
         Configuration configuration = new Configuration();
         configuration.configure();
@@ -109,17 +108,17 @@ public class Terminal {
         
         sessionFactory = configuration.buildSessionFactory();
         
-        //Session session=sessionFactory.openSession();
-        //session.beginTransaction();
+        Session session=sessionFactory.openSession();
+        session.beginTransaction();
         
-        //session.saveOrUpdate(o);
+        session.saveOrUpdate(o);
 
-        //session.getTransaction().commit();
-        //session.close();*/
+        session.getTransaction().commit();
+        session.close();
 	}
 	
 	public void persistirPOI(POI o)
-	{/*
+	{
         SessionFactory sessionFactory;
         Configuration configuration = new Configuration();
         configuration.configure();
@@ -127,17 +126,17 @@ public class Terminal {
         
         sessionFactory = configuration.buildSessionFactory();
         
-        //Session session=sessionFactory.openSession();
-        //session.beginTransaction();
+        Session session=sessionFactory.openSession();
+        session.beginTransaction();
         
-        //session.saveOrUpdate(o);
+        session.saveOrUpdate(o);
 
-        //session.getTransaction().commit();
-        //session.close();*/
+        session.getTransaction().commit();
+        session.close();
 	}
 	
 	public void persistirBusqueda(Busqueda o)
-	{/*
+	{
         SessionFactory sessionFactory;
         Configuration configuration = new Configuration();
         configuration.configure();
@@ -145,13 +144,13 @@ public class Terminal {
         
         sessionFactory = configuration.buildSessionFactory();
         
-        //Session session=sessionFactory.openSession();
-        //session.beginTransaction();
+        Session session=sessionFactory.openSession();
+        session.beginTransaction();
         
-        //session.saveOrUpdate(o);
+        session.saveOrUpdate(o);
 
-        //session.getTransaction().commit();
-        //session.close();*/
+        session.getTransaction().commit();
+        session.close();
 	}
 	
 	
@@ -701,7 +700,11 @@ public class Terminal {
 		Administrador unAdmin1=new Administrador(sistema,"pepe","argento",poiActual);
 		Administrador unAdmin2=new Administrador(sistema,"lionel","messi",poiActual);
 		Administrador unAdmin3=new Administrador(sistema,"caruso","lombardi",poiActual);
+
+		pala1.agregarPoi(poiActual);
+		pala2.agregarPoi(poiActual);
 		
+		sistema.persistirPOI(poiActual);
 		sistema.setPoiActual(poiActual);
 		sistema.agregarAdmin(unAdmin1);
 		sistema.agregarAdmin(unAdmin2);

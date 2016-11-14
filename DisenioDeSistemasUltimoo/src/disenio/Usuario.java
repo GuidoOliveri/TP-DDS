@@ -73,9 +73,15 @@ public class Usuario {
 					}
 				}
 			tfinal=System.currentTimeMillis();
+			
 			busquedaAux = new Busqueda(fecha.getTime(),poisAux,((tfinal-tinicial)/1000),palabra,this);
+			for(POI poi:poisAux)
+			{
+				poi.getBusquedas().add(busquedaAux);
+				sistema.agregarPOI(poi);
+			}
 			agregarBusqueda(busquedaAux);
-
+			sistema.persistirUsuario(this);
 		 	getSistema().agregarFecha(fecha.getTime());
 			
 			

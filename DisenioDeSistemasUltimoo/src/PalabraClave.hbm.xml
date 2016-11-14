@@ -10,9 +10,9 @@
 		</id> 
 		<property name="frase" type="string" column="frase" /> 
         <set name="pois" table="Palabra_Poi"
-			inverse="true" lazy="true" fetch="select">
-			<key column="id_poi" />
-			<many-to-many column="id_palabra" class="PalabraClave" />
+			inverse="false" lazy="true" fetch="select" cascade="persist,merge,refresh">
+			<key column="id_palabra" />
+			<many-to-many column="id_poi" class="POI" />
 		</set>
 	</class>
   </hibernate-mapping>

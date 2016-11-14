@@ -16,14 +16,14 @@
 		<property name="longitud" type="float" column="longitud" /> 
 		<property name="validez" type="boolean" column="validez" /> 
         <set name="palabrasClave" table="Palabra_Poi"
-			inverse="false" lazy="true" fetch="select" cascade="all">
+			inverse="true" lazy="true" fetch="select" cascade="save-update,persist,refresh,merge">
 			<key column="id_poi" />
 			<many-to-many column="id_palabra" class="PalabraClave" />
 		</set>		
         <set name="busquedas" table="Busqueda_Poi"
-			inverse="false" lazy="true" fetch="select" cascade="all">
-			<key column="id_busqueda" />
-			<many-to-many column="id_poi" class="POI" />
+			inverse="true" lazy="true" fetch="select" cascade="save-update,persist,refresh,merge">
+			<key column="id_poi" />
+			<many-to-many column="id_busqueda" class="Busqueda" />
 		</set>
 	</class>
   </hibernate-mapping>

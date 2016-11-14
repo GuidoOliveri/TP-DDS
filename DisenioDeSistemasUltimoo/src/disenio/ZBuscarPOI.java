@@ -116,8 +116,6 @@ public class ZBuscarPOI extends JFrame {
 					poisAux.clear();
 					poisAux.addAll(yo.buscarPoi(texto));
 					Calendar fecha = new GregorianCalendar();
-					Busqueda busquedaAux = new Busqueda(fecha.getTime(),poisAux,4,texto,yo);
-					yo.agregarBusqueda(busquedaAux);
 					if(poisAux.isEmpty())
 					{
 						table.removeAll();

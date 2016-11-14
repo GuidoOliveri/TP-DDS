@@ -157,7 +157,9 @@ public class ZDatosComunes extends JFrame {
 
 				String etiqueta = "";
 				etiqueta = txtEtiqueta.getText();
-				poiAux.agregarPalabraClave(new PalabraClave(etiqueta));
+				PalabraClave palabra = new PalabraClave(etiqueta);
+				poiAux.agregarPalabraClave(palabra);
+				palabra.agregarPoi(poiAux);
 				
 				String nombre = "";
 				nombre = txtNombre.getText();
@@ -186,7 +188,6 @@ public class ZDatosComunes extends JFrame {
 				poiAux.setAltura(alt);
 				
 				yo.agregarPOI(poiAux);
-				sistema.persistirPOI(poiAux);
 				
 				JOptionPane.showMessageDialog(null, "Datos agregados correctamente");
 				

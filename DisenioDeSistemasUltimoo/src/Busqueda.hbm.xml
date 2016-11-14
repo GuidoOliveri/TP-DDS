@@ -12,12 +12,12 @@
 		<property name="frase" type="string" column="frase" />
 		<property name="tiempo" type="float" column="tiempo" /> 
         <many-to-one name="usuario" column="id_usuario" class="Usuario" />
-        
-        <set name="resultados" table="Busqueda_Poi" 
-        	inverse="false" lazy="true" fetch="select" cascade="all">
-            <key column="id_busqueda" />
+
+        <set name="resultados" table="Busqueda_Poi"
+			inverse="false" lazy="true" fetch="select" cascade="persist,merge,refresh">
+			<key column="id_busqueda" />
 			<many-to-many column="id_poi" class="POI" />
-        </set>
+		</set>
         
 	</class>
   </hibernate-mapping>

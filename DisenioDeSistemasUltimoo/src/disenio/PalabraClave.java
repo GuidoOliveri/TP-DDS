@@ -17,10 +17,12 @@ public class PalabraClave implements Serializable {
     public PalabraClave(String frase) {
 		this.id_palabra = 0;
 		this.frase = frase;
+		this.pois = new HashSet<POI>();
 	}
 
     public PalabraClave() {
     	this.id_palabra=0;
+		this.pois = new HashSet<POI>();
 	}
     
      private int id_palabra;
@@ -56,6 +58,11 @@ public class PalabraClave implements Serializable {
 	}
 	public void setPois(Set<POI> pois) {
 		this.pois = pois;
+	}
+	
+	public void agregarPoi(POI poiActual)
+	{
+		this.pois.add(poiActual);
 	}
 }
 

@@ -63,6 +63,7 @@ public class POI implements Serializable{
 		this.altura=altura;
 		this.comuna=comuna;
 		this.validez = true;
+		this.busquedas=new HashSet<Busqueda>();
 	}
 
 	public POI()
@@ -70,6 +71,7 @@ public class POI implements Serializable{
 		this.id_poi = 0 ;
 		palabrasClave=new HashSet<PalabraClave>();
 		this.validez=true;
+		this.busquedas=new HashSet<Busqueda>();
 	}
 	
 	public void setNombre(String nombre) {

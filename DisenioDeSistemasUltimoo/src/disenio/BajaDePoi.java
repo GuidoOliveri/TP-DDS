@@ -106,6 +106,17 @@ public class BajaDePoi extends Command {
 					q.executeUpdate();
 				    q = session.createQuery("DELETE FROM Busqueda_Poi where id_poi = "+poi.getId());
 					q.executeUpdate();*/
+			        for(PalabraClave palabra:poi.getPalabrasClave())
+			        {
+			        	palabra.getPois().remove(poi);
+			        	session.saveOrUpdate(palabra);
+			        }
+			        for(Busqueda busq:poi.getBusquedas())
+			        {
+			        	busq.getResultados().remove(poi);
+			        	session.saveOrUpdate(busq);
+			        }
+			        session.saveOrUpdate(poi);
 					session.delete(poi);
 
 			        session.getTransaction().commit();
