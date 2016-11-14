@@ -83,7 +83,7 @@ public class Terminal {
 
 	
 	public void persistirPalabra(PalabraClave o)
-	{
+	{ /*
         SessionFactory sessionFactory;
         Configuration configuration = new Configuration();
         configuration.configure();
@@ -97,11 +97,11 @@ public class Terminal {
         //session.saveOrUpdate(o);
 
         //session.getTransaction().commit();
-        //session.close();
+        //session.close();*/
 	}
 	
 	public void persistirUsuario(Usuario o)
-	{
+	{/*
         SessionFactory sessionFactory;
         Configuration configuration = new Configuration();
         configuration.configure();
@@ -115,11 +115,11 @@ public class Terminal {
         //session.saveOrUpdate(o);
 
         //session.getTransaction().commit();
-        //session.close();
+        //session.close();*/
 	}
 	
 	public void persistirPOI(POI o)
-	{
+	{/*
         SessionFactory sessionFactory;
         Configuration configuration = new Configuration();
         configuration.configure();
@@ -133,11 +133,11 @@ public class Terminal {
         //session.saveOrUpdate(o);
 
         //session.getTransaction().commit();
-        //session.close();
+        //session.close();*/
 	}
 	
 	public void persistirBusqueda(Busqueda o)
-	{
+	{/*
         SessionFactory sessionFactory;
         Configuration configuration = new Configuration();
         configuration.configure();
@@ -151,7 +151,7 @@ public class Terminal {
         //session.saveOrUpdate(o);
 
         //session.getTransaction().commit();
-        //session.close();
+        //session.close();*/
 	}
 	
 	

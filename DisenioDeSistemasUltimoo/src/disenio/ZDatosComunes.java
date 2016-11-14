@@ -28,6 +28,8 @@ public class ZDatosComunes extends JFrame {
 	private JTextField txtTipo;
 	String tipoPOI = "";
 	private Terminal sistema;
+	private JTextField textCalle;
+	private JTextField textAltura;
 	
 	/**
 	 * Launch the application.
@@ -109,7 +111,47 @@ public class ZDatosComunes extends JFrame {
 		
 		POI poiAux =new POI();
 		
+		JLabel lblTipo = new JLabel("Tipo:");
+		lblTipo.setBounds(26, 19, 46, 14);
+		panel.add(lblTipo);
+		
+		txtTipo = new JTextField();
+		txtTipo.setBounds(117, 16, 132, 20);
+		panel.add(txtTipo);
+		txtTipo.setColumns(10);
+		
+		JLabel lblCalle = new JLabel("Calle:");
+		lblCalle.setBounds(26, 162, 46, 14);
+		panel.add(lblCalle);
+		
+		JLabel lblAltura = new JLabel("Altura:");
+		lblAltura.setBounds(26, 185, 46, 14);
+		panel.add(lblAltura);
+		
+		textCalle = new JTextField();
+		textCalle.setBounds(117, 159, 132, 20);
+		panel.add(textCalle);
+		textCalle.setColumns(10);
+		
+		textAltura = new JTextField();
+		textAltura.setBounds(117, 182, 132, 20);
+		panel.add(textAltura);
+		textAltura.setColumns(10);
+		
+		JButton btnVolver = new JButton("Volver");
+		btnVolver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ZAgregarPoi volver = new ZAgregarPoi(sistema,yo);
+				volver.setVisible(true);
+				dispose();
+			}
+		});
+		btnVolver.setBounds(23, 239, 89, 23);
+		contentPane.add(btnVolver);
+		
 		JButton btnNewButton = new JButton("Agregar datos");
+		btnNewButton.setBounds(299, 239, 125, 23);
+		contentPane.add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -132,6 +174,16 @@ public class ZDatosComunes extends JFrame {
 				//aca lo castie porque espera un int 
 				int lon = Integer.parseInt(longitud);
 				poiAux.setLongitud(lon);
+				
+				String calle = "";
+				calle = textCalle.getText();
+				poiAux.setCalle(calle);
+				
+				
+				String altura = "";
+				altura = textAltura.getText();
+				int alt = Integer.parseInt(altura);
+				poiAux.setAltura(alt);
 				
 				yo.agregarPOI(poiAux);
 				sistema.persistirPOI(poiAux);
@@ -166,27 +218,5 @@ public class ZDatosComunes extends JFrame {
 				
 			}
 		});
-		btnNewButton.setBounds(204, 165, 125, 23);
-		panel.add(btnNewButton);
-		
-		JLabel lblTipo = new JLabel("Tipo:");
-		lblTipo.setBounds(26, 19, 46, 14);
-		panel.add(lblTipo);
-		
-		txtTipo = new JTextField();
-		txtTipo.setBounds(117, 16, 132, 20);
-		panel.add(txtTipo);
-		txtTipo.setColumns(10);
-		
-		JButton btnVolver = new JButton("Volver");
-		btnVolver.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ZAgregarPoi volver = new ZAgregarPoi(sistema,yo);
-				volver.setVisible(true);
-				dispose();
-			}
-		});
-		btnVolver.setBounds(23, 239, 89, 23);
-		contentPane.add(btnVolver);
 	}
 }
