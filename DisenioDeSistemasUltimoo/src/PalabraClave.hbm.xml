@@ -10,7 +10,7 @@
 		</id> 
 		<property name="frase" type="string" column="frase" /> 
         <set name="pois" table="Palabra_Poi"
-			inverse="false" lazy="true" fetch="select" cascade="persist,merge,refresh">
+			inverse="false" lazy="false" fetch="select" cascade="persist,merge,refresh">
 			<key column="id_palabra" />
 			<many-to-many column="id_poi" class="POI" />
 		</set>

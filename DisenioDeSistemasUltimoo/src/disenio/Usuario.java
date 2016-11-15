@@ -14,26 +14,28 @@ public class Usuario {
 		private int id_usuario;
 		private Terminal sistema;
 		private Command command;
-		public POI poi;
+		private Boolean privilegios;
 		
-		public Usuario(Terminal sistema,String usuario,String contrasenia,POI unPoi) {
+		public Usuario(Terminal sistema,String usuario,String contrasenia) {
 			this.sistema=sistema;
 			this.usuario=usuario;
 			this.contrasenia=contrasenia;
 			this.id_usuario=0;
 			busquedas= new HashSet<Busqueda>();
-			this.poi = unPoi;
+			this.privilegios=false;
 		}
 		
 		public Usuario(Terminal sistema) {
 			this.id_usuario=0;
 			this.sistema=sistema;
 			busquedas= new HashSet<Busqueda>();
+			this.privilegios=false;
 		}
 		
 		public Usuario() {
 			this.id_usuario=0;
 			busquedas= new HashSet<Busqueda>();
+			this.privilegios=false;
 		}
 
 
@@ -156,14 +158,14 @@ public class Usuario {
 			this.id_usuario = id_usuario;
 		}
 
-		public POI getMiPoi() {
-			return poi;
+		public Boolean getPrivilegios() {
+			return privilegios;
 		}
 
-		public void setMiPoi(POI unPoi) {
-			this.poi = unPoi;	
+		public void setPrivilegios(Boolean privilegios) {
+			this.privilegios = privilegios;
 		}
-		
+
 		
 	}
 

@@ -63,7 +63,6 @@ public class PruebaHibernate {
         Usuario usu = new Usuario();
         usu.setContrasenia("argento");
         usu.setUsuario("pepe");
-        usu.setMiPoi(unPoi);
 		Calendar fecha = new GregorianCalendar();
 		
         Busqueda busq = new Busqueda(fecha.getTime(), pois, 4, "lala",usu); 

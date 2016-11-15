@@ -8,13 +8,13 @@
 		<id name="id_busqueda" column="id_busqueda">
 			<generator class="identity" />
 		</id> 
-		<property name="fecha" column="fecha" /> 
+		<property name="fecha" type="date" column="fecha" /> 
 		<property name="frase" type="string" column="frase" />
 		<property name="tiempo" type="float" column="tiempo" /> 
         <many-to-one name="usuario" column="id_usuario" class="Usuario" />
 
         <set name="resultados" table="Busqueda_Poi"
-			inverse="false" lazy="true" fetch="select" cascade="persist,merge,refresh">
+			inverse="false" lazy="false" fetch="select" cascade="persist,merge,refresh">
 			<key column="id_busqueda" />
 			<many-to-many column="id_poi" class="POI" />
 		</set>

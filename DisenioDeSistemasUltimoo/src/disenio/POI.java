@@ -45,8 +45,6 @@ public class POI implements Serializable{
 	
 	private Set<Busqueda> busquedas;
 	
-	private Set<Usuario> usuarios;
-	
     private String tipo;
 	
 	private Boolean validez;
@@ -306,19 +304,6 @@ public class POI implements Serializable{
 	public void setBusquedas(Set<Busqueda> busquedas) {
 		this.busquedas = busquedas;
 	}
-
-
-
-	public Set<Usuario> getUsuarios() {
-		return usuarios;
-	}
-
-
-
-	public void setUsuarios(Set<Usuario> usuarios) {
-		this.usuarios = usuarios;
-	}
-
 
 
 	public void setPalabrasClave(Set<PalabraClave> palabrasClave) {

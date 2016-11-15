@@ -168,9 +168,28 @@ public class ZDatosComunes extends JFrame {
 
 				String etiqueta = "";
 				etiqueta = txtEtiqueta.getText();
-				PalabraClave palabra = new PalabraClave(etiqueta);
-				poiAux.agregarPalabraClave(palabra);
-				palabra.agregarPoi(poiAux);
+				Boolean encontrado=false;
+				for(POI poi:yo.getSistema().getPois())
+				{
+					for(PalabraClave pala:poi.getPalabrasClave())
+					{
+						if(pala.getFrase().equals(etiqueta))
+						{
+							poiAux.agregarPalabraClave(pala);
+							pala.agregarPoi(poiAux);
+							yo.getSistema().persistirPOI(poiAux);
+							encontrado=true;
+						}
+					}
+				}
+
+				if(!encontrado)
+				{
+					PalabraClave palabra = new PalabraClave(etiqueta);
+					poiAux.agregarPalabraClave(palabra);
+					palabra.agregarPoi(poiAux);
+					yo.getSistema().persistirPOI(poiAux);
+				}
 				
 				String nombre = "";
 				nombre = txtNombre.getText();

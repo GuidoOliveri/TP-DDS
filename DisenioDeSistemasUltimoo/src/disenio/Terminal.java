@@ -18,6 +18,8 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Set;
+
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -49,6 +51,19 @@ public class Terminal {
 	private Boolean usuariosConPrivilegios;
 	
 	private POI poiActual;
+	
+	public Terminal(){
+		pois = new HashSet<POI>();
+		cgps= new HashSet<CGP>();
+		bancos = new HashSet<Banco>();
+		busquedas = new HashSet<Busqueda>();
+		admins = new HashSet<Administrador>();
+		usuarios = new HashSet<Usuario>();
+		conex = new Conexion();
+		fechas =new HashSet<Date>();
+		nicks = new HashSet<String>();
+		usuariosConPrivilegios=false;
+	}
 	
 	public Terminal(POI poiActual){
 		this.poiActual=poiActual;
@@ -570,6 +585,8 @@ public class Terminal {
 		return 1;
 	}
 	
+	
+	
 	public static int menuUsuario(Terminal sistema)
 	{
 		int opcion=0;
@@ -685,6 +702,7 @@ public class Terminal {
 
 	public static void main(String[] args)
 	{
+		/*
 		int opcion;
 		Set<PalabraClave> palabras = new HashSet<PalabraClave>();
 		PalabraClave pala1,pala2;
@@ -692,14 +710,18 @@ public class Terminal {
 		pala2 = new PalabraClave("facultad");
 		palabras.add(pala1);
 		palabras.add(pala2);
-		POI poiActual = new POI("Utn","Medrano",951,4,palabras);
+		POI poiActual = new POI("UTN","Medrano",951,4,palabras);
 		poiActual.setLatitud((float) -34.5985524);
 		poiActual.setLongitud((float) -58.4202828);
+		
 		Terminal sistema=new Terminal(poiActual);
+		*/
+		Terminal sistema=new Terminal();
 		Scanner scanner= new Scanner(System.in);
-		Administrador unAdmin1=new Administrador(sistema,"pepe","argento",poiActual);
-		Administrador unAdmin2=new Administrador(sistema,"lionel","messi",poiActual);
-		Administrador unAdmin3=new Administrador(sistema,"caruso","lombardi",poiActual);
+		/*
+		Administrador unAdmin1=new Administrador(sistema,"pepe","argento");
+		Administrador unAdmin2=new Administrador(sistema,"lionel","messi");
+		Administrador unAdmin3=new Administrador(sistema,"caruso","lombardi");
 
 		pala1.agregarPoi(poiActual);
 		pala2.agregarPoi(poiActual);
@@ -709,13 +731,14 @@ public class Terminal {
 		sistema.agregarAdmin(unAdmin1);
 		sistema.agregarAdmin(unAdmin2);
 		sistema.agregarAdmin(unAdmin3);
-		
+		*/
 	
 		ZPrueboACA ventana = new ZPrueboACA(sistema);
 		
 		ventana.ejecutar();
 		
-		
+		conexionInicial(sistema);
+	
 		/* caso de prueba para el de BajaDePoi, no funciona todavia
 		BajaDePoi baja = new BajaDePoi();
 		POI poi = new POI();
@@ -812,7 +835,7 @@ public class Terminal {
 		usu=scanner.nextLine();
 		System.out.println("Ingrese contrase�a");
 		contra=scanner.nextLine();
-		if(agregarUsuario(new Usuario(sistema,usu,contra,sistema.getPoiActual())))
+		if(agregarUsuario(new Usuario(sistema,usu,contra)))
 		{
 			System.out.println("Registrado exitosamente");
 			return true;
@@ -1088,5 +1111,56 @@ public class Terminal {
 			}
 		}
 		return null;
+	}
+	public static void conexionInicial(Terminal sistema)
+	{
+		Busqueda busaux;
+        SessionFactory sessionFactory;
+        Configuration configuration = new Configuration();
+        configuration.configure();
+        ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
+        
+        sessionFactory = configuration.buildSessionFactory();
+        
+        Session session=sessionFactory.openSession();
+        session.beginTransaction();
+        
+		Criteria consulta = session.createCriteria(POI.class);
+		List lista = consulta.list();
+		
+		for (int i = 0; i < lista.size(); i++) 
+		{
+			POI e = (POI)lista.get(i);
+			if(e.getNombre().equals("UTN"))
+				sistema.setPoiActual(e);
+			sistema.getPois().add(e);
+			Set<Busqueda> busquedas = e.getBusquedas();
+			Iterator<Busqueda> it = busquedas.iterator();
+			while (it.hasNext()) 
+			{
+				busaux=(Busqueda) it.next();
+				sistema.getBusquedas().add(busaux);
+				sistema.getFechas().add(busaux.getFecha());
+			}
+		}
+		
+		consulta = session.createCriteria(Administrador.class);
+	    lista = consulta.list();
+		
+		for (int i = 0; i < lista.size(); i++) 
+		{
+			Administrador e = (Administrador)lista.get(i);
+			e.setSistema(sistema);
+			if(e.getPrivilegios())
+				sistema.getAdmins().add(e);
+			else
+				sistema.getUsuarios().add(e);
+	
+		}
+
+        session.getTransaction().commit();
+        session.close();
+        
+    
 	}
 }

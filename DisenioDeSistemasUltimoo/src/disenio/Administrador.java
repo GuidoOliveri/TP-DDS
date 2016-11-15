@@ -16,17 +16,19 @@ import org.hibernate.service.ServiceRegistry;
 
 public class Administrador extends Usuario{
 
-	public Administrador(Terminal sistema,String usuario, String contrasenia, POI unPoi) {
-		super(sistema,usuario,contrasenia,unPoi);
-		
+	public Administrador(Terminal sistema,String usuario, String contrasenia) {
+		super(sistema,usuario,contrasenia);
+		setPrivilegios(true);
 	}
 
 	public Administrador(Terminal sistema){
 		super(sistema);
+		setPrivilegios(true);
 	}
 	
 	public Administrador(){
 		super();
+		setPrivilegios(true);
 	}
 	
 	//GET / SET
@@ -73,9 +75,33 @@ public class Administrador extends Usuario{
 			if(poi.getId()==id)
 			{
 				poi.setNombre(nombre);
+				
 				PalabraClave palabra = new PalabraClave(etiqueta);
 				poi.agregarPalabraClave(palabra);
 				palabra.agregarPoi(poi);
+				Boolean encontrado=false;
+				
+				for(POI po:getSistema().getPois())
+				{
+					for(PalabraClave pala:po.getPalabrasClave())
+					{
+						if(pala.getFrase().equals(etiqueta))
+						{
+							poi.agregarPalabraClave(pala);
+							pala.agregarPoi(poi);
+							getSistema().persistirPOI(poi);
+							encontrado = true;
+						}
+
+					}
+				}
+				if(!encontrado)
+				{
+					PalabraClave pala2 = new PalabraClave(etiqueta);
+					poi.agregarPalabraClave(pala2);
+					pala2.agregarPoi(poi);
+					getSistema().persistirPOI(poi);
+				}
 				getSistema().persistirPOI(poi);
 				return true;
 			}

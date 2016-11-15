@@ -15,7 +15,7 @@ public class ZDatosUsuario  {
 	
 	public int registrarUsu(){
 		
-		usu = new Usuario(sistema,usuario,contra,sistema.getPoiActual());
+		usu = new Usuario(sistema,usuario,contra);
 		if((sistema.agregarUsuario(usu)!=false)){
 			sistema.persistirUsuario(usu);
 			return 1;

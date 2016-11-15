@@ -9,7 +9,8 @@
 		</id> 
 		<property name="usuario" type="string" column="usuario" /> 
 		<property name="contrasenia" type="string" column="contrasenia" /> 
-        <set name="busquedas" cascade="all">
+		<property name="privilegios" type="boolean" column="privilegios" /> 
+        <set name="busquedas" fetch="select" lazy="false" cascade="all">
         	 <key column="id_usuario"/>
        	 	 <one-to-many class="Busqueda"/>
         </set> 

@@ -103,10 +103,10 @@ public class ZCalculoCercaniaUsuario extends JFrame {
 							fila[0] = poi.getId();
 							fila[1] = poi.getCalle();
 							fila[2] = poi.getAltura();
-							fila[3] = yo.getMiPoi().aCuantoEstoyDe(poi.getLatitud(),poi.getLongitud());
+							fila[3] = yo.getSistema().getPoiActual().aCuantoEstoyDe(poi.getLatitud(),poi.getLongitud());
 							((DefaultTableModel) table.getModel()).addRow(fila);
 							
-							if(yo.getMiPoi().calculoDeCercania(poi))
+							if(yo.getSistema().getPoiActual().calculoDeCercania(poi))
 								
 								JOptionPane.showMessageDialog(null, "Usted esta cerca de "+poi.getNombre(), "Informacion", JOptionPane.DEFAULT_OPTION);
 							else
